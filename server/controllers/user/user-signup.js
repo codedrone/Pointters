@@ -1,4 +1,4 @@
-const {save : saveUser} = require('../../stores/user');
+const {save : saveUser} = require('../../../stores/user');
 const signToken = require('../../lib/sign-token');
 
 module.exports = (req, res) => {

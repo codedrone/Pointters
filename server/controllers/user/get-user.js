@@ -1,4 +1,4 @@
-const {findOne} = require('../../stores/user');
+const {findOne} = require('../../../stores/user');
 
 module.exports = (req, res, next) => {
     const userId = req.params.id;

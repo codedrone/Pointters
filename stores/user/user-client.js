@@ -96,11 +96,4 @@ UserSchema.methods.comparePassword = function(passw, cb) {
     });
 };
 
-const userModel = mongoose.model('User', UserSchema);
-
-const save = (arg) => userModel.create(arg);
-
-const findOne = (query) => userModel.findOne(query).exec();
-
-
-module.exports = {save, findOne};
+module.exports = mongoose.model('User', UserSchema);

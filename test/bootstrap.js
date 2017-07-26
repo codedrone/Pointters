@@ -1,6 +1,6 @@
 const supertest = require('supertest');
 
-const app = require('../server/app');
+const app = require('../server');
 
 
 before(() => {

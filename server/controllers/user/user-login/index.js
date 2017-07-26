@@ -1,4 +1,4 @@
-const {findOne} = require('../../../stores/user');
+const {findOne} = require('../../../../stores/user');
 
 
 const emailResponseController = require('./email-reponse-controller');
