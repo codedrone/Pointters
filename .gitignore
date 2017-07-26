@@ -1,9 +1,12 @@
 # Logs
 logs
 *.log
+package-lock
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+.nyc*
+coverage
 
 # Runtime data
 pids
