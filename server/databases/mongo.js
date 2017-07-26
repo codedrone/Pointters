@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const config = require('../config')();
+const config = require('../config');
 mongoose.Promise = Promise;
 
 if (!mongoose.connection.readyState) mongoose.connect(config.dbpath, {useMongoClient: true});

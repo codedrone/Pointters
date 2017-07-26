@@ -1,7 +1,7 @@
 const express = require('express');
 const flash = require('express-flash');
 
-const config = require('./config')();
+const config = require('./config');
 
 const app = express();
 

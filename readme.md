@@ -46,6 +46,10 @@ The database object connection is here, please export a singleton and connected 
 
 The controllers for every endpoint and services exposed is here. Respect and be consistent with the structure.
 
+## domain
+
+The business rules are here, the important decision are taken here and the intelligence too.
+
 ## config
 
 All config is here, create a file for every enviroment to run the project. And add to index file in config the enviroment returned.
@@ -62,7 +66,7 @@ In general is prefered promises over callback, co-routines are wellcome, evite t
 
 ```js
 params = {
-    
+
 }
 ```
 

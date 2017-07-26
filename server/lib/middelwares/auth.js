@@ -1,6 +1,6 @@
-const config = require('../config')(); // get db config file
+const config = require('../../config'); // get db config file
 const expressJwt = require('express-jwt');
-const {finddOne} = require('../stores/user');
+const {finddOne} = require('../../stores/user');
 const compose = require('composable-middleware');
 const validateJwt = expressJwt({secret: config.secret});
 

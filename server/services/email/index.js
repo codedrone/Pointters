@@ -1,8 +1,6 @@
-'use strict';
+const mandrill = require('node-mandrill');
 
-var mandrill = require('node-mandrill');
-
-var send = function(to, email_subject, text, callback) {
+const send = function(to, email_subject, text, callback) {
     mandrill('/messages/send', {
         message: {
             to: [ {email: to, name: to} ],
@@ -10,7 +8,7 @@ var send = function(to, email_subject, text, callback) {
             subject: email_subject,
             text: text
         }
-    }, (error, response) => {
+    }, (error) => {
         if (error) callback(JSON.stringify(error));
         else return callback(null, {
             success: true,
@@ -22,7 +20,7 @@ var send = function(to, email_subject, text, callback) {
 };
 
 function sendTemplate(template_name, email, global_merge_vars, callback) {
-    var options = {
+    const options = {
         template_name: template_name,
         template_content: [
         ],
@@ -40,7 +38,7 @@ function sendTemplate(template_name, email, global_merge_vars, callback) {
         merge_language: 'handlebars'
     };
 
-    mandrill('/messages/send-template', options, (error, response) => {
+    mandrill('/messages/send-template', options, (error) => {
         if (error) callback(JSON.stringify(error));
         else return callback(null);
     });
