@@ -60,13 +60,34 @@ We are eslint like linter and a eslintrc is added. Install eslint linter in your
 
 In general is prefered promises over callback, co-routines are wellcome, evite the if-else hell. The async function are wellcome too :). Arrow function is prefered over others and functional paragidm development is used here, evite the OOP paradigm.
 
+Someone say the best documentation is what is not written. The code has to be as explicit as possible.
+
 # Documentation
 
+Documentation is may be the part more important in a API, then for every module, every service, every functionality please add the corresponding documentation.
 ## '/signup'
 
 ```js
-params = {
+body = {
+    email: string().email().required(),
+    password: string().required()
+}
+```
 
+## '/login'
+
+```js
+body = {
+    email: string().email().required(),
+    password: string().required()
+}
+```
+
+## '/'
+
+```js
+params = {
+    id: string().required(),
 }
 ```
 
