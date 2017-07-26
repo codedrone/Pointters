@@ -4,7 +4,7 @@
   "description": "",
   "main": "server/app.js",
   "dependencies": {
-    "bcrypt": "*",
+    "bcrypt": "^1.0.2",
     "body-parser": "*",
     "composable-middleware": "^0.3.0",
     "compression": "^1.7.0",
@@ -18,9 +18,9 @@
     "method-override": "^2.3.9",
     "mongoose": "*",
     "morgan": "*",
+    "node-pre-gyp": "^0.6.36",
     "passport": "*",
-    "passport-jwt": "*",
-    "path": "^0.12.7"
+    "passport-jwt": "*"
   },
   "scripts": {
     "test": "nyc mocha $(find test -name *.test.js )"

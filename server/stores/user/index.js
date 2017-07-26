@@ -1,22 +1,9 @@
-/**
- * This is the model class for collection "user".
- * @author Pointters
- * @date 07/12/2017
- *
- * @module      :: User Model
- * @description :: This model is to store user details.
- * @docs        ::
- */
-'use strict';
-
-
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var bcrypt = require('bcrypt');
-
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+const bcrypt = require('bcrypt');
 
 // set up a mongoose model
-var UserSchema = new Schema({
+const UserSchema = new Schema({
 
     firstName: {
         type: String,
@@ -90,32 +77,30 @@ var UserSchema = new Schema({
 });
 
 UserSchema.pre('save', function(next) {
-    var user = this;
-    if (this.isModified('password') || this.isNew) {
-        bcrypt.genSalt(10, (err, salt) => {
-            if (err) {
-                return next(err);
-            }
-            bcrypt.hash(user.password, salt, (err, hash) => {
-                if (err) {
-                    return next(err);
-                }
-                user.password = hash;
-                next();
-            });
+    const user = this;
+    if (!this.isModified('password') && !this.isNew) return next();
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) return next(err);
+        bcrypt.hash(user.password, salt, (err, hash) => {
+            if (err) return next(err);
+            user.password = hash;
+            next();
         });
-    } else {
-        return next();
-    }
+    });
 });
 
 UserSchema.methods.comparePassword = function(passw, cb) {
     bcrypt.compare(passw, this.password, (err, isMatch) => {
-        if (err) {
-            return cb(err);
-        }
+        if (err) return cb(err);
         cb(null, isMatch);
     });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+const userModel = mongoose.model('User', UserSchema);
+
+const save = (arg) => userModel.create(arg);
+
+const findOne = (query) => userModel.findOne(query).exec();
+
+
+module.exports = {save, findOne};

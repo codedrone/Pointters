@@ -4,7 +4,8 @@ module.exports = exports = {
     "env": {
         "es6": true,
         "node": true,
-        "mongo":true
+        "mongo": true,
+        "mocha": true
     },
 
     "ecmaFeatures": {
@@ -37,7 +38,8 @@ module.exports = exports = {
         }],
         "block-scoped-var": WARN,
         "consistent-return": ERROR,
-        "curly": OFF,
+        "curly": ["error", "multi"],
+        "prefer-arrow-callback": ERROR,
         "default-case": WARN,
         // the dot goes with the property when doing multiline
         "dot-location": [ WARN, "property" ],
@@ -130,10 +132,11 @@ module.exports = exports = {
         "no-path-concat": ERROR,
         "no-process-exit": ERROR,
         "no-restricted-modules": OFF,
-        "no-sync": WARN,
+        "no-sync": OFF,
+        "no-console": OFF,
 
         // ECMAScript 6 support
-        "arrow-body-style": [ ERROR, "always" ],
+        "arrow-body-style": [ERROR, "as-needed"],
         "arrow-parens": [ ERROR, "always" ],
         "arrow-spacing": [ ERROR, { "before": true, "after": true }],
         "constructor-super": ERROR,
@@ -143,7 +146,7 @@ module.exports = exports = {
         "no-const-assign": ERROR,
         "no-dupe-class-members": ERROR,
         "no-this-before-super": ERROR,
-        "object-shorthand": [ WARN, "never" ],
+        "object-shorthand": ["error", "consistent-as-needed"],
         "prefer-arrow-callback": WARN,
         "prefer-spread": WARN,
         "prefer-template": WARN,
@@ -160,7 +163,7 @@ module.exports = exports = {
         "consistent-this": [ WARN, "self" ],
         "eol-last": WARN,
         "func-names": WARN,
-        "func-style": [ WARN, "declaration" ],
+        "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
         "id-length": [ WARN, { "min": 2, "max": 32 } ],
         "indent": [ WARN, 4 ],
         "jsx-quotes": [ WARN, "prefer-double" ],
