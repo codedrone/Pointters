@@ -13,6 +13,7 @@
     "express-flash": "0.0.2",
     "express-jwt": "^5.3.0",
     "flash": "^1.1.0",
+    "joi": "^10.6.0",
     "jsonwebtoken": "^7.4.1",
     "jwt-simple": "*",
     "method-override": "^2.3.9",
@@ -28,6 +29,8 @@
   "author": "pointters",
   "license": "ISC",
   "devDependencies": {
+    "nock": "^9.0.14",
+    "proxyquire": "^1.8.0",
     "supertest": "^3.0.0"
   }
 }
