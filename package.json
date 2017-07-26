@@ -1,7 +1,7 @@
 {
   "name": "pointtersapiv1",
   "version": "1.0.0",
-  "description": "",
+  "description": "The pointters REST API",
   "main": "server/app.js",
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -23,8 +23,11 @@
     "passport-jwt": "*"
   },
   "scripts": {
-    "test": "nyc mocha $(find test -name *.test.js )"
+    "test": "nyc mocha test/bootstrap $(find test -name *.test.js )"
   },
   "author": "pointters",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "supertest": "^3.0.0"
+  }
 }
