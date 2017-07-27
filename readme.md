@@ -18,7 +18,7 @@ We are using the istanbul to get the coverage, the ideal coverage is 100% please
 # Unit Test 
 
 The test are based of paradigm [The test size pyramid][1] [Other][other] please be consistent and add UT for every module added, integration flow and service created.
-Use nock and proxyquire to mock the dependencies and http requests.
+Use nock and proxyquire to mock the dependencies and http requests. The agent variable is defined global what is a instance of supertest to do request to API.
 
 # API project structure
 
