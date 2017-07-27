@@ -18,7 +18,7 @@ We are using the istanbul to get the coverage, the ideal coverage is 100% please
 # Unit Test 
 
 The test are based of paradigm [The test size pyramid][1] [Other][other] please be consistent and add UT for every module added, integration flow and service created.
-Use nock and proxyquire to mock the dependencies and http requests. The agent variable is defined global what is a instance of supertest to do request to API.
+Use nock and proxyquire to mock the dependencies and http requests. The agent variable is defined global what is a instance of supertest to do request to API. We are using [fakerjs](https://github.com/marak/Faker.js/) to generate fake data in your tests.
 
 # API project structure
 
@@ -66,30 +66,54 @@ Someone say the best documentation is what is not written. The code has to be as
 
 Documentation is may be the part more important in a API, then for every module, every service, every functionality please add the corresponding documentation.
 ## '/signup'
-
+request: 
 ```js
 body = {
     email: string().email().required(),
     password: string().required()
+}
+```
+response:
+```js
+body = {
+    success: string().boolean().required(),
+    token: string(),
+    msg: string().required(),
+    id: string()
 }
 ```
 
 ## '/login'
-
+request:
 ```js
 body = {
     email: string().email().required(),
     password: string().required()
 }
 ```
+response:
+```js
+body = {
+    success: string().boolean().required(),
+    token: string(),
+    msg: string()
+}
+```
 
 ## '/'
-
+request:
 ```js
 params = {
     id: string().required(),
 }
 ```
 
+response: 
+
+```js
+body = {
+    email: string().email().required(),
+}
+```
 [1]: https://github.com/18F/automated-testing-playbook/blob/master/pages/principles-practices-idioms.md#small-medium-and-large-test-sizes-the-test-size-pyramid
 [other]:https://testing.googleblog.com/2010/12/test-sizes.html

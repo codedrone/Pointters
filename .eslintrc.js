@@ -7,6 +7,9 @@ module.exports = exports = {
         "mongo": true,
         "mocha": true
     },
+    "globals": {
+        "agent": true
+    },
 
     "ecmaFeatures": {
         // env=es6 doesn't include modules, which we are using

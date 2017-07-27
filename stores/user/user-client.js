@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const Schema = mongoose.Schema;
+const mongo = require('../../databases/mongo');
+const Schema = mongo.Schema;
 const bcrypt = require('bcrypt');
 
-// set up a mongoose model
+// set up a mongo model
 const UserSchema = new Schema({
 
     firstName: {
@@ -96,4 +96,4 @@ UserSchema.methods.comparePassword = function(passw, cb) {
     });
 };
 
-module.exports = mongoose.model('User', UserSchema);
+module.exports = mongo.model('User', UserSchema);

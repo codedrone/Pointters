@@ -29,6 +29,8 @@
   "author": "pointters",
   "license": "ISC",
   "devDependencies": {
+    "co-mocha": "^1.2.0",
+    "faker": "^4.1.0",
     "nock": "^9.0.14",
     "proxyquire": "^1.8.0",
     "supertest": "^3.0.0"
