@@ -5,26 +5,20 @@
   "main": "server/app.js",
   "dependencies": {
     "bcrypt": "^1.0.2",
-    "body-parser": "*",
-    "composable-middleware": "^0.3.0",
-    "compression": "^1.7.0",
-    "cookie-parser": "^1.4.3",
-    "express": "*",
-    "express-flash": "0.0.2",
-    "express-jwt": "^5.3.0",
-    "flash": "^1.1.0",
+    "debug": "^2.6.8",
     "joi": "^10.6.0",
     "jsonwebtoken": "^7.4.1",
-    "jwt-simple": "*",
-    "method-override": "^2.3.9",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-cookie": "^1.0.0",
+    "koa-jwt": "^3.2.2",
+    "koa-router": "^7.2.1",
     "mongoose": "*",
-    "morgan": "*",
-    "node-pre-gyp": "^0.6.36",
-    "passport": "*",
-    "passport-jwt": "*"
+    "node-pre-gyp": "^0.6.36"
   },
   "scripts": {
-    "test": "nyc mocha test/bootstrap $(find test -name *.test.js )"
+    "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",
+    "mocha": "mocha test/bootstrap $(find test -name *.test.js )"
   },
   "author": "pointters",
   "license": "ISC",

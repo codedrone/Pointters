@@ -1,10 +1,10 @@
-const express = require('express');
 
 const {userlogin} = require('../../controllers/user');
-const validate = require('../../lib/middelwares/validate-body');
+const validate = require('koa2-validation');
 const schema = require('./body-schema');
-const router = express.Router();
+const Router = require('koa-router');
+const router = new Router();
 
-router.post('/login', validate(schema), userlogin);
+router.post('/login', validate({body: schema}), userlogin);
 
 module.exports = router;

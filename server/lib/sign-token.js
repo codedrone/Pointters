@@ -1,4 +1,4 @@
-const config = require('../../config'); // get db config file
+const { jwt: { expiresIn, secret } } = require('../../config'); // get db config file
 const jwt = require('jsonwebtoken');
 
-module.exports = (id, email) => jwt.sign({_id: id, email: email}, config.secret);
+module.exports = (params) => jwt.sign(params, secret, { expiresIn });

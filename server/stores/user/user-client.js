@@ -1,7 +1,8 @@
-const mongo = require('../../databases/mongo');
-const Schema = mongo.Schema;
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const bcrypt = require('bcrypt');
 
+// set up a mongoose model
 const UserSchema = new Schema({
 
     firstName: {
@@ -32,10 +33,10 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    location: {
+    location:{
         type: Object,
         default: '',
-        index: true
+        index:true
     },
     birthday: {
         type: String,
@@ -65,7 +66,7 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
-    phoneNumber: {
+    phoneNumber:{
         type: String,
         default: ''
     },
@@ -75,7 +76,7 @@ const UserSchema = new Schema({
     },
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     const user = this;
     if (!this.isModified('password') && !this.isNew) return next();
     bcrypt.genSalt(10, (err, salt) => {
@@ -88,4 +89,11 @@ UserSchema.pre('save', function (next) {
     });
 });
 
-module.exports = mongo.model('User', UserSchema);
+UserSchema.methods.comparePassword = function(passw, cb) {
+    bcrypt.compare(passw, this.password, (err, isMatch) => {
+        if (err) return cb(err);
+        cb(null, isMatch);
+    });
+};
+
+module.exports = mongoose.model('User', UserSchema);

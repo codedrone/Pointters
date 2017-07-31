@@ -1,16 +1,19 @@
-const morgan = require('morgan');
-const compression = require('compression');
-const bodyParser = require('body-parser');
-const passport = require('passport');
-const cookieParser = require('cookie-parser');
-const methodOverride = require('method-override');
+const Koa = require('koa');
+const jwt = require('koa-jwt');
+const bodyParser = require('koa-bodyparser');
+const logger = require('koa-logger');
+const cookie = require('koa-cookie');
+const errors = require('./middelwares/errors');
 
-module.exports = function(app) {
-    app.use(compression());
-    app.use(bodyParser.urlencoded({extended: false}));
-    app.use(bodyParser.json({limit: '5mb'}));
-    app.use(methodOverride());
-    app.use(cookieParser());
-    app.use(passport.initialize());
-    app.use(morgan('dev'));
-};
+const { jwt: { secret } } = require('../../config');
+
+const app = new Koa();
+app.use(errors);
+app.use(logger());
+app.use(jwt({ secret }).unless({ path: [ '/login', '/signup' ] }));
+app.use(bodyParser({
+    formLimit: '5mb',
+    jsonLimit: '5mb',
+    textLimit: '5mb'
+}));
+module.exports = app;

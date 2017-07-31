@@ -8,22 +8,22 @@ module.exports = exports = {
         "mocha": true
     },
     "globals": {
-        "agent": true
+        "agent": true,
+        "authorizationHeader": true,
+        "user": true
     },
-
-    "ecmaFeatures": {
-        // env=es6 doesn't include modules, which we are using
-        "modules": true
+    "parserOptions": {
+        "ecmaVersion": 8,
+        "sourceType": "module",
     },
 
     "extends": "eslint:recommended",
-
     "rules": {
         // Possible Errors (overrides from recommended set)
         "no-extra-parens": ERROR,
         "no-unexpected-multiline": ERROR,
         // All JSDoc comments must be valid
-        "valid-jsdoc": [ ERROR, {
+        "valid-jsdoc": [ERROR, {
             "requireReturn": false,
             "requireReturnDescription": false,
             "requireParamDescription": true,
@@ -35,7 +35,7 @@ module.exports = exports = {
         // Best Practices
 
         // Allowed a getter without setter, but all setters require getters
-        "accessor-pairs": [ ERROR, {
+        "accessor-pairs": [ERROR, {
             "getWithoutSet": false,
             "setWithoutGet": true
         }],
@@ -45,9 +45,9 @@ module.exports = exports = {
         "prefer-arrow-callback": ERROR,
         "default-case": WARN,
         // the dot goes with the property when doing multiline
-        "dot-location": [ WARN, "property" ],
+        "dot-location": [WARN, "property"],
         "dot-notation": WARN,
-        "eqeqeq": [ ERROR, "smart" ],
+        "eqeqeq": [ERROR, "smart"],
         "guard-for-in": WARN,
         "no-alert": ERROR,
         "no-caller": ERROR,
@@ -61,7 +61,7 @@ module.exports = exports = {
         "no-extend-native": ERROR,
         "no-extra-bind": WARN,
         "no-floating-decimal": WARN,
-        "no-implicit-coercion": [ WARN, {
+        "no-implicit-coercion": [WARN, {
             "boolean": true,
             "number": true,
             "string": true
@@ -93,22 +93,22 @@ module.exports = exports = {
         "no-useless-concat": ERROR,
         "no-void": WARN,
         // Produce warnings when something is commented as TODO or FIXME
-        "no-warning-comments": [ WARN, {
-            "terms": [ "TODO", "FIXME" ],
+        "no-warning-comments": [WARN, {
+            "terms": ["TODO", "FIXME"],
             "location": "start"
         }],
         "no-with": WARN,
         "radix": WARN,
         "vars-on-top": OFF,
         // Enforces the style of wrapped functions
-        "wrap-iife": [ ERROR, "outside" ],
+        "wrap-iife": [ERROR, "outside"],
         "yoda": ERROR,
 
         // Strict Mode - for ES6, never use strict.
-        "strict": [ ERROR, "never" ],
+        "strict": [ERROR, "never"],
 
         // Variables
-        "init-declarations": [ ERROR, "always" ],
+        "init-declarations": [ERROR, "always"],
         "no-catch-shadow": WARN,
         "no-delete-var": ERROR,
         "no-label-var": OFF,
@@ -126,7 +126,7 @@ module.exports = exports = {
         "prefer-const": ERROR,
         "no-constant-condition": ERROR,
         // Node.js and CommonJS
-        "callback-return": [ WARN, [ "callback", "next" ]],
+        "callback-return": [WARN, ["callback", "next"]],
         "global-require": ERROR,
         "handle-callback-err": WARN,
         "no-mixed-requires": WARN,
@@ -140,10 +140,10 @@ module.exports = exports = {
 
         // ECMAScript 6 support
         "arrow-body-style": [ERROR, "as-needed"],
-        "arrow-parens": [ ERROR, "always" ],
-        "arrow-spacing": [ ERROR, { "before": true, "after": true }],
+        "arrow-parens": [ERROR, "always"],
+        "arrow-spacing": [ERROR, { "before": true, "after": true }],
         "constructor-super": ERROR,
-        "generator-star-spacing": [ ERROR, "before" ],
+        "generator-star-spacing": [ERROR, "before"],
         "no-confusing-arrow": ERROR,
         "no-class-assign": ERROR,
         "no-const-assign": ERROR,
@@ -156,26 +156,26 @@ module.exports = exports = {
         "require-yield": ERROR,
 
         // Stylistic - everything here is a warning because of style.
-        "array-bracket-spacing": [ WARN, "always" ],
-        "block-spacing": [ WARN, "always" ],
-        "brace-style": [ WARN, "1tbs", { "allowSingleLine": false } ],
+        "array-bracket-spacing": [WARN, "always"],
+        "block-spacing": [WARN, "always"],
+        "brace-style": [WARN, "1tbs", { "allowSingleLine": false }],
         "camelcase": WARN,
-        "comma-spacing": [ WARN, { "before": false, "after": true } ],
-        "comma-style": [ WARN, "last" ],
-        "computed-property-spacing": [ WARN, "never" ],
-        "consistent-this": [ WARN, "self" ],
+        "comma-spacing": [WARN, { "before": false, "after": true }],
+        "comma-style": [WARN, "last"],
+        "computed-property-spacing": [WARN, "never"],
+        "consistent-this": [WARN, "self"],
         "eol-last": WARN,
         "func-names": WARN,
         "func-style": ["error", "declaration", { "allowArrowFunctions": true }],
-        "id-length": [ WARN, { "min": 2, "max": 32 } ],
-        "indent": [ WARN, 4 ],
-        "jsx-quotes": [ WARN, "prefer-double" ],
-        "linebreak-style": [ WARN, "unix" ],
-        "lines-around-comment": [ WARN, { "beforeBlockComment": true } ],
-        "max-depth": [ WARN, 8 ],
-        "max-len": [ WARN, 132 ],
-        "max-nested-callbacks": [ WARN, 8 ],
-        "max-params": [ WARN, 8 ],
+        "id-length": [WARN, { "min": 2, "max": 32 }],
+        "indent": [WARN, 4],
+        "jsx-quotes": [WARN, "prefer-double"],
+        "linebreak-style": [WARN, "unix"],
+        "lines-around-comment": [WARN, { "beforeBlockComment": true }],
+        "max-depth": [WARN, 8],
+        "max-len": [WARN, 132],
+        "max-nested-callbacks": [WARN, 8],
+        "max-params": [WARN, 8],
         "new-cap": WARN,
         "new-parens": WARN,
         "no-array-constructor": WARN,
@@ -194,31 +194,31 @@ module.exports = exports = {
         "no-trailing-spaces": WARN,
         "no-underscore-dangle": WARN,
         "no-unneeded-ternary": WARN,
-        "object-curly-spacing": WARN,
+        "object-curly-spacing": OFF,
         "one-var": OFF,
-        "operator-assignment": [ WARN, "never" ],
-        "operator-linebreak": [ WARN, "after" ],
-        "padded-blocks": [ WARN, "never" ],
-        "quote-props": [ WARN, "consistent-as-needed" ],
-        "quotes": [ WARN, "single" ],
-        "require-jsdoc": [ WARN, {
+        "operator-assignment": [WARN, "never"],
+        "operator-linebreak": [WARN, "after"],
+        "padded-blocks": [WARN, "never"],
+        "quote-props": [WARN, "consistent-as-needed"],
+        "quotes": [WARN, "single"],
+        "require-jsdoc": [WARN, {
             "require": {
                 "FunctionDeclaration": true,
                 "MethodDefinition": true,
                 "ClassDeclaration": false
             }
         }],
-        "semi-spacing": [ WARN, { "before": false, "after": true }],
-        "semi": [ ERROR, "always" ],
+        "semi-spacing": [WARN, { "before": false, "after": true }],
+        "semi": [ERROR, "always"],
         "sort-vars": ERROR,
         "no-var": ERROR,
         "keyword-spacing": WARN,
-        "space-before-blocks": [ WARN, "always" ],
-        "space-before-function-paren": [ WARN, "never" ],
-        "space-in-parens": [ WARN, "never" ],
-        "space-infix-ops": [ WARN, { "int32Hint": true } ],
+        "space-before-blocks": [WARN, "always"],
+        "space-before-function-paren": [WARN, "never"],
+        "space-in-parens": [WARN, "never"],
+        "space-infix-ops": [WARN, { "int32Hint": true }],
         "space-unary-ops": ERROR,
-        "spaced-comment": [ WARN, "always" ],
+        "spaced-comment": [WARN, "always"],
         "wrap-regex": WARN
     }
 };

@@ -1,17 +1,17 @@
-'use strict';
 
-// Production specific configuration
-// ===========================
 
 module.exports = {
-
+    apiName: 'Pinters-API-dev',
     port: 9000,
-
-    secret: 'pointters-secret-key',
-
+    error: {
+        stackTraceLimit: 20
+    },
+    jwt: {
+        secret: 'pointters-secret-key',
+        expiresIn: '1h'
+    },
     dbpath: 'mongodb://localhost/pointters-api',
 
-    // MongoDB connection options
     mongo: {
         options: {
             db: {

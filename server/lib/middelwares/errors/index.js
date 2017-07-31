@@ -1,15 +1,17 @@
-/**
- * Error responses
- */
+const debug = require('../../../../lib/debug');
 
-'use strict';
+const { error: { stackTraceLimit } } = require('../../../../config');
 
-module.exports[404] = function pageNotFound(req, res) {
-    var viewFilePath = '404';
-    var statusCode = 404;
-    var result = {
-        status: statusCode
-    };
 
-    res.status(result.status).json(result);
+module.exports = async function(ctx, next) {
+    Error.stackTraceLimit = stackTraceLimit;
+    try {
+        await next();
+    } catch (err) {
+        console.error('Error catched: ', err);
+        ctx.status = err.statusCode || err.status || 500;
+        ctx.body = {
+            message: err.message
+        };
+    }
 };

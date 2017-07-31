@@ -1,12 +1,15 @@
-const {findOne} = require('../../../stores/user');
 
-module.exports = (req, res, next) => {
-    const userId = req.params.id;
-    findOne({_id: userId})
-    .then((user) => {
-        if (!user) return res.status(404).send('No User found');
+const { findOne } = require('../../../stores/user');
 
-        res.status(200).json({email:user.email});
-    })
-    .catch(next);
+module.exports = async(ctx) => {
+    const userId = ctx.request.params.id;
+    const user = await findOne({ _id: userId });
+    if (!user) {
+        ctx.status = 404;
+        ctx.body = 'No User found';
+        return;
+    }
+
+    ctx.status = 200;
+    ctx.body = { email: user.email };
 };

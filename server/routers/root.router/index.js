@@ -1,12 +1,9 @@
-const express = require('express');
-
-const {getuser} = require('../../controllers/user');
-const {isAuthenticated} = require('../../lib/middelwares/auth');
+const { getuser } = require('../../controllers/user');
 const schema = require('./params-schema');
-const validate = require('../../lib/middelwares/validate-params');
+const validate = require('koa2-validation');
+const Router = require('koa-router');
+const router = new Router();
 
-const router = express.Router();
-
-router.get('/:id', validate(schema), isAuthenticated(), getuser);
+router.get('/:id', validate({ params: schema }), getuser);
 
 module.exports = router;

@@ -18,7 +18,37 @@ We are using the istanbul to get the coverage, the ideal coverage is 100% please
 # Unit Test 
 
 The test are based of paradigm [The test size pyramid][1] [Other][other] please be consistent and add UT for every module added, integration flow and service created.
-Use nock and proxyquire to mock the dependencies and http requests. The agent variable is defined global what is a instance of supertest to do request to API. We are using [fakerjs](https://github.com/marak/Faker.js/) to generate fake data in your tests.
+Use nock and proxyquire to mock the dependencies and http requests. The agent, user and authorizationHeader variables are defined globally what is a instance of supertest to do request to API and a object:
+
+```js
+{
+    Authorization: `Bearer <token>`
+};
+```
+
+of user with data:
+
+```js
+{
+    email: "test@test.com",
+    password: "test",
+}
+```
+
+The user object is:
+
+```js
+{
+    email: "test@test.com",
+    password: "test",
+    _id: "ObjectId returned by client"
+}
+```
+
+
+what is logued in before mocha middleware and removed in after mocha middleware.
+
+. We are using [fakerjs](https://github.com/marak/Faker.js/) to generate fake data in your tests.
 
 # API project structure
 
