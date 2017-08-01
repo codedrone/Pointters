@@ -1,8 +1,7 @@
-
 const { findOne } = require('../../../stores/user');
 
-module.exports = async(ctx) => {
-    const userId = ctx.request.params.id;
+module.exports = async (ctx) => {
+    const userId = ctx.params.id;
     const user = await findOne({ _id: userId });
     if (!user) {
         ctx.status = 404;
@@ -11,5 +10,5 @@ module.exports = async(ctx) => {
     }
 
     ctx.status = 200;
-    ctx.body = { email: user.email };
+    ctx.body = user;
 };

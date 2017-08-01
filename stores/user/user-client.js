@@ -73,9 +73,12 @@ const UserSchema = new Schema({
         type: String,
         required: true
     },
+    insurance: String,
+    phone: String,
+    profileBackgroundImages: {}
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     const user = this;
     if (!this.isModified('password') && !this.isNew) return next();
     bcrypt.genSalt(10, (err, salt) => {
