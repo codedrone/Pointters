@@ -95,7 +95,7 @@ Someone say the best documentation is what is not written. The code has to be as
 # Documentation
 
 Documentation is may be the part more important in a API, then for every module, every service, every functionality please add the corresponding documentation.
-## '/signup'
+## '/user/signup' --> POST
 request: 
 ```js
 body = {
@@ -113,7 +113,7 @@ body = {
 }
 ```
 
-## '/login'
+## '/user/login' --> POST
 request:
 ```js
 body = {
@@ -130,7 +130,7 @@ body = {
 }
 ```
 
-## '/'
+## '/user/:id' --> GET
 request:
 ```js
 params = {
@@ -141,8 +141,66 @@ params = {
 response: 
 
 ```js
+body = UserObjectInDB
+```
+
+## '/user' --> PUT
+request:
+```js
+body = {
+    awards: string(),
+    companyName: string(),
+    description: string(),
+    education: string(),
+    email: string(),
+    password: string(),
+    firstName: string(),
+    insurance: string(),
+    lastName: string(),
+    license: string(),
+    location: object().default({}),
+    phone: string(),
+    profilePic: string(),
+    profileBackgroundImages: object().default({})awards: string(),
+    companyName: string(),
+    description: string(),
+    education: string(),
+    email: string(),
+    password: string(),
+    firstName: string(),
+    insurance: string(),
+    lastName: string(),
+    license: string(),
+    location: object().default({}),
+    phone: string(),
+    profilePic: string(),
+    profileBackgroundImages: object().default({})
+}
+```
+
+response: 
+
+```js
+body = UserObjectUpdatedInDB
+```
+
+## '/user/facebook/token' --> POST
+request:
+```js
 body = {
     email: string().email().required(),
+    token: string().required()
+}
+```
+
+response: 
+
+```js
+body = {
+    success: string().boolean().required(),
+    token: string(),
+    msg: string().required(),
+    id: string()
 }
 ```
 [1]: https://github.com/18F/automated-testing-playbook/blob/master/pages/principles-practices-idioms.md#small-medium-and-large-test-sizes-the-test-size-pyramid

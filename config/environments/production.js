@@ -1,14 +1,15 @@
 
-
 module.exports = {
-    apiName: 'Pinters-API-dev',
-    port: 9000,
+    apiName: 'Pinters-API',
     error: {
-        stackTraceLimit: 20
+        stackTraceLimit: 12
     },
+    rateLimit: 1000,
+    port: 9000,
+
     jwt: {
         secret: 'pointters-secret-key',
-        expiresIn: '1h'
+        expiresIn: 3600000 * 24 * 365,
     },
     dbpath: 'mongodb://localhost/pointters-api',
 

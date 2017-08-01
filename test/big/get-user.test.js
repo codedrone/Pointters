@@ -1,14 +1,26 @@
 const assert = require('assert');
 
 
-describe('login services', () => {
+describe('User/:id services', () => {
     describe('SUCCESS', () => {
-        it('/:id GET -> should return user', async() => {
-            const { body: res } = await agent.get(`/${user._id}`)
+        it('/user/:id GET -> should return user', async() => {
+            const { body: res } = await agent.get(`/user/${user._id}`)
                 .set(authorizationHeader)
                 .expect(200);
+            console.log('res ', res);
+            console.log('user ', user);
             assert.equal(res.email, user.email);
             assert.equal(res.password, user.password);
+        });
+    });
+
+    describe('FAIL', () => {
+        it('/user/:id GET -> should return 403 state id not councided', async() => {
+            const { body: res } = await agent.get('/user/isNotTheIdInTokenSigned')
+                .set(authorizationHeader)
+                .expect(403);
+            console.log('res = ', res);
+            assert(res.message === 'Unauthorized User');
         });
     });
 });

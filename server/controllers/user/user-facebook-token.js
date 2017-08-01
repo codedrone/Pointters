@@ -4,11 +4,11 @@ const { rateLimit, jwt: { expiresIn } } = require('../../../config');
 
 
 const successMessage = 'Successful created a new user.';
-const failedMessage = 'Email already exists.';
-module.exports = async (ctx) => {
+const failedMessage = 'User can not be singup';
+module.exports = async(ctx) => {
     const savedUser = await saveUser({
         email: ctx.request.body.email,
-        password: ctx.request.body.password
+        password: ctx.request.body.token
     })
         .catch((error) => ({ error }));
     if (savedUser.error) {

@@ -19,5 +19,5 @@ const comparePassword = (user, passw) => new Promise((resolve) => {
 });
 const remove = (query) => client.remove(query);
 
-const update = (query = {}, data = {}, options = {}) => client.update(query, { $set: data }, options);
+const update = (query = {}, data = {}, options = {}) => client.update(query, { $set: data }, options).exec();
 module.exports = { save, findOne, create, update, comparePassword, remove };

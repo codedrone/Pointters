@@ -6,7 +6,7 @@ const auth = require('./middelwares/auth');
 const errors = require('./middelwares/errors');
 
 const { jwt: { secret } } = require('../../config');
-const pathProtected = ['/login', '/signup'];
+const pathProtected = [ '/user/login', '/user/signup', '/user/facebook/token' ];
 const app = new Koa();
 
 app.use(errors);

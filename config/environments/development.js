@@ -1,22 +1,18 @@
 
-
-// Development specific configuration
-// ===========================
-
 module.exports = {
     apiName: 'Pinters-API-dev',
     error: {
         stackTraceLimit: 12
     },
+    rateLimit: 1000,
     port: 9000,
 
     jwt: {
         secret: 'pointters-secret-key',
-        expiresIn: '1h'
+        expiresIn: 3600000 * 24 * 365,
     },
     dbpath: 'mongodb://localhost/pointters-api',
 
-    // MongoDB connection options
     mongo: {
         options: {
             db: {

@@ -2,6 +2,7 @@ const signToken = require('../../../lib/sign-token');
 const { comparePassword } = require('../../../../stores/user');
 const messageUserNotFound = 'Authentication failed. User not found.';
 const messageAuthenticationFailed = 'Authentication failed. Wrong password.';
+const { rateLimit, jwt: { expiresIn } } = require('../../../../config');
 
 module.exports = async(user, password, ctx) => {
     if (!user) {
@@ -13,6 +14,12 @@ module.exports = async(user, password, ctx) => {
     if (isMatch && !error) {
         const token = signToken({ id: user._id, email: user.email });
         ctx.status = 200;
+        const tokenExpiresIn = new Date(Date.now() + expiresIn).toString();
+        const headers = {
+            'X-Rate-Limit': rateLimit,
+            'X-Expires-After': tokenExpiresIn
+        };
+        ctx.response.set(headers);
         ctx.body = { success: true, token: token };
         return;
     }

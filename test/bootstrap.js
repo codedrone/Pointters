@@ -4,7 +4,7 @@ const { create: createUser, remove } = require('../stores/user');
 const app = require('../server');
 
 
-before(async() => {
+before(async () => {
     global.agent = supertest(app);
     const body = {
         email: 'test@test.com',
@@ -12,10 +12,10 @@ before(async() => {
     };
     const user = await createUser(body);
     global.user = user;
-    const { body: { token } } = await agent.post('/login').send(body);
+    const { body: { token } } = await agent.post('/user/login').send(body);
     global.authorizationHeader = { Authorization: `Bearer ${token}` };
 });
 
-after(async() => {
+after(async () => {
     await remove({});
 });
