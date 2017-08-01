@@ -12,8 +12,9 @@ before(async () => {
     };
     const user = await createUser(body);
     global.user = user;
-    const { body: { token } } = await agent.post('/user/login').send(body);
+    const { body: { token }, headers: { 'set-cookie': cookie } } = await agent.post('/user/login').send(body);
     global.authorizationHeader = { Authorization: `Bearer ${token}` };
+    global.Cookie = { Cookie: cookie };
 });
 
 after(async () => {

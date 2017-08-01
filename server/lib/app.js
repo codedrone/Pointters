@@ -4,13 +4,21 @@ const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const auth = require('./middelwares/auth');
 const errors = require('./middelwares/errors');
+const session = require('koa-session');
+const cookie = require('koa-cookie');
 
-const { jwt: { secret } } = require('../../config');
-const pathProtected = [ '/user/login', '/user/signup', '/user/facebook/token' ];
+
 const app = new Koa();
+const { jwt: { secret, expiresIn } } = require('../../config');
+app.keys = [ secret ];
+const pathProtected = [ '/user/login', '/user/signup', '/user/facebook/token' ];
 
-app.use(errors);
+app.use(errors());
 app.use(logger());
+app.use(cookie.default());
+app.use(session({
+    maxAge: expiresIn,
+}, app));
 app.use(jwt({ secret })
     .unless({
         path: pathProtected

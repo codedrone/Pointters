@@ -16,6 +16,6 @@ module.exports = async(ctx) => {
 
     ctx.status = 200;
     ctx.body = { success: true };
-  
+
     if (token) ctx.body.token = token;
 };

@@ -13,6 +13,7 @@ describe('User services', () => {
                 .expect(200);
             assert.equal(headers['x-rate-limit'], '1000');
             assert(headers['x-expires-after']);
+            assert(headers['set-cookie']);
             assert(res.success === true);
             assert(typeof res.token === 'string');
         });
@@ -22,10 +23,9 @@ describe('User services', () => {
             const body = {
                 password: 'test'
             };
-            const { body: res, statusCode } = await agent.post('/user/signup')
+            const { body: res } = await agent.post('/user/signup')
                 .send(body)
                 .expect(400);
-            console.log('error', statusCode, res);
             assert(res.message === 'email is required');
         });
 
@@ -33,10 +33,9 @@ describe('User services', () => {
             const body = {
                 email: 'the_pass_is_not_send@test.com'
             };
-            const { body: res, statusCode } = await agent.post('/user/signup')
+            const { body: res } = await agent.post('/user/signup')
                 .send(body)
                 .expect(400);
-            console.log('error', statusCode, res);
             assert(res.message === 'password is required');
         });
     });

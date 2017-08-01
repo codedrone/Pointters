@@ -10,7 +10,8 @@ module.exports = exports = {
     "globals": {
         "agent": true,
         "authorizationHeader": true,
-        "user": true
+        "user": true,
+        "Cookie": true
     },
     "parserOptions": {
         "ecmaVersion": 8,

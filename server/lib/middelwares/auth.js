@@ -1,9 +1,21 @@
-const { findOne } = require('../../../stores/user');
 const unless = require('koa-unless');
-const middelware = async (ctx, next) => {
-    const user = await findOne({ _id: ctx.state.user.id });
 
-    if (!user || user.email !== ctx.state.user.email) return ctx.throw(403, 'Unauthorized User');
+const { findOne } = require('../../../stores/user');
+
+const middelware = async(ctx, next) => {
+    const userUsingJwt = await findOne({
+        _id: ctx.state.user.id,
+        email: ctx.state.user.email
+    });
+
+    const userUsingSession = await findOne({
+        _id: ctx.session.id,
+        email: ctx.session.email
+    });
+    console.log('session in auth ===', ctx.session, user);
+
+    const isAuth = userUsingJwt && userUsingSession;
+    if (!isAuth) return ctx.throw(403, 'Unauthorized User');
 
     await next();
 };

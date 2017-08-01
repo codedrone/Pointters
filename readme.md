@@ -203,5 +203,65 @@ body = {
     id: string()
 }
 ```
+
+## '/user' --> PUT
+request:
+```js
+body = {
+    awards: string(),
+    companyName: string(),
+    description: string(),
+    education: string(),
+    email: string(),
+    password: string(),
+    firstName: string(),
+    insurance: string(),
+    lastName: string(),
+    license: string(),
+    location: object().default({}),
+    phone: string(),
+    profilePic: string(),
+    profileBackgroundImages: object().default({})awards: string(),
+    companyName: string(),
+    description: string(),
+    education: string(),
+    email: string(),
+    password: string(),
+    firstName: string(),
+    insurance: string(),
+    lastName: string(),
+    license: string(),
+    location: object().default({}),
+    phone: string(),
+    profilePic: string(),
+    profileBackgroundImages: object().default({})
+}
+```
+
+response: 
+
+```js
+body = UserObjectUpdatedInDB
+```
+
+## '/user/facebook/token' --> POST
+request:
+```js
+body = {
+    email: string().email().required(),
+    token: string().required()
+}
+```
+
+response: 
+
+```js
+body = {
+    success: string().boolean().required(),
+    token: string(),
+    msg: string().required(),
+    id: string()
+}
+```
 [1]: https://github.com/18F/automated-testing-playbook/blob/master/pages/principles-practices-idioms.md#small-medium-and-large-test-sizes-the-test-size-pyramid
 [other]:https://testing.googleblog.com/2010/12/test-sizes.html
