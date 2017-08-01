@@ -202,6 +202,67 @@ body = {
     msg: string().required(),
     id: string()
 }
+The validate of id is added
+```
+
+## '/user' --> PUT
+request:
+```js
+body = {
+    awards: string(),
+    companyName: string(),
+    description: string(),
+    education: string(),
+    email: string(),
+    password: string(),
+    firstName: string(),
+    insurance: string(),
+    lastName: string(),
+    license: string(),
+    location: object().default({}),
+    phone: string(),
+    profilePic: string(),
+    profileBackgroundImages: object().default({})awards: string(),
+    companyName: string(),
+    description: string(),
+    education: string(),
+    email: string(),
+    password: string(),
+    firstName: string(),
+    insurance: string(),
+    lastName: string(),
+    license: string(),
+    location: object().default({}),
+    phone: string(),
+    profilePic: string(),
+    profileBackgroundImages: object().default({})
+}
+```
+
+response: 
+
+```js
+body = UserObjectUpdatedInDB
+```
+
+## '/user/facebook/token' --> POST
+request:
+```js
+body = {
+    email: string().email().required(),
+    token: string().required()
+}
+```
+
+response: 
+
+```js
+body = {
+    success: string().boolean().required(),
+    token: string(),
+    msg: string().required(),
+    id: string()
+}
 ```
 
 ## '/user' --> PUT

@@ -1,4 +1,3 @@
-
 const { postFacebookToken } = require('../../controllers/user');
 const schema = require('./body-schema');
 const validate = require('koa2-validation');
