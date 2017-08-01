@@ -11,7 +11,13 @@ const cookie = require('koa-cookie');
 const app = new Koa();
 const { jwt: { secret, expiresIn } } = require('../../config');
 app.keys = [ secret ];
-const pathProtected = [ '/user/login', '/user/signup', '/user/facebook/token' ];
+const pathProtected = [
+    '/user/login',
+    '/user/signup',
+    '/user/facebook/token',
+    '/user/opt',
+    '/user/reset/password'
+];
 
 app.use(errors());
 app.use(logger());

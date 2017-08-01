@@ -1,5 +1,5 @@
 {
-  "description": "These are just examples for demonstration, nothing prescriptive",
+  "description": "Coverage all project Pointers",
   "nyc": {
     "check-coverage": true,
     "per-file": true,

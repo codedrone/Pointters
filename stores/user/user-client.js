@@ -20,6 +20,8 @@ const UserSchema = new Schema({
         type: String,
         default: ''
     },
+    resetPasswordExpires: String,
+    tempPassword: String,
     profilePic: {
         type: Array
     },
@@ -78,14 +80,30 @@ const UserSchema = new Schema({
     profileBackgroundImages: {}
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     const user = this;
-    if (!this.isModified('password') && !this.isNew) return next();
+    if (!user.isModified('password') && !user.isNew) return next();
+
     bcrypt.genSalt(10, (err, salt) => {
         if (err) return next(err);
         bcrypt.hash(user.password, salt, (err, hash) => {
             if (err) return next(err);
             user.password = hash;
+            next();
+        });
+    });
+});
+
+UserSchema.pre('save', function (next) {
+    const user = this;
+
+    if (!user.isModified('tempPassword') && !user.isNew || !user.tempPassword) return next();
+
+    bcrypt.genSalt(10, (err, salt) => {
+        if (err) return next(err);
+        bcrypt.hash(user.tempPassword, salt, (err, hash) => {
+            if (err) return next(err);
+            user.tempPassword = hash;
             next();
         });
     });

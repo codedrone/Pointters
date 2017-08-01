@@ -12,7 +12,6 @@ const middelware = async(ctx, next) => {
         _id: ctx.session.id,
         email: ctx.session.email
     });
-    console.log('session in auth ===', ctx.session, user);
 
     const isAuth = userUsingJwt && userUsingSession;
     if (!isAuth) return ctx.throw(403, 'Unauthorized User');

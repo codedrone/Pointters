@@ -92,6 +92,23 @@ In general is prefered promises over callback, co-routines are wellcome, evite t
 
 Someone say the best documentation is what is not written. The code has to be as explicit as possible.
 
+## Authentication
+The next lists of endpoints are not protected and you can get the token to log to other endpoints:
+
+```js
+ [
+    '/user/login',
+    '/user/signup',
+    '/user/facebook/token',
+    '/user/opt',
+    '/user/reset/password'
+ ]
+```
+
+In others endpoints are protected and you need pass the Authorization and Cookie header to get be
+authenticated.
+
+
 # Documentation
 
 Documentation is may be the part more important in a API, then for every module, every service, every functionality please add the corresponding documentation.
@@ -127,6 +144,21 @@ body = {
     success: string().boolean().required(),
     token: string(),
     msg: string()
+}
+```
+
+## '/user/logout' --> POST
+
+request:
+```js
+body = {
+    
+}
+```
+response:
+```js
+body = {
+    
 }
 ```
 
@@ -202,55 +234,34 @@ body = {
     msg: string().required(),
     id: string()
 }
-The validate of id is added
 ```
 
-## '/user' --> PUT
+## /user/opt -> POST
+
 request:
 ```js
 body = {
-    awards: string(),
-    companyName: string(),
-    description: string(),
-    education: string(),
-    email: string(),
-    password: string(),
-    firstName: string(),
-    insurance: string(),
-    lastName: string(),
-    license: string(),
-    location: object().default({}),
-    phone: string(),
-    profilePic: string(),
-    profileBackgroundImages: object().default({})awards: string(),
-    companyName: string(),
-    description: string(),
-    education: string(),
-    email: string(),
-    password: string(),
-    firstName: string(),
-    insurance: string(),
-    lastName: string(),
-    license: string(),
-    location: object().default({}),
-    phone: string(),
-    profilePic: string(),
-    profileBackgroundImages: object().default({})
+    email: string().email().required()
 }
 ```
 
 response: 
 
 ```js
-body = UserObjectUpdatedInDB
+body = {
+    password: string().required()
+}
+
 ```
 
-## '/user/facebook/token' --> POST
+## /user/reset/password -> PUT
+
 request:
 ```js
 body = {
     email: string().email().required(),
-    token: string().required()
+    oldPassword: string().required(),
+    newPassword: string().required(),
 }
 ```
 
@@ -258,71 +269,11 @@ response:
 
 ```js
 body = {
-    success: string().boolean().required(),
-    token: string(),
-    msg: string().required(),
-    id: string()
+    tempPassword: string().required(),
+    resetPasswordExpires: string().required()
 }
+
 ```
 
-## '/user' --> PUT
-request:
-```js
-body = {
-    awards: string(),
-    companyName: string(),
-    description: string(),
-    education: string(),
-    email: string(),
-    password: string(),
-    firstName: string(),
-    insurance: string(),
-    lastName: string(),
-    license: string(),
-    location: object().default({}),
-    phone: string(),
-    profilePic: string(),
-    profileBackgroundImages: object().default({})awards: string(),
-    companyName: string(),
-    description: string(),
-    education: string(),
-    email: string(),
-    password: string(),
-    firstName: string(),
-    insurance: string(),
-    lastName: string(),
-    license: string(),
-    location: object().default({}),
-    phone: string(),
-    profilePic: string(),
-    profileBackgroundImages: object().default({})
-}
-```
-
-response: 
-
-```js
-body = UserObjectUpdatedInDB
-```
-
-## '/user/facebook/token' --> POST
-request:
-```js
-body = {
-    email: string().email().required(),
-    token: string().required()
-}
-```
-
-response: 
-
-```js
-body = {
-    success: string().boolean().required(),
-    token: string(),
-    msg: string().required(),
-    id: string()
-}
-```
 [1]: https://github.com/18F/automated-testing-playbook/blob/master/pages/principles-practices-idioms.md#small-medium-and-large-test-sizes-the-test-size-pyramid
 [other]:https://testing.googleblog.com/2010/12/test-sizes.html

@@ -12,7 +12,7 @@ module.exports = async(ctx) => {
     debug.api.info('user update : ', userUpdated);
     let token = null;
 
-    if (data.email) token = signToken(userUpdated._id, data.email);
+    if (data.email) token = signToken({ id: userUpdated._id, email: data.email });
 
     ctx.status = 200;
     ctx.body = { success: true };

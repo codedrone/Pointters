@@ -18,7 +18,8 @@
     "koa-socket.io": "^1.1.2",
     "koa-unless": "^1.0.7",
     "mongoose": "*",
-    "node-pre-gyp": "^0.6.36"
+    "node-pre-gyp": "^0.6.36",
+    "request": "^2.81.0"
   },
   "scripts": {
     "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",

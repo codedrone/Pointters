@@ -5,7 +5,7 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/user/signup POST -> user found and return the token', async() => {
             const body = {
-                email: 'test2@test.com',
+                email: 'test_signup@test.com',
                 password: 'test'
             };
             const { body: res, headers } = await agent.post('/user/signup')

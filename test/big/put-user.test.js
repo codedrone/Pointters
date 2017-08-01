@@ -2,18 +2,16 @@ const assert = require('assert');
 
 const faker = require('faker');
 
-const { findOne, remove, create: createUser } = require('../../stores/user');
+const { findOne, create: createUser } = require('../../stores/user');
 
 describe('User services', () => {
     describe('SUCCESS', () => {
         it('/user PUT -> should create the user', async() => {
-            await remove({});
             const body = {
-                email: 'test@test.com',
+                email: 'test_update@test.com',
                 password: 'test'
             };
-            const user = await createUser(body);
-            global.user = user;
+            await createUser(body);
             const { body: { token }, headers: { 'set-cookie': cookie } } = await agent.post('/user/login').send(body);
             global.authorizationHeader = { Authorization: `Bearer ${token}` };
             global.Cookie = { Cookie: cookie };
@@ -34,7 +32,7 @@ describe('User services', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            const query = Object.assign({ email: 'test@test.com' }, data);
+            const query = Object.assign({ email: body.email }, data);
             const _user = await findOne(query);
             assert(_user);
         });

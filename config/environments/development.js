@@ -4,6 +4,7 @@ module.exports = {
     error: {
         stackTraceLimit: 12
     },
+    optExpiresIn: 24 * 3600 * 1000,
     rateLimit: 1000,
     port: 9000,
 

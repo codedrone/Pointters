@@ -1,27 +1,36 @@
-const { save: saveUser } = require('../../../stores/user');
+const { findOne, updateIfExistsAndCreateIfNot } = require('../../../stores/user');
 const signToken = require('../../lib/sign-token');
-const { rateLimit, jwt: { expiresIn } } = require('../../../config');
-
+const getHeaders = require('../../lib/get-headers');
+const getSession = require('../../lib/get-session');
+const validateFacebookToken = require('../../../services/validate-token-facebook');
 
 const successMessage = 'Successful created a new user.';
-const failedMessage = 'User can not be singup';
 module.exports = async(ctx) => {
-    const savedUser = await saveUser({
+    const { name, id: idFacebook } = await validateFacebookToken(ctx.request.body.token);
+    const savedUser = await findOne({
         email: ctx.request.body.email,
-        password: ctx.request.body.token
-    })
-        .catch((error) => ({ error }));
-    if (savedUser.error) {
-        ctx.body = { success: false, msg: failedMessage };
-        return;
+        password: idFacebook
+    });
+    let userCreatedOrUpdated = [];
+    const [ firstName, lastName ] = name.split(' ');
+    if (!savedUser) {
+        const queryToFindUser = {
+            email: ctx.request.body.email,
+            password: idFacebook
+        };
+        const data = {
+            email: ctx.request.body.email,
+            password: idFacebook,
+            firstName,
+            lastName
+        };
+        userCreatedOrUpdated = await updateIfExistsAndCreateIfNot(queryToFindUser, data);
     }
-    const token = signToken(savedUser._id, savedUser.email);
-    const tokenExpiresIn = new Date(Date.now() + expiresIn).toString();
-    const headers = {
-        'X-Rate-Limit': rateLimit,
-        'X-Expires-After': tokenExpiresIn
-    };
+    const paramsToGetToken = { id: userCreatedOrUpdated[0]._id, email: userCreatedOrUpdated[0].email };
+    const token = signToken(paramsToGetToken);
+    const headers = getHeaders();
     ctx.response.set(headers);
-    ctx.body = { success: true, id: savedUser._id, msg: successMessage, token: token };
+    ctx.session = getSession(userCreatedOrUpdated[0]);
+    ctx.body = { success: true, id: userCreatedOrUpdated[0]._id, msg: successMessage, token: token };
 };
 
