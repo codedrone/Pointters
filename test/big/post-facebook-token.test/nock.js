@@ -2,40 +2,40 @@ const nock = require('nock');
 
 module.exports = (token, id, name) => {
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
-        .get('/me/')
-        .query({ access_token: token })
-        .reply(200, {
-            id,
-            name
-        }, ['Access-Control-Allow-Origin',
+        .get('/v2.4/me')
+        .query((query) => query.access_token === token)
+        .reply(200, { name, id }, [
+            'Access-Control-Allow-Origin',
             '*',
-            'WWW-Authenticate',
-            'OAuth "Facebook Platform" "invalid_token" "Invalid OAuth access token."',
+            'ETag',
+            '"d9348d5d9501386885c032b7cad648cad90bcd61"',
             'Pragma',
             'no-cache',
             'Cache-Control',
-            'no-store',
+            'private, no-cache, no-store, must-revalidate',
             'x-fb-rev',
-            '3194763',
+            '3197549',
             'Content-Type',
             'text/javascript; charset=UTF-8',
             'x-fb-trace-id',
-            'DLwBlNNtwL2',
+            'BpT6tCmkVjY',
+            'facebook-api-version',
+            'v2.4',
             'Expires',
             'Sat, 01 Jan 2000 00:00:00 GMT',
             'X-FB-Debug',
-            'B1kTQlqcoUj//vznoeRDtArKt3iDqXxUVBbHeiWyx+R0LOH014p5meoGMyfzlFlvjEd+E1Q1erqV3ocByxV90A==',
+            'A7yM+VMzgenTbK+gjgHsVE9hP0tVPjnnnj2nfEz398umMKJjHbJQHZizoHUQUQi10dmJbT+hubzWgVDzf/SYaA==',
             'Date',
-            'Tue, 01 Aug 2017 22:27:00 GMT',
+            'Wed, 02 Aug 2017 22:45:12 GMT',
             'Connection',
-            'close',
+            'keep-alive',
             'Content-Length',
-            '113']);
+            '45' ]);
 
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
-        .get('/me/')
-        .query(true)
-        .reply(200, { error: 'this error happen only in test' }, ['Access-Control-Allow-Origin',
+        .get('/v2.4/me')
+        .query({ access_token: 'invalid_token', appsecret_proof: 'b1450f52ae59df279ba1726e25bd3c7a16225f929a69b6a3911ee459caf0f894' })
+        .reply(400, { error: { message: 'Invalid OAuth access token.', type: 'OAuthException', code: 190, fbtrace_id: 'BNvzw2rgrFJ' } }, [ 'Access-Control-Allow-Origin',
             '*',
             'WWW-Authenticate',
             'OAuth "Facebook Platform" "invalid_token" "Invalid OAuth access token."',
@@ -44,19 +44,19 @@ module.exports = (token, id, name) => {
             'Cache-Control',
             'no-store',
             'x-fb-rev',
-            '3194763',
+            '3197549',
             'Content-Type',
             'text/javascript; charset=UTF-8',
             'x-fb-trace-id',
-            'DLwBlNNtwL2',
+            'BNvzw2rgrFJ',
             'Expires',
             'Sat, 01 Jan 2000 00:00:00 GMT',
             'X-FB-Debug',
-            'B1kTQlqcoUj//vznoeRDtArKt3iDqXxUVBbHeiWyx+R0LOH014p5meoGMyfzlFlvjEd+E1Q1erqV3ocByxV90A==',
+            'UusJt7vS5KqA4iLs+MPFTGmnvQHjUqT0bfakvSPZD/baktNEFl0Sf30kka4gxTy3kNkzN7HcnCKPuFDwwYsW5A==',
             'Date',
-            'Tue, 01 Aug 2017 22:27:00 GMT',
+            'Wed, 02 Aug 2017 22:45:13 GMT',
             'Connection',
-            'close',
+            'keep-alive',
             'Content-Length',
-            '113']);
+            '113' ]);
 };

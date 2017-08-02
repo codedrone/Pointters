@@ -74,22 +74,22 @@ const UserSchema = new Schema({
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: [ 'pushNotification', 'email', '' ]
+            enum: ['pushNotification', 'email', '']
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: [ 'pushNotification', 'email', '' ]
+            enum: ['pushNotification', 'email', '']
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: [ 'pushNotification', 'email', '' ]
+            enum: ['pushNotification', 'email', '']
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: [ 'daily', 'weekly' ]
+            enum: ['daily', 'weekly']
         }
     },
     phoneNumber: {
@@ -105,7 +105,7 @@ const UserSchema = new Schema({
     profileBackgroundImages: {}
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     const user = this;
     if (!user.isModified('password') && !user.isNew) return next();
 
@@ -118,7 +118,7 @@ UserSchema.pre('save', function(next) {
         .catch(next);
 });
 
-UserSchema.pre('save', function(next) {
+UserSchema.pre('save', function (next) {
     const user = this;
 
     if (!user.isModified('tempPassword') && !user.isNew || !user.tempPassword) return next();

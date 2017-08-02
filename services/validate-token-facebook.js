@@ -1,21 +1,14 @@
-const request = require('request');
+const Fb = require('fb');
 
 const parseBody = require('../lib/parse-body');
+const { facebook } = require('../config');
 
-const { urlToValidateTokenFacebook } = require('../config');
+console.log('facebook = ', facebook);
 
-module.exports = (token) => new Promise((resolve, reject) => {
-    const qs = { access_token: token };
-    const options = {
-        uri: urlToValidateTokenFacebook,
-        qs
-    };
-
-    request.get(options, (err, res) => {
-        if (err) return reject(err);
-        const body = parseBody(res.body);
-        resolve(body);
-    });
-});
+const fb = new Fb.Facebook(facebook);
 
 
+module.exports = async(token) => {
+    fb.setAccessToken(token);
+    return await fb.api('/me').catch((error) => ({ error }));
+};

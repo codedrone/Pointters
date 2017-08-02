@@ -15,7 +15,7 @@ describe('User services', () => {
         nock(body.token, id, `${body.firstName} ${body.LastName}`);
     });
     describe('SUCCESS', () => {
-        it('/user/facebook/token POST -> user found and return the token', async () => {
+        it('/user/facebook/token POST -> user found and return the token', async() => {
             const { body: res, headers } = await agent.post('/user/facebook/token')
                 .send(body)
                 .expect(200);
@@ -23,40 +23,21 @@ describe('User services', () => {
             assert(headers['x-expires-after']);
             assert(res.success === true);
             assert(typeof res.token === 'string');
-            const user = await findOne({ email: body.email });
+            const user = await findOne({
+                'socialNetwork.name': 'facebook',
+            });
             assert(user);
         });
     });
     describe('FAIL', () => {
-        it('/user/facebook/token POST -> should throw a error if email is not send', async () => {
+        it('/user/facebook/token POST -> should throw a error if token is not valid', async() => {
             const body = {
-                token: 'test'
-            };
-            const { body: res } = await agent.post('/user/facebook/token')
-                .send(body)
-                .expect(400);
-            assert(res.message === 'email is required');
-        });
-
-        it('/user/facebook/token POST -> should throw a error if token is not valid', async () => {
-            const body = {
-                token: 'invalid_token',
-                email: 'facebook@email.com'
+                token: 'invalid_token'
             };
             const { body: res } = await agent.post('/user/facebook/token')
                 .send(body)
                 .expect(403);
             assert(res.message === 'Token not Valid');
-        });
-
-        it('/user/facebook/token POST -> should throw a error if token is not send', async () => {
-            const body = {
-                email: 'the_pass_is_not_send@test.com'
-            };
-            const { body: res } = await agent.post('/user/facebook/token')
-                .send(body)
-                .expect(400);
-            assert(res.message === 'token is required');
         });
     });
 });

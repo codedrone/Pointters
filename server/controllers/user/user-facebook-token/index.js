@@ -4,6 +4,7 @@ const getHeaders = require('../../../lib/get-headers');
 const getSession = require('../../../lib/get-session');
 const validateFacebookToken = require('../../../../services/validate-token-facebook');
 const createUser = require('./create-user');
+const debug = require('../../../../lib/debug');
 
 
 const successMessage = 'Successful created a new user.';
@@ -11,7 +12,10 @@ const socialNetwork = 'facebook';
 module.exports = async(ctx) => {
     const { name, id: idFacebook, error } = await validateFacebookToken(ctx.request.body.token);
 
-    if (error) return ctx.throw(403, 'Token not Valid');
+    if (error) {
+        debug.service.error(`Error from facebook ${error.message}`);
+        return ctx.throw(403, 'Token not Valid');
+    }
 
     const savedUser = await findOne({
         'socialNetwork.id': idFacebook,
