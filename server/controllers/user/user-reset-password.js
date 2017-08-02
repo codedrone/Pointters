@@ -6,10 +6,9 @@ const getSession = require('../../lib/get-session');
 module.exports = async(ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
-    const { isMatch, error } = await comparePassword(user.tempPassword, ctx.request.body.oldPassword);
+    const isMatch = await comparePassword(ctx.request.body.oldPassword, user.tempPassword);
     const isValidToResetTheUser = user &&
         new Date() < new Date(user.resetPasswordExpires) &&
-        !error &&
         isMatch;
 
     if (!isValidToResetTheUser) return ctx.throw(400, 'The password not valid');

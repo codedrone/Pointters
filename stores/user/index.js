@@ -9,12 +9,7 @@ const findOne = (query) => client.findOne(query).exec()
     });
 const create = (data) => client.create(data).then((res) => res.toObject());
 
-const comparePassword = (passw, otherPassw) => new Promise((resolve) => {
-    bcrypt.compare(otherPassw, passw, (error, isMatch) => {
-        if (error) return resolve({ error });
-        resolve({ isMatch });
-    });
-});
+const comparePassword = (passw, hash) => bcrypt.compare(passw, hash);
 const remove = (query) => client.remove(query);
 const updateIfExistsAndCreateIfNot = async (query, data) => {
     await client.update(query, { $set: data }, { upsert: true, new: true });

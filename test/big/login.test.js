@@ -35,4 +35,20 @@ describe('login services', () => {
             assert(typeof res.token === 'string');
         });
     });
+
+    describe('FAIL', () => {
+        it('/user/login POST -> return error if pass is wrong', async () => {
+            const body = {
+                email: faker.internet.email(),
+                password: faker.internet.password()
+            };
+            await createUser(body);
+            body.password = faker.internet.password();
+            const { body: res } = await agent.post('/user/login')
+                .send(body)
+                .expect(200);
+            assert(res.success === false);
+            assert(res.msg === 'Authentication failed. Wrong password.');
+        });
+    });
 });

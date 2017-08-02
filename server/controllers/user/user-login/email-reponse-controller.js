@@ -10,8 +10,10 @@ module.exports = async(user, password, ctx) => {
         ctx.body = { success: false, msg: messageUserNotFound };
         return;
     }
-    const { isMatch, error } = await comparePassword(user.password, password);
-    if (!isMatch && error) {
+    console.log('user.password  = ', user.password, password);
+    const isMatch = await comparePassword(password, user.password);
+    console.log('isMatch, error = ', isMatch);
+    if (!isMatch) {
         ctx.body = { success: false, msg: messageAuthenticationFailed };
         return;
     }
