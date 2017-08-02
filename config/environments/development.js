@@ -12,7 +12,7 @@ module.exports = {
         secret: 'pointters-secret-key',
         expiresIn: 3600000 * 24 * 365,
     },
-    dbpath: 'mongodb://localhost/pointters-api',
+    dbpath: 'mongodb://127.0.0.1/pointters-api',
 
     mongo: {
         options: {

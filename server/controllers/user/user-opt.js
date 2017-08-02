@@ -1,5 +1,5 @@
 const { update, findOne } = require('../../../stores/user');
-const { optExpiresIn } = require('../../../config');
+const { optExpiresIn, longOfPasswordTemp } = require('../../../config');
 module.exports = async(ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
@@ -7,7 +7,7 @@ module.exports = async(ctx) => {
     if (!user) return ctx.throw(404, 'User not found');
 
     const updateTheAuthSettings = {
-        tempPassword: Math.random().toString(36).slice(-10),
+        tempPassword: Math.random().toString(36).slice(-longOfPasswordTemp),
         resetPasswordExpires: new Date(Date.now() + optExpiresIn)
     };
     ctx.body = updateTheAuthSettings;

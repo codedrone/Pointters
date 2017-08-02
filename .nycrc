@@ -8,14 +8,13 @@
     "functions": 99,
     "branches": 99,
     "reporter": [
-      "lcov",
+      "html",
       "text-summary"
     ],
     "extension": [
       ".js"
     ],
     "cache": true,
-    "all": true,
-    "report-dir": "./alternative"
+    "all": true
   }
 }
