@@ -166,7 +166,7 @@ body = {
 }
 ```
 
-## '/user/:id' --> GET
+## '/user' --> GET
 request:
 ```js
 params = {

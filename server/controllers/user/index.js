@@ -6,4 +6,7 @@ exports.postFacebookToken = require('./user-facebook-token');
 exports.userlogout = require('./user-logout');
 exports.userresetPassword = require('./user-reset-password');
 exports.userOpt = require('./user-opt');
+exports.getuserSettings = require('./user-get-settings');
+exports.putuserSettings = require('./user-put-settings');
+exports.postuserSettings = require('./user-post-settings');
 

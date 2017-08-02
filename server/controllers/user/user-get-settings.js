@@ -1,6 +1,6 @@
 const { findOne } = require('../../../stores/user');
 
-module.exports = async(ctx) => {
+module.exports = async (ctx) => {
     const userId = ctx.state.user.id;
     const user = await findOne({ _id: userId });
     if (!user) {
@@ -8,7 +8,6 @@ module.exports = async(ctx) => {
         ctx.body = 'No User found';
         return;
     }
-
     ctx.status = 200;
-    ctx.body = user;
+    ctx.body = user.settings;
 };

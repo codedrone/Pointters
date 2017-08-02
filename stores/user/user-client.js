@@ -67,6 +67,28 @@ const UserSchema = new Schema({
         type: Boolean,
         default: false
     },
+    settings: {
+        generalNotifications: {
+            type: String,
+            description: 'generalNotifications',
+            enum: [ 'pushNotification', 'email' ]
+        },
+        orderNotifications: {
+            type: String,
+            description: 'orderNotifications',
+            enum: [ 'pushNotification', 'email' ]
+        },
+        offerNotifications: {
+            type: String,
+            description: 'offerNotifications',
+            enum: [ 'pushNotification', 'email' ]
+        },
+        summaryEmail: {
+            type: String,
+            description: 'summaryEmail',
+            enum: [ 'daily', 'weekly' ]
+        }
+    },
     phoneNumber: {
         type: String,
         default: ''
@@ -80,7 +102,7 @@ const UserSchema = new Schema({
     profileBackgroundImages: {}
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     const user = this;
     if (!user.isModified('password') && !user.isNew) return next();
 
@@ -94,7 +116,7 @@ UserSchema.pre('save', function (next) {
     });
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     const user = this;
 
     if (!user.isModified('tempPassword') && !user.isNew || !user.tempPassword) return next();
