@@ -17,11 +17,13 @@
     "koa-session": "^5.4.0",
     "koa-socket.io": "^1.1.2",
     "koa-unless": "^1.0.7",
+    "koa2-validation": "0.0.2",
     "mongoose": "*",
     "node-pre-gyp": "^0.6.36",
     "request": "^2.81.0"
   },
   "scripts": {
+    "start": "pm2 start server/index.js --name",
     "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",
     "mocha": "mocha test/bootstrap $(find test -name *.test.js )"
   },

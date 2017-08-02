@@ -1,6 +1,10 @@
 # Pointers API REST
 
+```bash
+npm start name-id-of-api
+```
 
+you need to be installed pm2, nyc and mocha globally to start the server and run test.
 # Enviroments Variables
 
 | Variable        | Mean           | 
