@@ -2,6 +2,23 @@
   "name": "pointtersapiv1",
   "version": "1.0.0",
   "description": "The pointters REST API",
+  "nyc": {
+    "check-coverage": true,
+    "per-file": true,
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+    "reporter": [
+      "html",
+      "text"
+    ],
+    "extension": [
+      ".js"
+    ],
+    "cache": true,
+    "all": true
+  },
   "main": "server/app.js",
   "dependencies": {
     "bcrypt": "^1.0.2",
@@ -25,7 +42,7 @@
   },
   "scripts": {
     "start": "pm2 start server/index.js --name",
-    "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",
+    "test": "nyc mocha test/bootstrap $(find test -name *.test.js ) && nyc report",
     "mocha": "mocha test/bootstrap $(find test -name *.test.js )"
   },
   "author": "pointters",

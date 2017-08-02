@@ -18,7 +18,7 @@ module.exports = async(ctx) => {
     }
     const token = signToken({ id: savedUser._id, email: savedUser.email });
     ctx.response.set(getHeaders());
-    ctx.session = getSession(user);
+    ctx.session = getSession(savedUser);
     ctx.body = { success: true, id: savedUser._id, msg: successMessage, token: token };
 };
 
