@@ -3,7 +3,7 @@ const signToken = require('../../lib/sign-token');
 const getHeaders = require('../../lib/get-headers');
 const getSession = require('../../lib/get-session');
 
-module.exports = async(ctx) => {
+module.exports = async (ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
     const isMatch = await comparePassword(ctx.request.body.oldPassword, user.tempPassword);
@@ -19,7 +19,7 @@ module.exports = async(ctx) => {
         tempPassword: null
     };
     await update(queryToFindUser, updateTheAuthSettings);
-    const token = signToken({ id: user._id, email: user.email });
+    const token = signToken({ id: user._id });
     ctx.response.set(getHeaders());
     ctx.session = getSession(user);
     ctx.status = 200;

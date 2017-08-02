@@ -5,7 +5,7 @@ const { create: createUser, findOne } = require('../../stores/user');
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/user/setting GET -> should return user setting', async() => {
+        it('/user/setting POST -> should return user setting', async() => {
             const body = {
                 email: 'test_post_settings@test.com',
                 password: 'test'

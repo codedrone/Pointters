@@ -27,8 +27,11 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        unique: true,
-        required: true
+        unique: true
+    },
+    socialNetwork: {
+        name: String,
+        id: String,
     },
     isEmailValid: {
         type: Boolean,
@@ -71,17 +74,17 @@ const UserSchema = new Schema({
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: [ 'pushNotification', 'email' ]
+            enum: [ 'pushNotification', 'email', '' ]
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: [ 'pushNotification', 'email' ]
+            enum: [ 'pushNotification', 'email', '' ]
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: [ 'pushNotification', 'email' ]
+            enum: [ 'pushNotification', 'email', '' ]
         },
         summaryEmail: {
             type: String,
@@ -106,14 +109,13 @@ UserSchema.pre('save', function(next) {
     const user = this;
     if (!user.isModified('password') && !user.isNew) return next();
 
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) return next(err);
-        bcrypt.hash(user.password, salt, (err, hash) => {
-            if (err) return next(err);
+    bcrypt.genSalt(10)
+        .then((salt) => bcrypt.hash(user.password, salt))
+        .then((hash) => {
             user.password = hash;
             next();
-        });
-    });
+        })
+        .catch(next);
 });
 
 UserSchema.pre('save', function(next) {
@@ -121,14 +123,15 @@ UserSchema.pre('save', function(next) {
 
     if (!user.isModified('tempPassword') && !user.isNew || !user.tempPassword) return next();
 
-    bcrypt.genSalt(10, (err, salt) => {
-        if (err) return next(err);
-        bcrypt.hash(user.tempPassword, salt, (err, hash) => {
-            if (err) return next(err);
+    bcrypt.genSalt(10)
+        .then((salt) => bcrypt.hash(user.tempPassword, salt))
+        .then((hash) => {
             user.tempPassword = hash;
             next();
-        });
-    });
+        })
+        .catch(next);
 });
+
+UserSchema.index({ 'sociaNetwork.name': 1, 'socialNetwork.id': 1 });
 
 module.exports = mongo.model('User', UserSchema);

@@ -9,4 +9,4 @@ exports.userOpt = require('./user-opt');
 exports.getuserSettings = require('./user-get-settings');
 exports.putuserSettings = require('./user-put-settings');
 exports.postuserSettings = require('./user-post-settings');
-
+exports.deleteuserSettings = require('./user-delete-settings');

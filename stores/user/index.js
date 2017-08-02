@@ -17,5 +17,14 @@ const updateIfExistsAndCreateIfNot = async (query, data) => {
     return updatedOrCreated.map((item) => item.toObject());
 };
 const update = (query = {}, data = {}, options = {}) => client.update(query, { $set: data }, options).exec();
+const unset = (query = {}, data = {}, options = {}) => client.update(query, { $unset: data }, options).exec();
 
-module.exports = { findOne, create, update, comparePassword, remove, updateIfExistsAndCreateIfNot };
+module.exports = {
+    unset,
+    findOne,
+    create,
+    update,
+    comparePassword,
+    remove,
+    updateIfExistsAndCreateIfNot
+};

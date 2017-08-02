@@ -17,10 +17,11 @@ module.exports = async(user, password, ctx) => {
         ctx.body = { success: false, msg: messageAuthenticationFailed };
         return;
     }
-    const token = signToken({ id: user._id, email: user.email });
+    const token = signToken({ id: user._id });
     ctx.status = 200;
     ctx.response.set(getHeaders());
     ctx.session = getSession(user);
-    console.log('token = ', token);
+
+    console.log('token = ', token, ctx.session);
     ctx.body = { success: true, token: token };
 };
