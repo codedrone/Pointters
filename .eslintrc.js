@@ -10,7 +10,7 @@ module.exports = exports = {
     "globals": {
         "agent": true,
         "authorizationHeader": true,
-        "user": true,
+        "__user": true,
         "Cookie": true
     },
     "parserOptions": {

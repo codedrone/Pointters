@@ -6,7 +6,7 @@ const getSession = require('../../lib/get-session');
 
 const successMessage = 'Successful created a new user.';
 const failedMessage = 'Email already exists.';
-module.exports = async(ctx) => {
+module.exports = async (ctx) => {
     const savedUser = await create({
         email: ctx.request.body.email,
         password: ctx.request.body.password

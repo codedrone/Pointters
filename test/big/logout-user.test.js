@@ -16,7 +16,7 @@ describe('logout services', () => {
         });
 
         it('/user/logout POST -> should logout the user', async() => {
-            const { body, headers: { 'set-cookie': cookie } } = await agent.post('/user/logout')
+            const { headers: { 'set-cookie': cookie } } = await agent.post('/user/logout')
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);

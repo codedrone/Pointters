@@ -11,6 +11,7 @@ describe('User services', () => {
             const { body: res, headers } = await agent.post('/user/signup')
                 .send(body)
                 .expect(200);
+            console.log('res = ', res);
             assert.equal(headers['x-rate-limit'], '1000');
             assert(headers['x-expires-after']);
             assert(headers['set-cookie']);
