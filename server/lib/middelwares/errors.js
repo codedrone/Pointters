@@ -1,8 +1,8 @@
-const debug = require('../../../../lib/debug');
+const debug = require('../../../lib/debug');
 
-const { error: { stackTraceLimit } } = require('../../../../config');
+const { error: { stackTraceLimit } } = require('../../../config');
 
-module.exports = () => async(ctx, next) => {
+module.exports = () => async (ctx, next) => {
     Error.stackTraceLimit = stackTraceLimit;
     try {
         await next();

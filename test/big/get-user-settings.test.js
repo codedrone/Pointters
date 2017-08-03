@@ -26,7 +26,6 @@ describe('User services', () => {
             });
             const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
-            console.log(authorizationHeader, Cookie);
             const { body: res } = await agent.get('/user/setting')
                 .set(authorizationHeader)
                 .set(Cookie)

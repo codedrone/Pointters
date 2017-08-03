@@ -3,7 +3,7 @@ const assert = require('assert');
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/user/signup POST -> user found and return the token', async() => {
+        it('/user/signup POST -> user found and return the token', async () => {
             const body = {
                 email: 'test_signup@test.com',
                 password: 'test'
@@ -11,7 +11,7 @@ describe('User services', () => {
             const { body: res, headers } = await agent.post('/user/signup')
                 .send(body)
                 .expect(200);
-            console.log('res = ', res);
+            ('res = ', res);
             assert.equal(headers['x-rate-limit'], '1000');
             assert(headers['x-expires-after']);
             assert(headers['set-cookie']);
@@ -20,7 +20,7 @@ describe('User services', () => {
         });
     });
     describe('FAIL', () => {
-        it('/user/signup POST -> should a error if email is not send', async() => {
+        it('/user/signup POST -> should a error if email is not send', async () => {
             const body = {
                 password: 'test'
             };
@@ -30,7 +30,7 @@ describe('User services', () => {
             assert(res.message === 'email is required');
         });
 
-        it('/user/signup POST -> should a error if email is not send', async() => {
+        it('/user/signup POST -> should a error if email is not send', async () => {
             const body = {
                 email: 'the_pass_is_not_send@test.com'
             };

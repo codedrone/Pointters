@@ -10,3 +10,6 @@ exports.getuserSettings = require('./user-get-settings');
 exports.putuserSettings = require('./user-put-settings');
 exports.postuserSettings = require('./user-post-settings');
 exports.deleteuserSettings = require('./user-delete-settings');
+exports.getuserFollow = require('./user-get-follow');
+exports.deleteuserFollow = require('./user-delete-follow');
+exports.postuserFollow = require('./user-post-follow');

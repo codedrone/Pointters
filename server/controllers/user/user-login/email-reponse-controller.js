@@ -10,9 +10,7 @@ module.exports = async(user, password, ctx) => {
         ctx.body = { success: false, msg: messageUserNotFound };
         return;
     }
-    console.log('user.password  = ', user.password, password);
     const isMatch = await comparePassword(password, user.password);
-    console.log('isMatch = ', isMatch);
     if (!isMatch) {
         ctx.body = { success: false, msg: messageAuthenticationFailed };
         return;
@@ -22,6 +20,5 @@ module.exports = async(user, password, ctx) => {
     ctx.response.set(getHeaders());
     ctx.session = getSession(user);
 
-    console.log('token = ', token, ctx.session);
     ctx.body = { success: true, token: token };
 };

@@ -5,11 +5,20 @@ const getSession = require('../../lib/get-session');
 
 
 const successMessage = 'Successful created a new user.';
-module.exports = async (ctx) => {
-    const savedUser = await create({
+const duplicateKeyRegex = /.*duplicate.*email.*/;
+const errorMessageDuplicateEmail = 'Email is already used';
+
+module.exports = async(ctx) => {
+    const dataOfUserToSignUp = {
         email: ctx.request.body.email,
         password: ctx.request.body.password
-    });
+    };
+    const savedUser = await create(dataOfUserToSignUp)
+        .catch((error) => ({ error }));
+    const isDuplicateTheEmail = savedUser.error && duplicateKeyRegex.test(savedUser.error.message);
+
+    if (isDuplicateTheEmail) ctx.throw(409, errorMessageDuplicateEmail);
+
     const token = signToken({ id: savedUser._id, email: savedUser.email });
     ctx.response.set(getHeaders());
     ctx.session = getSession(savedUser);

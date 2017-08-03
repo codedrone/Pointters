@@ -6,11 +6,12 @@ const auth = require('./middelwares/auth');
 const errors = require('./middelwares/errors');
 const session = require('koa-session');
 const cookie = require('koa-cookie');
+const getQueryToFindUserById = require('./middelwares/query-to-find-user');
 
 
 const app = new Koa();
 const { jwt: { secret, expiresIn } } = require('../../config');
-app.keys = [ secret ];
+app.keys = [secret];
 const pathProtected = [
     '/user/login',
     '/user/signup',
@@ -38,4 +39,5 @@ app.use(bodyParser({
     jsonLimit: '5mb',
     textLimit: '5mb'
 }));
+app.use(getQueryToFindUserById());
 module.exports = app;

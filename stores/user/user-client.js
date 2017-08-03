@@ -27,7 +27,6 @@ const UserSchema = new Schema({
     },
     email: {
         type: String,
-        unique: true
     },
     socialNetwork: {
         name: String,
@@ -74,23 +73,27 @@ const UserSchema = new Schema({
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: ['pushNotification', 'email', '']
+            enum: [ 'pushNotification', 'email', '' ]
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: ['pushNotification', 'email', '']
+            enum: [ 'pushNotification', 'email', '' ]
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: ['pushNotification', 'email', '']
+            enum: [ 'pushNotification', 'email', '' ]
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: ['daily', 'weekly']
+            enum: [ 'daily', 'weekly' ]
         }
+    },
+    following: {
+        type: [ String ],
+        default: []
     },
     phoneNumber: {
         type: String,
@@ -105,7 +108,7 @@ const UserSchema = new Schema({
     profileBackgroundImages: {}
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     const user = this;
     if (!user.isModified('password') && !user.isNew) return next();
 
@@ -118,7 +121,7 @@ UserSchema.pre('save', function (next) {
         .catch(next);
 });
 
-UserSchema.pre('save', function (next) {
+UserSchema.pre('save', function(next) {
     const user = this;
 
     if (!user.isModified('tempPassword') && !user.isNew || !user.tempPassword) return next();
@@ -133,5 +136,6 @@ UserSchema.pre('save', function (next) {
 });
 
 UserSchema.index({ 'sociaNetwork.name': 1, 'socialNetwork.id': 1 });
+UserSchema.index({ email: 1 }, { unique: true, sparse: true });
 
 module.exports = mongo.model('User', UserSchema);
