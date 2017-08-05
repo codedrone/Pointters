@@ -1,6 +1,7 @@
 const supertest = require('supertest');
 
-const { create: createUser, remove } = require('../stores/user');
+const { create: createUser, remove: removeUser } = require('../stores/user');
+const { remove: removeService } = require('../stores/user');
 const app = require('../server');
 
 
@@ -18,5 +19,6 @@ before(async() => {
 });
 
 after(async() => {
-    await remove({});
+    await removeUser({});
+    await removeService({});
 });
