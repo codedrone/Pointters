@@ -1,17 +1,20 @@
-const { push: pushToLikes } = require('../../../stores/user/likes');
-const { findOne: findOneService } = require('../../../stores/user');
+const { get: getToLikes } = require('../../../stores/user/likes');
+const { findOne: findOneService } = require('../../../stores/service');
 
 const errorMessage = 'Service does not exists';
-const errorInPushToLikes = 'Error in push to likes';
+const errorInGetLikes = 'Error in get to likes';
 
 module.exports = async(ctx) => {
+    console.log('ctx.params.idService', ctx.params.idService);
     const service = await findOneService({ _id: ctx.params.idService });
 
     if (!service) ctx.throw(400, errorMessage);
 
-    const { error } = await pushToLikes(ctx.queryToFindUserById, ctx.params.idService);
+    const likes = await getToLikes(ctx.queryToFindUserById);
 
-    if (error) ctx.throw(500, errorInPushToLikes);
+    if (likes.error) ctx.throw(500, errorInGetLikes);
 
-    ctx.body = { success: true };
+    console.log('likes = ', likes);
+
+    ctx.body = { likes: new Set(likes).has(ctx.params.idService) };
 };

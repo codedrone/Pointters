@@ -6,7 +6,7 @@ const { findOne: findOneUser, update: updateUser } = require('../../../stores/us
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service/like POST sohuld create a service given', async () => {
+        it('/service/watch POST sohuld create a service given', async() => {
             const service = {
                 userId: 'id of user',
                 category: {
@@ -27,16 +27,17 @@ describe('User services', () => {
             await updateUser({
                 email: __user.email
             },
-                {
-                    likes: []
-                });
-            const { body: res } = await agent.post(`/service/${serviceCreated._id}/like`)
+            {
+                watching: []
+            });
+            const { body: res } = await agent
+                .post(`/service/${serviceCreated._id}/watch`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             assert.deepEqual(res, { success: true });
             const user = await findOneUser({ _id: __user._id });
-            assert.deepEqual(user.likes, [serviceCreated._id]);
+            assert.deepEqual(user.watching, [ serviceCreated._id ]);
         });
     });
 

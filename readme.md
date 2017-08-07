@@ -279,5 +279,162 @@ body = {
 
 ```
 
+## /user/:followedId/follow -> GET
+
+request:
+```js
+body = {}
+```
+
+response: 
+
+```js
+body = {
+    following: boolean()
+}
+
+```
+
+## /user/:followedId/follow -> DELETE
+
+request:
+```js
+body = {}
+```
+
+response: 
+
+```js
+body = {
+    success: boolean()
+}
+
+```
+
+## /user/:followedId/follow -> POST
+
+request:
+```js
+body = {}
+```
+
+response: 
+
+```js
+body = {
+    success: boolean()
+}
+
+```
+
+## /user/settings -> POST
+
+request:
+
+
+```js
+
+const generalNotifications = [ 'pushNotification', 'email' ];
+const orderNotifications = [ 'pushNotification', 'email' ];
+const offerNotifications = [ 'pushNotification', 'email' ];
+const summaryEmail = [ 'daily', 'weekly' ];
+   
+body = {
+    generalNotifications: string().valid(generalNotifications),
+    orderNotifications: string().valid(orderNotifications),
+    offerNotifications: string().valid(offerNotifications),
+    summaryEmail: string().valid(summaryEmail)
+}
+```
+
+response: 
+
+```js
+body = {
+    success: boolean()
+}
+
+```
+
+## /user/settings -> PUT
+
+request:
+
+
+```js
+
+const generalNotifications = [ 'pushNotification', 'email' ];
+const orderNotifications = [ 'pushNotification', 'email' ];
+const offerNotifications = [ 'pushNotification', 'email' ];
+const summaryEmail = [ 'daily', 'weekly' ];
+   
+body = {
+    generalNotifications: string().valid(generalNotifications),
+    orderNotifications: string().valid(orderNotifications),
+    offerNotifications: string().valid(offerNotifications),
+    summaryEmail: string().valid(summaryEmail)
+}
+```
+
+response: 
+
+```js
+body = {
+    success: boolean()
+}
+
+```
+
+## /user/settings -> DELETE
+
+request:
+
+
+```js
+ validSettingsToDelete = [
+     'generalNotifications',
+     'orderNotifications',
+     'offerNotifications',
+     'summaryEmail'
+     ]
+body = {
+    fields: array().items(validSettingsToDelete)
+}
+```
+
+response: 
+
+```js
+body = {
+    success: boolean()
+}
+
+```
+
+## /user/settings -> GET
+
+request:
+
+
+```js
+ validSettingsToDelete = [
+     'generalNotifications',
+     'orderNotifications',
+     'offerNotifications',
+     'summaryEmail'
+     ]
+body = {
+}
+```
+
+response: 
+
+```js
+body = {
+    success: boolean()
+}
+
+```
+
 [1]: https://github.com/18F/automated-testing-playbook/blob/master/pages/principles-practices-idioms.md#small-medium-and-large-test-sizes-the-test-size-pyramid
 [other]:https://testing.googleblog.com/2010/12/test-sizes.html

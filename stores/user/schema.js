@@ -87,10 +87,14 @@ module.exports = {
         }
     },
     likes: {
-        type: [],
+        type: [ String ],
         default: []
     },
     following: {
+        type: [ String ],
+        default: []
+    },
+    watching: {
         type: [ String ],
         default: []
     },
