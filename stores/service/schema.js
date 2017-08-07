@@ -15,11 +15,14 @@ module.exports = {
     },
     media: {
         type: {},
+        required: true
     },
     pricing: {
-        type: {}
+        type: {},
+        required: true
     },
     fulfillmentMethod: {
-        type: {}
+        type: {},
+        required: true
     }
 };

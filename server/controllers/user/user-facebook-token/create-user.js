@@ -15,5 +15,5 @@ module.exports = async(ctx, { idFacebook, firstName, lastName }) => {
         firstName,
         lastName
     };
-    return (await updateIfExistsAndCreateIfNot(queryToFindUser, data))[0];
+    return await updateIfExistsAndCreateIfNot(queryToFindUser, data);
 };

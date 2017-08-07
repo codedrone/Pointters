@@ -1,23 +1,21 @@
-const { findOne, update } = require('../../../stores/user');
-const checkIFIsValidId = require('../../lib/is-valid-id');
+const { findOne } = require('../../../stores/user');
+const { pull } = require('../../../stores/user/following');
+const checkIfIsValidId = require('../../lib/is-valid-id');
 const userNoValidMessage = 'User to follow no valid';
 const idInvalidMessage = 'Id is not Valid';
 
 module.exports = async(ctx) => {
-    const isValidId = await checkIFIsValidId(ctx.params.followedId);
+    const isValidId = await checkIfIsValidId(ctx.params.followedId);
     if (!isValidId) return ctx.throw(400, idInvalidMessage);
 
     const userToUnfollow = await findOne({ _id: ctx.params.followedId });
 
-    if (!userToUnfollow) return ctx.throw(400, userNoValidMessage);
+    if (!userToUnfollow || userToUnfollow.error) return ctx.throw(200, userNoValidMessage);
 
-    ctx.body = { success: true };
-    const user = await findOne(ctx.queryToFindUserById);
-    const following = user.following;
-    const setOfFollowing = new Set(following);
-    if (!setOfFollowing.has(userToUnfollow._id)) return;
+    ctx.body = {
+        success: true
+    };
+    const { error } = await pull(ctx.queryToFindUserById, userToUnfollow._id);
 
-    setOfFollowing.delete(userToUnfollow._id);
-    user.following = Array.from(setOfFollowing);
-    await update(ctx.queryToFindUserById, { following: user.following });
+    if (error) ctx.throw(500, error.message);
 };

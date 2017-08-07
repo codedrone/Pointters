@@ -86,6 +86,10 @@ module.exports = {
             enum: [ 'daily', 'weekly' ]
         }
     },
+    likes: {
+        type: [],
+        default: []
+    },
     following: {
         type: [ String ],
         default: []

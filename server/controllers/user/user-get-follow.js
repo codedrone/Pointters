@@ -1,8 +1,10 @@
-const { findOne } = require('../../../stores/user');
+const { get } = require('../../../stores/user/following');
 
-module.exports = async (ctx) => {
-    const userFollowing = await findOne(ctx.queryToFindUserById);
-    const following = userFollowing.following.map((followId) => followId.toString());
+module.exports = async(ctx) => {
+    const following = await get(ctx.queryToFindUserById);
+
+    if (following.error) ctx.throw(500, following.error.message);
+
     ctx.body = {
         following: new Set(following).has(ctx.params.followedId)
     };

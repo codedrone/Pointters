@@ -13,15 +13,20 @@ module.exports = async(ctx) => {
         email: ctx.request.body.email,
         password: ctx.request.body.password
     };
-    const savedUser = await create(dataOfUserToSignUp)
-        .catch((error) => ({ error }));
-    const isDuplicateTheEmail = savedUser.error && duplicateKeyRegex.test(savedUser.error.message);
+    const savedUser = await create(dataOfUserToSignUp);
+    const isDuplicateTheEmail = savedUser.error &&
+        duplicateKeyRegex.test(savedUser.error.message);
 
     if (isDuplicateTheEmail) ctx.throw(409, errorMessageDuplicateEmail);
 
     const token = signToken({ id: savedUser._id, email: savedUser.email });
     ctx.response.set(getHeaders());
     ctx.session = getSession(savedUser);
-    ctx.body = { success: true, id: savedUser._id, msg: successMessage, token: token };
+    ctx.body = {
+        success: true,
+        id: savedUser._id, msg:
+        successMessage,
+        token
+    };
 };
 

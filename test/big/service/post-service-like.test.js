@@ -1,12 +1,13 @@
 const assert = require('assert');
 
-const { findOne, create } = require('../../../stores/service');
+const { create: createService } = require('../../../stores/service');
+const { findOne: findOneUser } = require('../../../stores/user');
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
         it('/service POST sohuld create a service given', async() => {
-            const body = {
+            const service = {
                 userId: 'id of user',
                 category: {
                     category: 'category'
@@ -22,16 +23,16 @@ describe('User services', () => {
                     fulfillmentMethod: 'fulfillmentMethod'
                 },
             };
-            const serviceCreated = await create(body);
-            const { body: { service: res } } = await agent.get(`/service/${serviceCreated._id}`)
-                .send(body)
+            const serviceCreated = await createService(service);
+            console.log('serviceCreated ', serviceCreated);
+            const { body: res } = await agent.post(`/service/${serviceCreated._id}/like`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res.category, body.category);
-            assert.deepEqual(res.description, body.description);
-            assert.deepEqual(res.pricing, body.pricing);
-            assert.deepEqual(res.fulfillmentMethod, body.fulfillmentMethod);
+            assert.deepEqual(res, { success: true });
+            const user = await findOneUser({ _id: __user._id });
+            console.log('user = ', user);
+            assert.deepEqual(user.likes, [ serviceCreated._id ]);
         });
     });
 

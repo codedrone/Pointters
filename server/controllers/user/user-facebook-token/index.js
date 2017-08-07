@@ -1,3 +1,4 @@
+
 const { findOne } = require('../../../../stores/user');
 const signToken = require('../../../lib/sign-token');
 const getHeaders = require('../../../lib/get-headers');
@@ -6,7 +7,7 @@ const validateFacebookToken = require('../../../../services/validate-token-faceb
 const createUser = require('./create-user');
 const debug = require('../../../../lib/debug');
 
-
+const errorCreatingUser = 'Error on create user';
 const successMessage = 'Successful created a new user.';
 const socialNetwork = 'facebook';
 module.exports = async(ctx) => {
@@ -24,10 +25,18 @@ module.exports = async(ctx) => {
     let userCreatedOrUpdated = savedUser;
     const [ firstName, lastName ] = name.split(' ');
     if (!savedUser) userCreatedOrUpdated = await createUser(ctx, { idFacebook, firstName, lastName });
+
+    if (userCreatedOrUpdated.error) ctx.throw(500, errorCreatingUser);
+
     const paramsToGetToken = { id: userCreatedOrUpdated._id };
     const token = signToken(paramsToGetToken);
     ctx.response.set(getHeaders());
     ctx.session = getSession(userCreatedOrUpdated);
-    ctx.body = { success: true, id: userCreatedOrUpdated._id, msg: successMessage, token: token };
+    ctx.body = {
+        success: true,
+        id: userCreatedOrUpdated._id,
+        msg: successMessage,
+        token
+    };
 };
 

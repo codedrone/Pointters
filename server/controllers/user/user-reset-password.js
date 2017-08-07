@@ -2,14 +2,17 @@ const { update, findOne, comparePassword } = require('../../../stores/user');
 const signToken = require('../../lib/sign-token');
 const getHeaders = require('../../lib/get-headers');
 const getSession = require('../../lib/get-session');
+const errorMessageInUpdateUser = 'Error on reset password';
 
-module.exports = async (ctx) => {
+module.exports = async(ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
     const isMatch = await comparePassword(ctx.request.body.oldPassword, user.tempPassword);
     const isValidToResetTheUser = user &&
         new Date() < new Date(user.resetPasswordExpires) &&
-        isMatch;
+        isMatch &&
+        !user.error &&
+        !isMatch.error;
 
     if (!isValidToResetTheUser) return ctx.throw(400, 'The password not valid');
 
@@ -18,7 +21,9 @@ module.exports = async (ctx) => {
         resetPasswordExpires: null,
         tempPassword: null
     };
-    await update(queryToFindUser, updateTheAuthSettings);
+    const { error } = await update(queryToFindUser, updateTheAuthSettings);
+
+    if (error) ctx.throw(500, errorMessageInUpdateUser);
     const token = signToken({ id: user._id });
     ctx.response.set(getHeaders());
     ctx.session = getSession(user);

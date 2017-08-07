@@ -6,7 +6,7 @@ const getHeaders = require('../../../lib/get-headers');
 const getSession = require('../../../lib/get-session');
 
 module.exports = async(user, password, ctx) => {
-    if (!user) {
+    if (!user || user.error) {
         ctx.body = { success: false, msg: messageUserNotFound };
         return;
     }

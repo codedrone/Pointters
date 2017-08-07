@@ -1,9 +1,11 @@
 const { update } = require('../../../stores/user');
 
-module.exports = async (ctx) => {
-    const userId = ctx.state.user.id;
+const errorMessageInUpdateSettings = 'Error in update settings';
+module.exports = async(ctx) => {
     const settings = ctx.request.body;
-    await update({ _id: userId }, { settings });
+    const { error } = await update(ctx.queryToFindUserById, { settings });
+
+    if (error) ctx.throw(500, errorMessageInUpdateSettings);
     ctx.status = 200;
     ctx.body = { success: true };
 };

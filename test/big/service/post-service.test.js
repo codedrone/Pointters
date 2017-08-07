@@ -5,8 +5,9 @@ const { findOne } = require('../../../stores/service');
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service POST sohuld create a service given', async () => {
+        it('/service POST sohuld create a service given', async() => {
             const body = {
+                userId: 'id of user',
                 category: {
                     category: 'category'
                 },

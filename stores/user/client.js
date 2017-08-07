@@ -32,7 +32,13 @@ UserSchema.pre('save', function(next) {
         .catch(next);
 });
 
-UserSchema.index({ 'sociaNetwork.name': 1, 'socialNetwork.id': 1 });
+UserSchema.index({
+    'sociaNetwork.name': 1,
+    'socialNetwork.id': 1
+}, {
+    unique: true,
+    sparse: true
+});
 UserSchema.index({ email: 1 }, { unique: true, sparse: true });
 
 module.exports = mongo.model('user', UserSchema);
