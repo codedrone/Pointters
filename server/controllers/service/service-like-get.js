@@ -8,13 +8,11 @@ module.exports = async(ctx) => {
     console.log('ctx.params.idService', ctx.params.idService);
     const service = await findOneService({ _id: ctx.params.idService });
 
-    if (!service) ctx.throw(400, errorMessage);
+    if (!service || service.error) ctx.throw(400, errorMessage);
 
     const likes = await getToLikes(ctx.queryToFindUserById);
 
     if (likes.error) ctx.throw(500, errorInGetLikes);
-
-    console.log('likes = ', likes);
 
     ctx.body = { likes: new Set(likes).has(ctx.params.idService) };
 };

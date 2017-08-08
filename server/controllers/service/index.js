@@ -8,5 +8,7 @@ module.exports = {
     deleteserviceLike: require('./service-like-delete'),
     postserviceWatching: require('./service-watching-post'),
     getserviceWatching: require('./service-watching-get'),
-    deleteserviceWatching: require('./service-watching-delete')
+    deleteserviceWatching: require('./service-watching-delete'),
+    postserviceReview: require('./service-review-post'),
+    getserviceReview: require('./service-review-get')
 };

@@ -11,10 +11,7 @@ module.exports = async(user, password, ctx) => {
         return;
     }
     const isMatch = await comparePassword(password, user.password);
-    if (!isMatch) {
-        ctx.body = { success: false, msg: messageAuthenticationFailed };
-        return;
-    }
+    if (!isMatch) ctx.throw(401, messageAuthenticationFailed);
     const token = signToken({ id: user._id });
     ctx.status = 200;
     ctx.response.set(getHeaders());

@@ -6,8 +6,11 @@ module.exports = async(ctx) => {
     console.log(' ctx.params.idService', ctx.params.idService);
     const service = await findOneService({ _id: ctx.params.idService });
 
-    if (!service) ctx.throw(400, errorMessage);
+    if (!service || service.error) ctx.throw(400, errorMessage);
 
-    await pushToWatching(ctx.queryToFindUserById, ctx.params.idService);
+    const { error } = await pushToWatching(ctx.queryToFindUserById, ctx.params.idService);
+
+    if (error) ctx.throw(500, error.message);
+
     ctx.body = { success: true };
 };

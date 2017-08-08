@@ -24,5 +24,6 @@ module.exports = {
     fulfillmentMethod: {
         type: {},
         required: true
-    }
+    },
+    createdAt: Date
 };

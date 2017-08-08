@@ -1,69 +1,49 @@
 module.exports = {
-    firstName: {
-        type: String,
-        default: ''
+    awards: {
+        type: String
     },
-    lastName: {
+    password: {
         type: String,
-        default: ''
+        required: true
     },
     companyName: {
-        type: String,
-        default: ''
+        type: String
     },
-    gender: {
-        type: String,
-        default: ''
+    description: {
+        type: String
+    },
+    education: {
+        type: String
+    },
+    email: {
+        type: String
+    },
+    firstName: {
+        type: String
+    },
+    insurance: {
+        type: String
+    },
+    lastName: {
+        type: String
+    },
+    license: {
+        type: String
+    },
+    location: {
+        type: Object
+    },
+    phone: {
+        type: String
+    },
+    profilePic: {
+        type: String
+    },
+    profileBackgroundImages: {
+        type: Object
     },
     resetPasswordExpires: String,
     tempPassword: String,
-    profilePic: {
-        type: Array
-    },
-    email: {
-        type: String,
-    },
-    socialNetwork: {
-        name: String,
-        id: String,
-    },
-    isEmailValid: {
-        type: Boolean,
-        default: false
-    },
-    location: {
-        type: Object,
-        default: '',
-        index: true
-    },
-    birthday: {
-        type: String,
-        default: ''
-    },
-    description: {
-        type: String,
-        default: ''
-    },
-    education: {
-        type: String,
-        default: ''
-    },
-    awards: {
-        type: String,
-        default: ''
-    },
-    license: {
-        type: String,
-        default: ''
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
-    },
-    isActive: {
-        type: Boolean,
-        default: false
-    },
     settings: {
         generalNotifications: {
             type: String,
@@ -101,12 +81,5 @@ module.exports = {
     phoneNumber: {
         type: String,
         default: ''
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    insurance: String,
-    phone: String,
-    profileBackgroundImages: {}
+    }
 };

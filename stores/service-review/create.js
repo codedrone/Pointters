@@ -7,6 +7,7 @@ module.exports = (client) => (data) => {
             if (!_res) return _res;
             const res = _res.toObject();
             if (res._id) res._id = res._id.toString();
+            console.log('review created : ', res);
             return res;
         }));
 };

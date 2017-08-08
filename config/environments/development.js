@@ -1,6 +1,9 @@
 
 module.exports = {
     apiName: 'Pinters-API-dev',
+    review: {
+        minLengthForComment: 0
+    },
     error: {
         stackTraceLimit: 12
     },

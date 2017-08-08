@@ -46,9 +46,8 @@ describe('login services', () => {
             body.password = faker.internet.password();
             const { body: res } = await agent.post('/user/login')
                 .send(body)
-                .expect(200);
-            assert(res.success === false);
-            assert(res.msg === 'Authentication failed. Wrong password.');
+                .expect(401);
+            assert(res.message === 'Authentication failed. Wrong password.');
         });
     });
 });
