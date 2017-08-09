@@ -1,6 +1,4 @@
 const { review: { minLengthForComment } } = require('../../config');
-
-
 module.exports = {
     userId: {
         type: String,

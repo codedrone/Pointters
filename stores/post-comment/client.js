@@ -3,5 +3,4 @@ const Schema = mongo.Schema;
 const schema = require('./schema');
 const serviceSchema = new Schema(schema);
 
-
-module.exports = mongo.model('service', serviceSchema);
+module.exports = mongo.model('post-comment', serviceSchema);
