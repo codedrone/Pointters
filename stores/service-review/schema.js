@@ -1,12 +1,30 @@
+<<<<<<< HEAD
+<<<<<<< HEAD
 const { review: { minLengthForComment } } = require('../../config');
+=======
+>>>>>>> the test to get review is added
+=======
+const { review: { minLengthForComment } } = require('../../config');
+
+
+>>>>>>> the post and comment store is added
 module.exports = {
     userId: {
         type: String,
         requied: true
     },
     comment: {
+<<<<<<< HEAD
+<<<<<<< HEAD
         type: String,
         minlength: minLengthForComment
+=======
+        type: String
+>>>>>>> the test to get review is added
+=======
+        type: String,
+        minlength: minLengthForComment
+>>>>>>> the post and comment store is added
     },
     createdAt: {
         type: Date

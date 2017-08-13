@@ -7,20 +7,12 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/service POST sohuld create a service given', async() => {
             const body = {
-                userId: 'id of user',
-                category: {
-                    category: 'category'
-                },
-                description: 'description',
+                userId: __user._id,
+                message: 'mesage',
                 media: {
-                    media: 'media'
+                    media: 'the media is here'
                 },
-                pricing: {
-                    pricing: 'pricing'
-                },
-                fulfillmentMethod: {
-                    fulfillmentMethod: 'fulfillmentMethod'
-                },
+                tags: [ 'tags_1', 'tag_2' ]
             };
             const serviceCreated = await create(body);
             const { body: { service: res } } = await agent.get(`/service/${serviceCreated._id}`)
@@ -28,10 +20,10 @@ describe('User services', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res.category, body.category);
-            assert.deepEqual(res.description, body.description);
-            assert.deepEqual(res.pricing, body.pricing);
-            assert.deepEqual(res.fulfillmentMethod, body.fulfillmentMethod);
+            console.log('res = ', res);
+            assert.deepEqual(res.message, body.message);
+            assert.deepEqual(res.media, body.media);
+            assert.deepEqual(res.tags, body.tags);
         });
     });
 

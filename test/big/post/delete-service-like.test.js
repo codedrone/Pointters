@@ -38,8 +38,3 @@ describe('User services', () => {
             assert.deepEqual(user.likes, []);
         });
     });
-
-    describe('FAIL', () => {
-
-    });
-});

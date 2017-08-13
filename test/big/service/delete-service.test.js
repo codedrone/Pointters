@@ -5,7 +5,7 @@ const { findOne, create } = require('../../../stores/service');
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service POST sohuld create a service given', async() => {
+        it('/service POST sohuld create a service given', async () => {
             const body = {
                 userId: 'id of user',
                 category: {
@@ -23,12 +23,14 @@ describe('User services', () => {
                 },
             };
             const serviceCreated = await create(body);
+            console.log('serviceCreated : ', serviceCreated);
             await agent.delete(`/service/${serviceCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             const deleted = await findOne({ _id: serviceCreated._id });
-            assert(!deleted);
+            console.log('deleted ', deleted);
+            assert(!deleted.isActive);
         });
     });
 

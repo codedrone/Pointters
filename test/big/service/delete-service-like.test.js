@@ -1,12 +1,12 @@
 const assert = require('assert');
 
 const { create: createService } = require('../../../stores/service');
-const { create: createUser, findOne: findOneUser } = require('../../../stores/user');
+const { update: updateUser, findOne: findOneUser } = require('../../../stores/user');
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service/like DELETE sohuld create a service given', async () => {
+        it('/service/like DELETE sohuld create a service given', async() => {
             const service = {
                 userId: 'id of user',
                 category: {
@@ -24,11 +24,11 @@ describe('User services', () => {
                 },
             };
             const serviceCreated = await createService(service);
-            await createUser({
-                email: __user.email
+            await updateUser({
+                _id: __user._id
             }, {
-                    likes: [serviceCreated._id]
-                });
+                likes: [ serviceCreated._id ]
+            });
             const { body: res } = await agent.delete(`/service/${serviceCreated._id}/like`)
                 .set(authorizationHeader)
                 .set(Cookie)

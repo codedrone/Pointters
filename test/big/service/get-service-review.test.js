@@ -1,12 +1,27 @@
 const assert = require('assert');
 
 const { create: createService } = require('../../../stores/service');
+<<<<<<< HEAD
+<<<<<<< HEAD
 const { create: createReview } = require('../../../stores/service-review');
+=======
+const {
+    findOne: findOneReview,
+    create: createReview
+} = require('../../../stores/service-review');
+>>>>>>> the test to get review is added
+=======
+const { create: createReview } = require('../../../stores/service-review');
+>>>>>>> the post and comment store is added
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
+<<<<<<< HEAD
         it('/service/watch POST sohuld create a service given', async () => {
+=======
+        it('/service/watch POST sohuld create a service given', async() => {
+>>>>>>> the test to get review is added
             const service = {
                 userId: 'id of user',
                 category: {

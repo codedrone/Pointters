@@ -14,14 +14,9 @@ describe('User services', () => {
                 },
                 description: 'description',
                 media: {
-                    media: 'media'
+                    media: 'the media is here'
                 },
-                pricing: {
-                    pricing: 'pricing'
-                },
-                fulfillmentMethod: {
-                    fulfillmentMethod: 'fulfillmentMethod'
-                },
+                tags: ['tags_1', 'tag_2']
             };
             const serviceCreated = await createService(service);
             await updateUser({
