@@ -32,8 +32,8 @@ describe('User/:id services', () => {
                 .set(Cookie)
                 .expect(200);
             console.log('res = ', res);
-            assert.equal(res.email, userOther.email);
-            assert.equal(res.password, userOther.password);
+            assert.equal(res.user.email, userOther.email);
+            assert.equal(res.user.password, userOther.password);
         });
     });
 });

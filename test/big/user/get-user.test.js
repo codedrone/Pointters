@@ -3,7 +3,7 @@ const assert = require('assert');
 const { create: createUser } = require('../../../stores/user');
 
 
-describe('User/:id services', () => {
+describe('User services', () => {
     describe('SUCCESS', () => {
         it('/user GET -> should return user', async() => {
             const body = {
@@ -21,8 +21,8 @@ describe('User/:id services', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.equal(res.email, user.email);
-            assert.equal(res.password, user.password);
+            assert.equal(res.user.email, user.email);
+            assert.equal(res.user.password, user.password);
         });
     });
 });

@@ -54,38 +54,50 @@ module.exports = {
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: ['pushNotification', 'email', '']
+            enum: [ 'pushNotification', 'email', '' ]
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: ['pushNotification', 'email', '']
+            enum: [ 'pushNotification', 'email', '' ]
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: ['pushNotification', 'email', '']
+            enum: [ 'pushNotification', 'email', '' ]
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: ['daily', 'weekly']
+            enum: [ 'daily', 'weekly' ]
+        },
+        locationViewPermission:{
+            type: String,
+            description: 'locationViewPermission',
+            enum: [ 'public', 'followers', 'onlyme' ],
+            default: 'onlyme'
+        },
+        phoneViewPermission:{
+            type: String,
+            description: 'phoneViewPermission',
+            enum: [ 'public', 'followers', 'onlyme' ],
+            default: 'onlyme'
         }
     },
     likes: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     following: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     watching: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     likesPost: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     phoneNumber: {

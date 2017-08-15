@@ -26,7 +26,7 @@ describe('User services', () => {
                 .send(settings)
                 .expect(200);
             const userUpdated = await findOne({ email: body.email });
-            assert.deepEqual(settings, userUpdated.settings);
+            assert(settings.summaryEmail, userUpdated.settings.summaryEmail);
         });
     });
 });

@@ -8,5 +8,6 @@ module.exports = {
     },
     review: {
         minLengthForComment: 100
-    }
+    },
+    propsToBeEverPrivate: 'settings'
 };

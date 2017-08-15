@@ -26,14 +26,16 @@ describe('User services', () => {
             });
             const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
-            await agent.delete('/user/setting')
+            const res = await agent.delete('/user/setting')
                 .set(authorizationHeader)
                 .set(Cookie)
                 .send({
                     fields: [ 'offerNotifications' ]
                 })
                 .expect(200);
+            console.log('deleted : ', res.body);
             const userUpdated = await findOne({ email: body.email });
+            console.log('userUpdated ', userUpdated);
             assert(!userUpdated.settings.offerNotifications);
         });
     });

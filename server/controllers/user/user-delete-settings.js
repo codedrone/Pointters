@@ -3,15 +3,16 @@ const { unset } = require('../../../stores/user');
 const errorMessageInRemoveSetting = 'Error in remove settings';
 
 module.exports = async (ctx) => {
-    const settings = ctx.request.body.fields.reduce((set, field) => {
-        set[`settings.${field}`] = '';
-        return set;
+    const settings = ctx.request.body.fields.reduce((setting, field) => {
+        setting[`settings.${field}`] = "";
+        return setting;
     }, {});
-    const userToremoveSettings = ctx.queryToFindUserById;
-    const { error } = await unset(userToremoveSettings, settings);
+    const userToRemoveSettings = ctx.queryToFindUserById;
+    console.log('settings ', settings);
+    const res = await unset(userToRemoveSettings, settings);
+    console.log('res =', res);
 
-    if (error) ctx.throw(500, errorMessageInRemoveSetting);
+    if (res.error) ctx.throw(500, errorMessageInRemoveSetting);
 
-    ctx.status = 200;
     ctx.body = { success: true };
 };
