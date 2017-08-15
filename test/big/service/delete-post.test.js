@@ -1,11 +1,11 @@
 const assert = require('assert');
 
-const { findOne, create } = require('../../../stores/service');
+const { findOne, create } = require('../../../stores/post');
 
 
-describe('User services', () => {
+describe('User posts', () => {
     describe('SUCCESS', () => {
-        it('/service POST sohuld create a service given', async () => {
+        it('/post DELETE sohuld create a post given', async () => {
             const body = {
                 userId: 'id of user',
                 category: {
@@ -22,13 +22,13 @@ describe('User services', () => {
                     fulfillmentMethod: 'fulfillmentMethod'
                 },
             };
-            const serviceCreated = await create(body);
-            console.log('serviceCreated : ', serviceCreated);
-            await agent.delete(`/service/${serviceCreated._id}`)
+            const postCreated = await create(body);
+            console.log('postCreated : ', postCreated);
+            await agent.delete(`/post/${postCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            const deleted = await findOne({ _id: serviceCreated._id });
+            const deleted = await findOne({ _id: postCreated._id });
             console.log('deleted ', deleted);
             assert(!deleted.isActive);
         });

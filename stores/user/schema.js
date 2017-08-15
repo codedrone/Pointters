@@ -1,21 +1,16 @@
 module.exports = {
     completedRegistration: Boolean,
     completedRegistrationDate: Date,
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     awards: {
         type: String
     },
     password: {
-<<<<<<< HEAD
-<<<<<<< HEAD
         type: String,
         required: true
-=======
-        type: String
->>>>>>> the post and comment store is added
-=======
-        type: String,
-        required: true
->>>>>>> the test are fixed
     },
     companyName: {
         type: String
@@ -88,25 +83,13 @@ module.exports = {
     watching: {
         type: [String],
         default: []
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> the test are fixed
-=======
     },
     likesPost: {
         type: [String],
         default: []
->>>>>>> the test are not fixed
     },
     phoneNumber: {
         type: String,
         default: ''
-<<<<<<< HEAD
-=======
->>>>>>> the post and comment store is added
-=======
->>>>>>> the test are fixed
     }
 };

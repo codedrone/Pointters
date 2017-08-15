@@ -40,4 +40,17 @@ describe('logout services', () => {
                 .expect(403);
         });
     });
+
+    after(async () => {
+        const body = {
+            email: 'test@test.com',
+            password: 'test'
+        };
+        const { body: res, headers: { 'set-cookie': cookie } } = await agent
+            .post('/user/login')
+            .send(body)
+            .expect(200);
+        global.authorizationHeader = { Authorization: `Bearer ${res.token}` };
+        global.Cookie = { Cookie: cookie };
+    });
 });

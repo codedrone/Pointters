@@ -1,7 +1,7 @@
 const supertest = require('supertest');
 
-const { create: createUser, remove: removeUser } = require('../stores/user');
-const { remove: removeService } = require('../stores/user');
+const { create: createUser, delete: removeUser } = require('../stores/user');
+const { delete: removeService } = require('../stores/service');
 const app = require('../server');
 
 
@@ -12,9 +12,14 @@ before(async() => {
         password: 'test'
     };
     const user = await createUser(body);
+    console.log('user in bootstrap', user);
     global.__user = user;
-    const { body: { token }, headers: { 'set-cookie': cookie } } = await agent.post('/user/login').send(body);
-    global.authorizationHeader = { Authorization: `Bearer ${token}` };
+    const { body: res, headers: { 'set-cookie': cookie } } = await agent
+        .post('/user/login')
+        .send(body)
+        .expect(200);
+    console.log('res in bootstrap ', res);
+    global.authorizationHeader = { Authorization: `Bearer ${res.token}` };
     global.Cookie = { Cookie: cookie };
 });
 

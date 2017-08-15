@@ -13,10 +13,9 @@ describe('login services', () => {
             };
             const { body: res } = await agent.post('/user/login')
                 .send(body)
-                .expect(200);
+                .expect(404);
 
-            assert(res.success === false);
-            assert(res.msg === 'Authentication failed. User not found.');
+            assert(res.message === 'Authentication failed. User not found.');
         });
 
         it('/user/login POST -> user found and return the token', async() => {
@@ -24,10 +23,12 @@ describe('login services', () => {
                 email: faker.internet.email(),
                 password: faker.internet.password()
             };
-            await createUser(body);
+            const user = await createUser(body);
+            console.log('res ======', user);
             const { body: res, headers } = await agent.post('/user/login')
                 .send(body)
                 .expect(200);
+            console.log('res ==', res);
             assert.equal(headers['x-rate-limit'], '1000');
             assert(headers['x-expires-after']);
             assert(headers['set-cookie']);

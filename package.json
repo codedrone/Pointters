@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "pm2 start server/index.js --name",
-    "test": "nyc mocha test/bootstrap $(find test -name *.test.js ) && nyc report",
+    "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",
     "mocha": "mocha test/bootstrap $(find test -name *.test.js )"
   },
   "author": "pointters",

@@ -1,11 +1,11 @@
 const assert = require('assert');
 
-const { findOne, create } = require('../../../stores/service');
+const {  create } = require('../../../stores/service');
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service POST sohuld create a service given', async() => {
+        it('/service GET sohuld create a service given', async() => {
             const body = {
                 userId: 'id of user',
                 category: {

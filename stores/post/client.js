@@ -1,7 +1,7 @@
 const mongo = require('../../databases/mongo');
 const Schema = mongo.Schema;
 const schema = require('./schema');
-const serviceSchema = new Schema(schema);
+const postSchema = new Schema(schema);
 
-
-module.exports = mongo.model('service', serviceSchema);
+postSchema.index({ userId: 1 });
+module.exports = mongo.model('post', postSchema);

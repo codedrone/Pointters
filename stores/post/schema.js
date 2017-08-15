@@ -6,6 +6,10 @@ module.exports = {
         ref: 'user'
     },
     createdAt: Date,
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     message: String,
     media: Object,
     tags: [ String ],

@@ -1,7 +1,8 @@
 const mongo = require('../../databases/mongo');
 const Schema = mongo.Schema;
 const schema = require('./schema');
-const serviceSchema = new Schema(schema);
+const reviewSchema = new Schema(schema);
 
-
-module.exports = mongo.model('service-review', serviceSchema);
+reviewSchema.index({ userId: 1 });
+reviewSchema.index({ serviceId: 1 });
+module.exports = mongo.model('service-review', reviewSchema);

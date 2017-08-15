@@ -1,7 +1,6 @@
 const assert = require('assert');
 
 const { create: createPost } = require('../../../stores/post');
-const { update: updateUser } = require('../../../stores/user');
 const { create: createComment } = require('../../../stores/post-comment');
 
 
@@ -24,15 +23,9 @@ describe('User posts', () => {
                 userId: __user._id
 
             });
-            await updateUser({
-                _id: __user._id
-            },
-                {
-                    comment: [postCreated._id]
-                });
             console.log('commentCreated = ', commentCreated);
             const { body: res } = await agent
-                .get(`/post/${postCreated._id}/comment/${commentCreated._id}`)
+                .get(`/post/${commentCreated._id}/comment`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);

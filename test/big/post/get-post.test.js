@@ -1,11 +1,11 @@
 const assert = require('assert');
 
-const { findOne, create } = require('../../../stores/service');
+const { create } = require('../../../stores/post');
 
 
-describe('User services', () => {
+describe('User posts', () => {
     describe('SUCCESS', () => {
-        it('/service POST sohuld create a service given', async() => {
+        it('/post GET sohuld create a post given', async() => {
             const body = {
                 userId: __user._id,
                 message: 'mesage',
@@ -14,8 +14,8 @@ describe('User services', () => {
                 },
                 tags: [ 'tags_1', 'tag_2' ]
             };
-            const serviceCreated = await create(body);
-            const { body: { service: res } } = await agent.get(`/service/${serviceCreated._id}`)
+            const postCreated = await create(body);
+            const { body: { post: res } } = await agent.get(`/post/${postCreated._id}`)
                 .send(body)
                 .set(authorizationHeader)
                 .set(Cookie)

@@ -13,6 +13,10 @@ module.exports = {
         type: String,
         required: true
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     media: {
         type: {},
         required: true
