@@ -1,7 +1,7 @@
 module.exports = {
     timeout:{
         apiTimeout:30000,
-        timeoutOptions = {
+        timeoutOptions: {
             status:504,
             message:'service unavailable'
         }
