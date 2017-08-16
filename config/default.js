@@ -1,4 +1,11 @@
 module.exports = {
+    timeout:{
+        apiTimeout:30000,
+        timeoutOptions = {
+            status:504,
+            message:'service unavailable'
+        }
+    },
     urlToValidateTokenFacebook: 'https://graph.facebook.com/me/?access_token=XYZ',
     longOfPasswordTemp: 10,
     facebook: {

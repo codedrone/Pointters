@@ -7,10 +7,10 @@ const errors = require('./middelwares/errors');
 const session = require('koa-session');
 const cookie = require('koa-cookie');
 const getQueries = require('./middelwares/attach-queries');
-
+const timeout = require('koa-timeout-v2');
 
 const app = new Koa();
-const { jwt: { secret, expiresIn } } = require('../../config');
+const { jwt: { secret, expiresIn }, timeout: {apiTimeout, timeoutOptions}} = require('../../config');
 app.keys = [ secret ];
 const pathProtected = [
     '/user/login',
@@ -22,6 +22,7 @@ const pathProtected = [
 
 app.use(errors());
 app.use(logger());
+app.use(timeout(apiTimeout, timeoutOptions));
 app.use(cookie.default());
 app.use(session({
     maxAge: expiresIn,
