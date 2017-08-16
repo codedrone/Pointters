@@ -1,6 +1,13 @@
 const assert = require('assert');
-
-const { findOne, create: createUser } = require('../../../stores/user');
+const features = require('./features');
+const { findOne, create: createUser } = require('../../../../stores/user');
+const {
+    emailSenderingCong:{
+        emailRemitentInOpt,
+        subjectOptEmail: subject,
+        contentOptEmail: content
+    }
+} = require('../../../../config');
 
 describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
@@ -9,6 +16,7 @@ describe('Reset the password using temporal password', () => {
                 email: 'test_opt_pass@test.com',
                 password: 'test_opt',
             };
+            features(emailRemitentInOpt, body.email, subject, content);
             await createUser(body);
             const data = {
                 email: body.email

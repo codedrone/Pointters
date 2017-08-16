@@ -1,6 +1,13 @@
 const { update, findOne } = require('../../../stores/user');
-const { optExpiresIn, longOfPasswordTemp } = require('../../../config');
-const errorInUpdateUser = 'Error on update user'
+const { optExpiresIn,
+    longOfPasswordTemp,
+    emailSenderingCong:{
+        subjectOptEmail: subject,
+        contentOptEmail: content
+}
+} = require('../../../config');
+const errorInUpdateUser = 'Error on update user';
+const {sendEmail} = require('../../../services');
 
 module.exports = async (ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
@@ -16,4 +23,6 @@ module.exports = async (ctx) => {
     const { error } = await update(queryToFindUser, updateTheAuthSettings);
 
     if (error) ctx.throw(500, errorInUpdateUser);
+
+    await sendEmail(user.email, subject, content);
 };

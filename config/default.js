@@ -9,5 +9,12 @@ module.exports = {
     review: {
         minLengthForComment: 100
     },
-    propsToBeEverPrivate: 'settings'
+    propsToBeEverPrivate: 'settings',
+    emailSenderingCong:{
+        emailRemitentInOpt: 'help@pointters.com',
+        sendgridApiKey: process.env.SENDGRID_API_KEY || '',
+        subjectOptEmail: 'Password Reset',
+        contentOptEmail: 'Your password was resetted'
+
+    }
 };

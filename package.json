@@ -40,7 +40,8 @@
     "koa2-validation": "0.0.2",
     "mongoose": "*",
     "node-pre-gyp": "^0.6.36",
-    "request": "^2.81.0"
+    "request": "^2.81.0",
+    "sendgrid": "^5.2.2"
   },
   "scripts": {
     "start": "pm2 start server/index.js --name",

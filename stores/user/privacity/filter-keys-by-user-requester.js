@@ -16,7 +16,6 @@ module.exports = (userToFilter, userRequester) => {
             console.log('is not hiden');
 
             if (requesterIsFollower) return permission === 'followers';
-            console.log('is not follower');
 
             return permission !== 'onlyme';
         })
