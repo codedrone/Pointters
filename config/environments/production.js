@@ -1,6 +1,6 @@
 
 module.exports = {
-    apiName: 'Pinters-API',
+    apiName: 'Pointers-API',
     error: {
         stackTraceLimit: 12
     },

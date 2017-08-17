@@ -1,6 +1,6 @@
 
 module.exports = {
-    apiName: 'Pinters-API-dev',
+    apiName: 'Pointers-API-dev',
     review: {
         minLengthForComment: 0
     },
@@ -12,7 +12,7 @@ module.exports = {
     port: 9000,
 
     jwt: {
-        secret: 'pointters-secret-key',
+        secret: 'pointers-secret-key',
         expiresIn: 3600000 * 24 * 365,
     },
     dbpath: 'mongodb://127.0.0.1/pointters-api',

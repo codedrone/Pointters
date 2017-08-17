@@ -1,7 +1,12 @@
 const mongo = require('../../databases/mongo');
-const Schema = mongo.Schema;
+const addSyncHook = require('../../lib/sync-elasticsearch-hook');
 const schema = require('./schema');
-const postSchema = new Schema(schema);
+const addIndex = require('./plugin/add-index');
 
-postSchema.index({ userId: 1 });
-module.exports = mongo.model('post', postSchema);
+const Schema = mongo.Schema;
+const postSchema = new Schema(schema);
+addSyncHook(postSchema);
+addIndex(postSchema);
+const Post = mongo.model('post', postSchema);
+
+module.exports = Post;

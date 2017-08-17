@@ -46,7 +46,7 @@
     "sendgrid": "^5.2.2"
   },
   "scripts": {
-    "start": "pm2 start server/index.js --name",
+    "start": "DEBUG=*Pointers-API* pm2 start server/index.js --name",
     "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",
     "mocha": "mocha test/bootstrap $(find test -name *.test.js )"
   },

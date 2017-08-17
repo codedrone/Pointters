@@ -1,8 +1,12 @@
 const mongo = require('../../databases/mongo');
-const Schema = mongo.Schema;
+const addSyncHook = require('../../lib/sync-elasticsearch-hook');
 const schema = require('./schema');
-const reviewSchema = new Schema(schema);
+const addIndex = require('./plugin/add-index');
 
-reviewSchema.index({ userId: 1 });
-reviewSchema.index({ serviceId: 1 });
-module.exports = mongo.model('service-review', reviewSchema);
+const Schema = mongo.Schema;
+const reviewSchema = new Schema(schema);
+addSyncHook(reviewSchema);
+addIndex(reviewSchema);
+
+const ServiceReview = mongo.model('service-review', reviewSchema);
+module.exports = ServiceReview;
