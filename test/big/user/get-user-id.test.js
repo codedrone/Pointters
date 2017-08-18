@@ -33,7 +33,6 @@ describe('User/:id services', () => {
                 .expect(200);
             console.log('res = ', res);
             assert.equal(res.user.email, userOther.email);
-            assert.equal(res.user.password, userOther.password);
         });
     });
 });

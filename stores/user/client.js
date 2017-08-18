@@ -5,6 +5,7 @@ const addIndex = require('./plugins/add-index');
 const addSyncHook = require('../../lib/sync-elasticsearch-hook');
 
 const Schema = mongo.Schema;
+
 const UserSchema = new Schema(schema);
 addHooks(UserSchema);
 addIndex(UserSchema);

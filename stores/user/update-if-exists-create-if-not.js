@@ -1,11 +1,16 @@
-const catchingErrorFromPromise = require('../../lib/catching-error-from-promise');
 
-module.exports = (client) => async(query, data) => catchingErrorFromPromise(
-    client
-        .update(query, { $set: data }, { upsert: true, new: true })
-        .then((updatedOrCreated) => updatedOrCreated.map((item) => item.toObject()))
-        .then((updatedOrCreated) => updatedOrCreated.map((item) => {
-            if (item._id) item._id = item._id.toString();
-            return item;
-        }))
-);
+module.exports = (client) => async(query, data) => {
+    console.log('query ', query);
+    console.log('data ', data);
+    try {
+        let user = await client.findOne(query);
+
+        if (!user) user = await client.create(data);
+
+        user = user.toObject();
+        user._id = user._id.toString();
+        return await Promise.resolve(user);
+    } catch (error) {
+        return await Promise.resolve({error});
+    }
+};

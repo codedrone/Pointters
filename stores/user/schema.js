@@ -1,5 +1,7 @@
 module.exports = {
-    completedRegistration: Boolean,
+    completedRegistration: {
+        type: Boolean,
+        default: false},
     completedRegistrationDate: Date,
     isActive: {
         type: Boolean,
@@ -45,6 +47,10 @@ module.exports = {
     profilePic: {
         type: String
     },
+    socialNetwork: {
+        name: String,
+        id: String
+    },
     profileBackgroundImages: {
         type: Object
     },
@@ -54,22 +60,26 @@ module.exports = {
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: [ 'pushNotification', 'email', '' ]
+            enum: [ 'pushNotification', 'email', 'all' ],
+            default: 'all'
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: [ 'pushNotification', 'email', '' ]
+            enum: [ 'pushNotification', 'email', 'all' ],
+            default: 'all'
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: [ 'pushNotification', 'email', '' ]
+            enum: [ 'pushNotification', 'email', 'all' ],
+            default: 'all'
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: [ 'daily', 'weekly' ]
+            enum: [ 'daily', 'weekly', 'all' ],
+            default: 'all'
         },
         locationViewPermission:{
             type: String,

@@ -7,10 +7,11 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/user GET -> should return user', async() => {
             const body = {
-                email: 'test_get@test.com',
+                email: 'test_get_me@test.com',
                 password: 'test'
             };
             const user = await createUser(body);
+            console.log('user =', user);
             const {
                 body: { token },
                 headers: { 'set-cookie': cookie }
@@ -21,8 +22,8 @@ describe('User services', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
+            console.log('res = ', res);
             assert.equal(res.user.email, user.email);
-            assert.equal(res.user.password, user.password);
         });
     });
 });

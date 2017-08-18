@@ -1,11 +1,11 @@
 const Koa = require('koa');
-const jwt = require('koa-jwt');
+const jwt = require('./middelwares/jwt');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const auth = require('./middelwares/auth');
 const errors = require('./middelwares/errors');
 const session = require('koa-session');
-const cookie = require('koa-cookie');
+const cookie = require('./middelwares/cookie');
 const getQueries = require('./middelwares/attach-queries');
 const timeout = require('koa-timeout-v2');
 
@@ -16,25 +16,25 @@ const pathProtected = [
     '/user/login',
     '/user/signup',
     '/user/facebook/token',
-    '/user/opt',
+    '/user/otp',
     '/user/reset/password'
 ];
 
 app.use(errors());
 app.use(logger());
 app.use(timeout(apiTimeout, timeoutOptions));
-app.use(cookie.default());
+app.use(cookie.unless({
+    path: pathProtected
+}));
 app.use(session({
     maxAge: expiresIn,
 }, app));
-app.use(jwt({ secret })
-    .unless({
-        path: pathProtected
-    }));
-app.use(auth
-    .unless({
-        path: pathProtected
-    }));
+app.use(jwt.unless({
+    path: pathProtected
+}));
+app.use(auth.unless({
+    path: pathProtected
+}));
 app.use(bodyParser({
     formLimit: '5mb',
     jsonLimit: '5mb',

@@ -104,7 +104,7 @@ The next lists of endpoints are not protected and you can get the token to log t
     '/user/login',
     '/user/signup',
     '/user/facebook/token',
-    '/user/opt',
+    '/user/otp',
     '/user/reset/password'
  ]
 ```
@@ -169,10 +169,12 @@ body = {
 ## '/user' --> GET
 request:
 ```js
-params = {
-    id: string().required(),
+body = {
+    idUser: string(),
 }
 ```
+
+If idUser is given the user returned is the idUser sent.
 
 response: 
 
@@ -240,7 +242,7 @@ body = {
 }
 ```
 
-## /user/opt -> POST
+## /user/otp -> POST
 
 request:
 ```js

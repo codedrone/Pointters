@@ -3,8 +3,10 @@ const { updateIfExistsAndCreateIfNot } = require('../../../../stores/user');
 
 module.exports = async(ctx, { idFacebook, firstName, lastName }) => {
     const queryToFindUser = {
-        'socialNetwork.name': 'facebook',
-        'socialNetwork.id': idFacebook
+        socialNetwork: {
+            name: 'facebook',
+            id: idFacebook
+        }
     };
     const data = {
         password: idFacebook,

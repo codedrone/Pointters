@@ -6,6 +6,14 @@ const { create: createUser, findOne } = require('../../../stores/user');
 describe('User services', () => {
     describe('SUCCESS', () => {
         it('/user/setting DELETE -> should return user setting', async() => {
+            const settingsUpdated = {
+                phoneViewPermission: 'onlyme',
+                locationViewPermission: 'onlyme',
+                summaryEmail: 'weekly',
+                offerNotifications: 'all',
+                orderNotifications: 'email',
+                generalNotifications: 'pushNotification'
+            };
             const body = {
                 email: 'test_delete_settings@test.com',
                 password: 'test',
@@ -35,8 +43,8 @@ describe('User services', () => {
                 .expect(200);
             console.log('deleted : ', res.body);
             const userUpdated = await findOne({ email: body.email });
-            console.log('userUpdated ', userUpdated);
-            assert(!userUpdated.settings.offerNotifications);
+            console.log('userUpdated ', userUpdated.settings.offerNotifications);
+            assert(userUpdated.settings.offerNotifications === 'all');
         });
     });
 });

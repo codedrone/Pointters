@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { findOne } = require('../../../../../stores/user');
+const { findOne } = require('../../../../stores/user');
 const nock = require('./nock');
 
 const id = 'super_id';
@@ -37,7 +37,7 @@ describe('User services', () => {
             const { body: res } = await agent.post('/user/facebook/token')
                 .send(body)
                 .expect(403);
-            assert(res.message === 'Token not Valid');
+            assert(res.msg === 'Token not Valid');
         });
     });
 });

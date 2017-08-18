@@ -11,7 +11,7 @@ const {
 
 describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
-        it('/user/opt POST -> should reset the password', async() => {
+        it('/user/otp POST -> should reset the password', async() => {
             const body = {
                 email: 'test_opt_pass@test.com',
                 password: 'test_opt',
@@ -21,10 +21,8 @@ describe('Reset the password using temporal password', () => {
             const data = {
                 email: body.email
             };
-            await agent
-                .post('/user/opt')
-                .set(authorizationHeader)
-                .set(Cookie)
+            const {body:res} = await agent
+                .post('/user/otp')
                 .send(data)
                 .expect(200);
             const query = {
@@ -32,7 +30,9 @@ describe('Reset the password using temporal password', () => {
                 tempPassword: { $exists: true },
                 resetPasswordExpires: { $exists: true }
             };
+            console.log('res = ', res);
             const _user = await findOne(query);
+            console.log('_user ', _user);
             assert(_user);
         });
     });

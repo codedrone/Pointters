@@ -11,11 +11,14 @@ const errorCreatingUser = 'Error on create user';
 const successMessage = 'Successful created a new user.';
 const socialNetwork = 'facebook';
 module.exports = async(ctx) => {
-    const { name, id: idFacebook, error } = await validateFacebookToken(ctx.request.body.token);
+    const {body:{token: facebookToken}} = ctx.request;
+    const { name, id: idFacebook, error } = await validateFacebookToken(facebookToken);
 
     if (error) {
         debug.service.error(`Error from facebook ${error.message}`);
-        return ctx.throw(403, 'Token not Valid');
+        ctx.status = 403;
+        ctx.body = {msg: 'Token not Valid'};
+        return;
     }
 
     const savedUser = await findOne({
@@ -26,7 +29,7 @@ module.exports = async(ctx) => {
     const [ firstName, lastName ] = name.split(' ');
     if (!savedUser) userCreatedOrUpdated = await createUser(ctx, { idFacebook, firstName, lastName });
 
-    if (userCreatedOrUpdated.error) ctx.throw(500, errorCreatingUser);
+    if (userCreatedOrUpdated.error) ctx.throw(500, userCreatedOrUpdated.error.message);
 
     const paramsToGetToken = { id: userCreatedOrUpdated._id };
     const token = signToken(paramsToGetToken);

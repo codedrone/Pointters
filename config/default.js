@@ -1,8 +1,11 @@
 module.exports = {
+    elasticsearch:{
+        hosts: [ 'localhost:9200' ]
+    },
     timeout:{
-        apiTimeout:30000,
+        apiTimeout: 30000,
         timeoutOptions: {
-            status:504,
+            status:  504,
             message:'service unavailable'
         }
     },
@@ -16,7 +19,7 @@ module.exports = {
     review: {
         minLengthForComment: 100
     },
-    propsToBeEverPrivate: 'settings',
+    propsToBeEverPrivate: 'settings,password',
     emailSenderingCong:{
         emailRemitentInOpt: 'help@pointters.com',
         sendgridApiKey: process.env.SENDGRID_API_KEY || '',

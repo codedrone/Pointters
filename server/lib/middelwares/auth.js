@@ -1,6 +1,5 @@
-const unless = require('koa-unless');
-
 const { findOne } = require('../../../stores/user');
+const unless = require('./unless');
 
 const middelware = async (ctx, next) => {
     console.log('In auth = ', ctx.state.user, ctx.session);
@@ -14,6 +13,6 @@ const middelware = async (ctx, next) => {
     if (next) await next();
 };
 
-middelware.unless = unless;
+middelware.unless = unless(middelware);
 
 module.exports = middelware;
