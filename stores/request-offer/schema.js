@@ -24,9 +24,9 @@ module.exports = {
         type:String,
         required: true
     },
-    serviceId:{
-        type:String,
-        required: true
+    isActive: {
+        type: Boolean,
+        default: true
     },
     updatedAt:{
         type:Date

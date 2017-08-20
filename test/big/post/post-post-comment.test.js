@@ -1,13 +1,12 @@
 const assert = require('assert');
 
-const { create: createService } = require('../../../stores/service');
-const { findOne: findOneUser, update: updateUser } = require('../../../stores/user');
+const { create: createService } = require('../../../stores/post');
 
 
-describe('User services', () => {
+describe('User posts', () => {
     describe('SUCCESS', () => {
-        it('/service/watch POST sohuld create a service given', async() => {
-            const service = {
+        it('/post/comment POST sohuld create a post given', async() => {
+            const post = {
                 userId: 'id of user',
                 category: {
                     category: 'category'
@@ -23,21 +22,16 @@ describe('User services', () => {
                     fulfillmentMethod: 'fulfillmentMethod'
                 },
             };
-            const serviceCreated = await createService(service);
-            await updateUser({
-                email: __user.email
-            },
-            {
-                watching: []
-            });
+            const postCreated = await createService(post);
             const { body: res } = await agent
-                .post(`/service/${serviceCreated._id}/watch`)
+                .post(`/post/${postCreated._id}/comment`)
+                .send({
+                    comment:'comment'
+                })
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             assert.deepEqual(res, { success: true });
-            const user = await findOneUser({ _id: __user._id });
-            assert.deepEqual(user.watching, [ serviceCreated._id ]);
         });
     });
 

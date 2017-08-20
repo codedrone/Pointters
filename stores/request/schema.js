@@ -9,7 +9,11 @@ module.exports = {
         type: Object
     },
     createdAt:{
-        type: String
+        type: Date
+    },
+    isActive: {
+        type: Boolean,
+        default: true
     },
     location:{
         type: Object
@@ -23,13 +27,10 @@ module.exports = {
     maxPrice:{
         type: Number
     },
-    requestId:{
-        type: Number
-    },
     scheduleDate:{
         type: Number
     },
     updatedAt:{
-        type: String
+        type: Date
     }
 };

@@ -1,7 +1,5 @@
 const assert = require('assert');
 
-const { findOne } = require('../../../stores/post');
-
 
 describe('User posts', () => {
     describe('SUCCESS', () => {

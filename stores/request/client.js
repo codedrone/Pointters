@@ -6,6 +6,6 @@ const Schema = mongo.Schema;
 const requestSchema = new Schema(schema);
 addSyncHook(requestSchema);
 addIndex(requestSchema);
-const request = mongo.model('request', requestSchema);
+const request = mongo.model('request-offer', requestSchema);
 
 module.exports = request;
