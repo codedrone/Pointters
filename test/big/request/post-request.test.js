@@ -4,18 +4,18 @@ describe('User requests', () => {
     describe('SUCCESS', () => {
         it('/request POST sohuld create a request given', async() => {
             const body = {
-                category:{
+                category: {
                     type: 'Object'
                 },
-                location:{
+                location: {
                     type: 'Object'
                 },
-                media:{
+                media: {
                     type: 'Object'
                 },
-                minPrice:1,
-                maxPrice:1,
-                scheduleDate:1,
+                minPrice: 1,
+                maxPrice: 1,
+                scheduleDate: 1,
             };
             const { body: res } = await agent.post('/request')
                 .send(body)

@@ -1,31 +1,13 @@
 const assert = require('assert');
 
-const { create: createOffer, findOne: findOneOffer } = require('../../../stores/request-offer');
-const { create: createRequest } = require('../../../stores/request');
+const { create: createOffer, findOne: findOneOffer } = require('../../../stores/offer');
 
 
 describe('User requests', () => {
     describe('SUCCESS', () => {
-        it('/request/:idRequest/offer PUT sohuld create a request given', async() => {
-            const body = {
-                userId: __user._id,
-                category: {
-                    type: 'Object'
-                },
-                location: {
-                    type: 'Object'
-                },
-                media: {
-                    type: 'Object'
-                },
-                minPrice: 1,
-                maxPrice: 1,
-                scheduleDate: 1
-            };
-            const requestCreated = await createRequest(body);
-            console.log('requestCreated ', requestCreated);
+        it('/offer/:idOffer PUT sohuld create a request given', async() => {
             const offer = {
-                requestId: requestCreated._id,
+                serviceId: 'id of service',
                 fulfillmentMethod: {},
                 location: {},
                 media: {},
@@ -41,7 +23,7 @@ describe('User requests', () => {
                     amount: 0
                 }
             };
-            await agent.put(`/request/${offerCreated._id}/offer`)
+            await agent.put(`/offer/${offerCreated._id}`)
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)

@@ -26,7 +26,7 @@ describe('User posts', () => {
             const { body: res } = await agent
                 .post(`/post/${postCreated._id}/comment`)
                 .send({
-                    comment:'comment'
+                    comment: 'comment'
                 })
                 .set(authorizationHeader)
                 .set(Cookie)

@@ -1,12 +1,12 @@
 module.exports = {
-    elasticsearch:{
+    elasticsearch: {
         hosts: [ 'localhost:9200' ]
     },
-    timeout:{
+    timeout: {
         apiTimeout: 30000,
         timeoutOptions: {
-            status:  504,
-            message:'service unavailable'
+            status: 504,
+            message: 'service unavailable'
         }
     },
     urlToValidateTokenFacebook: 'https://graph.facebook.com/me/?access_token=XYZ',
@@ -20,7 +20,7 @@ module.exports = {
         minLengthForComment: 100
     },
     propsToBeEverPrivate: 'settings,password',
-    emailSenderingCong:{
+    emailSenderingCong: {
         emailRemitentInOpt: 'help@pointters.com',
         sendgridApiKey: process.env.SENDGRID_API_KEY || '',
         subjectOptEmail: 'Password Reset',

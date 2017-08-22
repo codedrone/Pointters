@@ -5,32 +5,32 @@ module.exports = {
         index: true,
         ref: 'user'
     },
-    category:{
+    category: {
         type: Object
     },
-    createdAt:{
+    createdAt: {
         type: Date
     },
     isActive: {
         type: Boolean,
         default: true
     },
-    location:{
+    location: {
         type: Object
     },
-    media:{
+    media: {
         type: Object
     },
-    minPrice:{
+    minPrice: {
         type: Number
     },
-    maxPrice:{
+    maxPrice: {
         type: Number
     },
-    scheduleDate:{
+    scheduleDate: {
         type: Number
     },
-    updatedAt:{
+    updatedAt: {
         type: Date
     }
 };
