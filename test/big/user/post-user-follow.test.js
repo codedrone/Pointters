@@ -1,11 +1,12 @@
 const assert = require('assert');
 
 const { create: createUser, findOne } = require('../../../stores/user');
+const { get: getFollowing } = require('../../../stores/user/following');
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/user/followedId/follow GET -> should return user setting', async() => {
+        it('/user/followedId/follow GET -> should return user setting', async () => {
             const bodyFollowed = {
                 email: 'test_post_followed@test.com',
                 password: 'test',
@@ -32,9 +33,9 @@ describe('User services', () => {
                 body: { token },
                 headers: { 'set-cookie': cookie }
             } = await agent.post('/user/login').send({
-                email: bodyFollowing.email,
-                password: bodyFollowing.password
-            });
+                    email: bodyFollowing.email,
+                    password: bodyFollowing.password
+                });
             const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
             const { body: res } = await agent.post(`/user/${userFollowed._id}/follow`)
@@ -43,13 +44,13 @@ describe('User services', () => {
                 .expect(200);
 
             assert.deepEqual(res, { success: true });
-            const userFollowingUpdated = await findOne({ _id: userFollowing._id });
-            assert(userFollowingUpdated.following[0] === userFollowed._id);
+            const following = await getFollowing({ _id: userFollowing._id });
+            assert(following[0] === userFollowed._id);
         });
     });
 
     describe('FAIL', () => {
-        it('/user/followedId/follow POST -> should return false if user to follow does not exist', async() => {
+        it('/user/followedId/follow POST -> should return false if user to follow does not exist', async () => {
             const bodyFollowing = {
                 email: 'test_post_false@test.com',
                 password: 'test',
@@ -59,16 +60,16 @@ describe('User services', () => {
                     offerNotifications: 'email',
                     summaryEmail: 'weekly'
                 },
-                following: [ 'this_id_does_exist' ]
+                following: ['this_id_does_exist']
             };
             await createUser(bodyFollowing);
             const {
                 body: { token },
                 headers: { 'set-cookie': cookie }
             } = await agent.post('/user/login').send({
-                email: bodyFollowing.email,
-                password: bodyFollowing.password
-            });
+                    email: bodyFollowing.email,
+                    password: bodyFollowing.password
+                });
             const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
             const { body: res } = await agent.post('/user/this_id_does_not_exists/follow')

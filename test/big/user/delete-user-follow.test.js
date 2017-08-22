@@ -1,6 +1,7 @@
 const assert = require('assert');
 
-const { create: createUser, findOne } = require('../../../stores/user');
+const { create: createUser } = require('../../../stores/user');
+const { get: getFollowing } = require('../../../stores/user/following');
 
 
 describe('User services', () => {
@@ -42,8 +43,8 @@ describe('User services', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            const userFollowingUpdate = await findOne({ _id: userFollowing._id });
-            assert(userFollowingUpdate.following.length === 0);
+            const following = await getFollowing({ _id: userFollowing._id });
+            assert(following.length === 0);
             assert.deepEqual(res, { success: true });
         });
     });

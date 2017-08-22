@@ -17,6 +17,12 @@ module.exports = {
         type: Boolean,
         default: true
     },
+    shared: {
+        originUser: {
+            type: String,
+            ref: 'user'
+        }
+    },
     media: {
         type: {},
         required: true

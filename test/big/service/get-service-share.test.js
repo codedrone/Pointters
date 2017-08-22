@@ -1,13 +1,11 @@
 const assert = require('assert');
 
-const { create: createService } = require('../../../stores/service');
-const { update: updateUser } = require('../../../stores/user');
-const { get: getWatching } = require('../../../stores/user/watching');
+const { create: createService, findOne: findOneService } = require('../../../stores/service');
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service/watch DELETE sohuld create a service given', async () => {
+        it('/service/share POST sohuld create a service given', async() => {
             const service = {
                 userId: 'id of user',
                 category: {
@@ -23,22 +21,22 @@ describe('User services', () => {
                 fulfillmentMethod: {
                     fulfillmentMethod: 'fulfillmentMethod'
                 },
+                shared: {
+                    originUser: __user._id
+                }
             };
             const serviceCreated = await createService(service);
             console.log('serviceCreated ', serviceCreated);
-            await updateUser({
-                email: __user.email
-            }, {
-                    watching: [serviceCreated._id]
-                });
-            const { body: res } = await agent
-                .delete(`/service/${serviceCreated._id}/watch`)
+            const { body: res } = await agent.get(`/service/${serviceCreated._id}/share`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res, { success: true });
-            const watching = await getWatching({ _id: __user._id });
-            assert.deepEqual(watching, []);
+            assert.deepStrictEqual(res.service.category, service.category);
+            assert.deepStrictEqual(res.service.media, service.media);
+            assert.deepStrictEqual(res.service.pricing, service.pricing);
+            assert.deepStrictEqual(res.service.fulfillmentMethod, service.fulfillmentMethod);
+            assert.deepStrictEqual(res.service.shared, service.shared);
+            assert(res.service.isActive);
         });
     });
 

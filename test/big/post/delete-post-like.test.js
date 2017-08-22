@@ -2,6 +2,7 @@ const assert = require('assert');
 
 const { create: createPost } = require('../../../stores/post');
 const { findOne: findOneUser, update: updateUser } = require('../../../stores/user');
+const { get: getPostLikes } = require('../../../stores/user/likesPost');
 
 
 describe('User posts', () => {
@@ -13,12 +14,12 @@ describe('User posts', () => {
                 media: {
                     media: 'the media is here'
                 },
-                tags: [ 'tags_1', 'tag_2' ]
+                tags: ['tags_1', 'tag_2']
             };
 
             const postCreated = await createPost(post);
             console.log('postCreated ', postCreated);
-            await updateUser({ _id: __user._id }, {likesPost: [ postCreated._id ]});
+            await updateUser({ _id: __user._id }, { likesPost: [postCreated._id] });
             const user1 = await findOneUser({ _id: __user._id });
             console.log('user =  ', user1);
 
@@ -27,10 +28,10 @@ describe('User posts', () => {
                 .set(Cookie)
                 .expect(200);
             assert.deepEqual(res, { success: true });
-            const user = await findOneUser({ _id: __user._id });
-            console.log('user =  ', user);
+            const likesPost = await getPostLikes({ _id: __user._id });
+            console.log('user =  ', likesPost);
 
-            assert.deepEqual(user.likesPost, []);
+            assert.deepEqual(likesPost, []);
         });
     });
 });

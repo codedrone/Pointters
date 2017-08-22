@@ -15,6 +15,8 @@ describe('User posts', () => {
                 tags: [ 'tags_1', 'tag_2' ]
             };
             const postCreated = await create(body);
+            console.log('__user', __user);
+            console.log('postCreated ', postCreated);
             const { body: { post: res } } = await agent.get(`/post/${postCreated._id}`)
                 .send(body)
                 .set(authorizationHeader)
