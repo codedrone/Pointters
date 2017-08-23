@@ -9,7 +9,9 @@ you need to be installed pm2, nyc and mocha globally to start the server and run
 
 | Variable        | Mean           | 
 | ------------- |:-------------:|
-| NODE_ENV      | enviroment to run, default is test. Set to PROD to run in production mode|
+| NODE_ENV      | enviroment to run, default is test. Set 
+|SENDGRID_API_KEY|  the key to sengrid|
+to PROD to run in production mode|
 
 # Test
 

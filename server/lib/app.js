@@ -17,6 +17,7 @@ const pathProtected = [
     '/user/signup',
     '/user/facebook/token',
     '/user/otp',
+    '/user/reset',
     '/user/reset/password'
 ];
 
