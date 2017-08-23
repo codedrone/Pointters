@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { findOne, create: createUser } = require('../../../stores/user');
+const { findOne, create: createUser, comparePassword} = require('../../../stores/user');
 
 describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
@@ -21,9 +21,10 @@ describe('Reset the password using temporal password', () => {
                 .post('/user/reset/password')
                 .send(data)
                 .expect(200);
-            const query = { email: body.email, password: data.newPassword };
+            const query = { email: body.email };
             const _user = await findOne(query);
-            assert(_user);
+            const match = await comparePassword(data.newPassword, _user.password);
+            assert(!match.error);
         });
     });
 });

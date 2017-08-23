@@ -14,7 +14,6 @@ module.exports = (schema) => {
             })
             .catch(next);
     });
-
     schema.pre('save', function(next) {
         const user = this;
 
