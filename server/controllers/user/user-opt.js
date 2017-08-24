@@ -19,7 +19,7 @@ module.exports = async (ctx) => {
         tempPassword: Math.random().toString(36).slice(-longOfPasswordTemp),
         resetPasswordExpires: new Date(Date.now() + optExpiresIn)
     };
-    ctx.body = updateTheAuthSettings;
+    ctx.body = Object.assign({}, updateTheAuthSettings);
     const { error } = await update(queryToFindUser, updateTheAuthSettings);
 
     if (error) ctx.throw(500, errorInUpdateUser);

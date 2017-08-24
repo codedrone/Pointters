@@ -2,9 +2,9 @@ const { update, findOne, comparePassword } = require('../../../stores/user');
 const signToken = require('../../lib/sign-token');
 const getHeaders = require('../../lib/get-headers');
 const getSession = require('../../lib/get-session');
-const errorMessageInUpdateUser = 'Error on reset password';
 
 module.exports = async(ctx) => {
+    console.log('ctx.request.body  in reset = ', ctx.request.body);
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
     const isMatch = await comparePassword(ctx.request.body.oldPassword, user.tempPassword);

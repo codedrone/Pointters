@@ -5,7 +5,7 @@ const { create: createOrder } = require('../../../stores/order');
 
 describe('User requests', () => {
     describe('SUCCESS', () => {
-        it('/request/order GET sohuld create a request given', async() => {
+        it('/order GET sohuld create a request given', async() => {
             const orderCreated = await createOrder({
 
             });

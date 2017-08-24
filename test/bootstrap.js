@@ -12,7 +12,6 @@ before(async() => {
         password: 'test'
     };
     const user = await createUser(body);
-    console.log('user in bootstrap', user);
     global.__user = user;
     const { body: res, headers: { 'set-cookie': cookie } } = await agent
         .post('/user/login')

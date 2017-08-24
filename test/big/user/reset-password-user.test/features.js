@@ -3,6 +3,7 @@ const nock = require('nock');
 
 module.exports = (fromEmail, toEmail, subject, content) => {
     const body = {
+        subject,
         from:{
             email:fromEmail
         },
@@ -15,7 +16,6 @@ module.exports = (fromEmail, toEmail, subject, content) => {
                 ]
             }
         ],
-        subject,
         content:[
             {
                 type:'text/plain',
@@ -25,7 +25,8 @@ module.exports = (fromEmail, toEmail, subject, content) => {
     };
     nock('https://api.sendgrid.com:443', {encodedQueryParams:true})
         .post('/v3/mail/send', body)
-        .reply(202, '', [ 'Server',
+        .reply(202, '', [
+            'Server',
             'nginx',
             'Date',
             'Wed, 16 Aug 2017 20:38:36 GMT',
