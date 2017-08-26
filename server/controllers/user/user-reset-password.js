@@ -3,7 +3,7 @@ const signToken = require('../../lib/sign-token');
 const getHeaders = require('../../lib/get-headers');
 const getSession = require('../../lib/get-session');
 
-module.exports = async(ctx) => {
+module.exports = async (ctx) => {
     console.log('ctx.request.body  in reset = ', ctx.request.body);
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);

@@ -1,6 +1,6 @@
 module.exports = {
     elasticsearch: {
-        hosts: [ 'localhost:9200' ]
+        hosts: ['localhost:9200']
     },
     timeout: {
         apiTimeout: 30000,
@@ -26,5 +26,13 @@ module.exports = {
         subjectOptEmail: 'Password Reset',
         contentOptEmail: 'Your password was resetted'
 
-    }
+    },
+    pathUnprotected: [
+        '/user/login',
+        '/user/signup',
+        '/user/facebook/token',
+        '/user/otp',
+        '/user/reset',
+        '/user/reset/password'
+    ]
 };

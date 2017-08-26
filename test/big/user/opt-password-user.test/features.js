@@ -3,29 +3,29 @@ const nock = require('nock');
 
 module.exports = (fromEmail, toEmail, subject, content) => {
     const body = {
-        from:{
-            email:fromEmail
+        from: {
+            email: fromEmail
         },
-        personalizations:[
+        personalizations: [
             {
-                to:[
+                to: [
                     {
-                        email:toEmail
+                        email: toEmail
                     }
                 ]
             }
         ],
         subject,
-        content:[
+        content: [
             {
-                type:'text/plain',
+                type: 'text/plain',
                 value: content
             }
         ]
     };
-    nock('https://api.sendgrid.com:443', {encodedQueryParams:true})
+    nock('https://api.sendgrid.com:443', { encodedQueryParams: true })
         .post('/v3/mail/send', body)
-        .reply(202, '', [ 'Server',
+        .reply(202, '', ['Server',
             'nginx',
             'Date',
             'Wed, 16 Aug 2017 20:38:36 GMT',
@@ -48,5 +48,5 @@ module.exports = (fromEmail, toEmail, subject, content) => {
             'Access-Control-Max-Age',
             '600',
             'X-No-CORS-Reason',
-            'https://sendgrid.com/docs/Classroom/Basics/API/cors.html' ]);
+            'https://sendgrid.com/docs/Classroom/Basics/API/cors.html']);
 };

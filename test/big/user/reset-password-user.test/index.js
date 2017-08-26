@@ -1,18 +1,18 @@
 const assert = require('assert');
 const faker = require('faker');
 const features = require('./features');
-const { findOne, create: createUser, comparePassword} = require('../../../../stores/user');
+const { findOne, create: createUser, comparePassword } = require('../../../../stores/user');
 const {
-    emailSenderingCong:{
+    emailSenderingCong: {
         emailRemitentInOpt,
-        subjectOptEmail: subject,
-        contentOptEmail: content
+    subjectOptEmail: subject,
+    contentOptEmail: content
     }
 } = require('../../../../config');
 
 describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
-        it('/user/reset/password POST -> should reset the password', async() => {
+        it('/user/reset/password POST -> should reset the password', async () => {
             const body = {
                 email: 'test_reset_pass@test.com',
                 password: 'test_rest',
@@ -35,16 +35,16 @@ describe('Reset the password using temporal password', () => {
             assert(!match.error);
         });
 
-        it('/user/reset/password POST -> should reset the password with complete flow', async() => {
+        it('/user/reset/password POST -> should reset the password with complete flow', async () => {
             const body = {
                 email: faker.internet.email(),
                 password: faker.internet.password()
             };
             features(emailRemitentInOpt, body.email, subject, content);
             await createUser(body);
-            const {body: resOtp} = await agent
+            const { body: resOtp } = await agent
                 .post('/user/otp')
-                .send({email: body.email});
+                .send({ email: body.email });
             const data = {
                 email: body.email,
                 oldPassword: resOtp.tempPassword,

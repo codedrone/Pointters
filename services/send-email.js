@@ -1,6 +1,6 @@
 const SendGrid = require('sendgrid');
 
-const {emailSenderingCong:{emailRemitentInOpt, sendgridApiKey}} = require('../config');
+const { emailSenderingCong: { emailRemitentInOpt, sendgridApiKey } } = require('../config');
 
 const helper = SendGrid.mail;
 const sg = SendGrid(sendgridApiKey);

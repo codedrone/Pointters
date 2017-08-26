@@ -4,26 +4,26 @@ const nock = require('nock');
 module.exports = (fromEmail, toEmail, subject, content) => {
     const body = {
         subject,
-        from:{
-            email:fromEmail
+        from: {
+            email: fromEmail
         },
-        personalizations:[
+        personalizations: [
             {
-                to:[
+                to: [
                     {
-                        email:toEmail
+                        email: toEmail
                     }
                 ]
             }
         ],
-        content:[
+        content: [
             {
-                type:'text/plain',
+                type: 'text/plain',
                 value: content
             }
         ]
     };
-    nock('https://api.sendgrid.com:443', {encodedQueryParams:true})
+    nock('https://api.sendgrid.com:443', { encodedQueryParams: true })
         .post('/v3/mail/send', body)
         .reply(202, '', [
             'Server',
