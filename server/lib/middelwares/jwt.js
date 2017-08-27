@@ -1,9 +1,9 @@
 const jwt = require('koa-jwt');
 const unless = require('./unless');
 
-const { jwt: { secret }} = require('../../../config');
+const { jwt: { secret, expiresIn}} = require('../../../config');
 
-const middelware = jwt({ secret });
+const middelware = jwt({ secret, expiresIn});
 
 middelware.unless = unless(middelware);
 

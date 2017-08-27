@@ -1,9 +1,17 @@
 # Pointers API REST
-
+To start the api:
 ```bash
-npm start name-id-of-api
+make start
+```
+To restart the api:
+```bash
+make restart
 ```
 
+To stop the api:
+```bash
+make stop
+```
 you need to be installed pm2, nyc and mocha globally to start the server and run test.
 # Enviroments Variables
 
@@ -12,12 +20,20 @@ you need to be installed pm2, nyc and mocha globally to start the server and run
 | NODE_ENV      | enviroment to run, default is test. Set 
 |SENDGRID_API_KEY|  the key to sengrid|
 to PROD to run in production mode|
+|AWS_ACCESS_KEY_ID| aws keys|
+|AWS_SECRET_ACCESS_KEY|aws keys|
 
 # Test
 
 You need to be isntalled nyc and mocha to run the tests.
 ```bash
-npm test
+make test
+```
+
+Run the small test
+
+```bash
+make test_small
 ```
 
 We are using the istanbul to get the coverage, the ideal coverage is 100% please is hard to get this coverage try to do you better work.

@@ -23,7 +23,9 @@
   "dependencies": {
     "aws-sdk": "^2.100.0",
     "bcrypt": "^1.0.2",
+    "cron": "^1.2.1",
     "debug": "^2.6.8",
+    "elasticsearch": "^13.3.1",
     "fb": "^2.0.0",
     "http-aws-es": "^2.0.5",
     "ioredis": "^3.1.2",
@@ -50,6 +52,8 @@
   "scripts": {
     "start": "DEBUG=*Pointers-API* pm2 start server/index.js --name",
     "test": "nyc mocha test/bootstrap $(find test -name *.test.js )",
+    "test_small": "nyc mocha --recursive test/small",
+    "test_s": "nyc mocha --recursive test/small",
     "mocha": "mocha test/bootstrap $(find test -name *.test.js )"
   },
   "author": "pointters",

@@ -1,11 +1,31 @@
 module.exports = {
     completedRegistration: {
         type: Boolean,
-        default: false},
+        default: false
+    },
     completedRegistrationDate: Date,
     isActive: {
         type: Boolean,
         default: true
+    },
+    isEmail: {
+        valid: {
+            type: Boolean,
+            default: true
+        },
+        bounced: {
+            type: Boolean,
+            default: false
+        },
+        spam: {
+            type: Boolean,
+            default: false
+        },
+        invalid: {
+            type: Boolean,
+            default: false
+        },
+        reason: String
     },
     awards: {
         type: String
@@ -81,13 +101,13 @@ module.exports = {
             enum: [ 'daily', 'weekly', 'all' ],
             default: 'all'
         },
-        locationViewPermission:{
+        locationViewPermission: {
             type: String,
             description: 'locationViewPermission',
             enum: [ 'public', 'followers', 'onlyme' ],
             default: 'onlyme'
         },
-        phoneViewPermission:{
+        phoneViewPermission: {
             type: String,
             description: 'phoneViewPermission',
             enum: [ 'public', 'followers', 'onlyme' ],

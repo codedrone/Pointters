@@ -1,6 +1,6 @@
 const Fb = require('fb');
 
-const { facebook } = require('../config');
+const { facebook } = require('../../../config');
 
 const fb = new Fb.Facebook(facebook);
 

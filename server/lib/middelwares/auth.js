@@ -3,12 +3,14 @@ const unless = require('./unless');
 
 const middelware = async (ctx, next) => {
     const userUsingJwt = await findOne(ctx.queryToFindUserById);
-    const userUsingSession = await findOne({ _id: ctx.session.id });
-    let isAuth = userUsingJwt || userUsingSession;
 
-    if (userUsingJwt && userUsingSession) isAuth = isAuth &&
-        userUsingJwt._id === userUsingSession._id;
+    let userUsingSession = null;
+    if (ctx.session.id) userUsingSession = await findOne({ _id: ctx.session.id });
 
+    const isAuth = userUsingJwt && userUsingSession &&
+        !userUsingJwt.error &&
+        !userUsingSession.error &&
+        userUsingSession._id === userUsingJwt._id;
     if (!isAuth) return ctx.throw(403, 'Unauthorized User');
 
     if (next) await next();

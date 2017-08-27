@@ -8,11 +8,15 @@ const update = require('./update');
 const Delete = require('./delete');
 const unset = require('./unset');
 const search = require('./search');
+const updateEmailBounce = require('./update-email-bounce');
+const updateEmailSpam = require('./update-email-spam');
 
 module.exports = {
     comparePassword,
     unset: unset(client),
     findOne: findOne(client),
+    updateEmailBounce: updateEmailBounce(client),
+    updateEmailSpam: updateEmailSpam(client),
     delete: Delete(client),
     search: search(client),
     create: create(client),

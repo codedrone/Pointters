@@ -16,7 +16,6 @@ describe('User/:id services', () => {
                 password: 'test'
             };
             const userOther = await createUser(bodyOther);
-            console.log('userOther = ', userOther);
             const {
                 body: { token },
                 headers: { 'set-cookie': cookie }
@@ -31,8 +30,8 @@ describe('User/:id services', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            console.log('res = ', res);
             assert.equal(res.user.email, userOther.email);
+            assert(!res.user.password);
         });
     });
 });

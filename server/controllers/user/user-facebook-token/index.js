@@ -3,11 +3,10 @@ const { findOne } = require('../../../../stores/user');
 const signToken = require('../../../lib/sign-token');
 const getHeaders = require('../../../lib/get-headers');
 const getSession = require('../../../lib/get-session');
-const validateFacebookToken = require('../../../../services/validate-token-facebook');
+const {socialNetwork:{facebook:{validateFacebookToken}}} = require('../../../../services');
 const createUser = require('./create-user');
 const debug = require('../../../../lib/debug');
 
-const errorCreatingUser = 'Error on create user';
 const successMessage = 'Successful created a new user.';
 const socialNetwork = 'facebook';
 module.exports = async(ctx) => {

@@ -31,6 +31,7 @@ describe('login services', () => {
             assert(headers['x-expires-after']);
             assert(headers['set-cookie']);
             assert(res.success === true);
+            console.log('res =====', res);
             assert(typeof res.token === 'string');
         });
     });

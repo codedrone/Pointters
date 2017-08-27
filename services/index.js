@@ -1,6 +1,8 @@
-const sendEmail = require('./send-email');
+const email = require('./email');
+const socialNetwork = require('./social-network');
 
 
 module.exports = {
-    sendEmail
+    email,
+    socialNetwork
 };

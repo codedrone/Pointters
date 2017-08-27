@@ -29,13 +29,16 @@ app.use(session({
 app.use(jwt.unless({
     path: pathUnprotected
 }));
+app.use(getQueries.unless({
+    path: pathUnprotected
+}));
 app.use(auth.unless({
     path: pathUnprotected
 }));
+
 app.use(bodyParser({
     formLimit: '5mb',
     jsonLimit: '5mb',
     textLimit: '5mb'
 }));
-app.use(getQueries());
 module.exports = app;

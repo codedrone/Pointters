@@ -1,9 +1,9 @@
 const SendGrid = require('sendgrid');
 
-const { emailSenderingCong: { emailRemitentInOpt, sendgridApiKey } } = require('../config');
+const sg = require('./client');
+const { emailSenderingCong: { emailRemitentInOpt } } = require('../../config');
 
 const helper = SendGrid.mail;
-const sg = SendGrid(sendgridApiKey);
 
 const sendEmail = async(emailReceiver, subject, _content) => {
     const fromEmail = new helper.Email(emailRemitentInOpt);
@@ -17,8 +17,7 @@ const sendEmail = async(emailReceiver, subject, _content) => {
         body: mail.toJSON()
     });
 
-    const response = await sg.API(request);
-    if (response.error) await Promise.reject(response.error);
+    return await sg.API(request);
 };
 
 module.exports = sendEmail;
