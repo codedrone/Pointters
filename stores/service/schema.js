@@ -1,3 +1,8 @@
+const fulfillmentMethod = require('./sub-schemas/fulfillment-method');
+const location = require('./sub-schemas/location');
+const price = require('./sub-schemas/price');
+const media = require('./sub-schemas/media');
+
 module.exports = {
     userId: {
         type: String,
@@ -23,17 +28,14 @@ module.exports = {
             ref: 'user'
         }
     },
-    media: {
-        type: {},
-        required: true
+    media: media,
+    fulfillmentMethod: fulfillmentMethod,
+    geofence: {
+        type: Array
     },
-    pricing: {
-        type: {},
-        required: true
-    },
-    fulfillmentMethod: {
-        type: {},
-        required: true
-    },
+    location: [ location ],
+    prices: [ price ],
     createdAt: Date
 };
+
+

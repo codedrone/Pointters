@@ -11,16 +11,7 @@ describe('User services', () => {
                 category: {
                     category: 'category'
                 },
-                description: 'description',
-                media: {
-                    media: 'media'
-                },
-                pricing: {
-                    pricing: 'pricing'
-                },
-                fulfillmentMethod: {
-                    fulfillmentMethod: 'fulfillmentMethod'
-                },
+                description: 'description'
             };
             const serviceCreated = await createService(service);
             console.log('serviceCreated ', serviceCreated);
@@ -31,9 +22,6 @@ describe('User services', () => {
             console.log('res = ', res);
             const serviceShared = await findOneService({ userId: __user._id });
             assert.deepStrictEqual(res.service.category, serviceShared.category);
-            assert.deepStrictEqual(res.service.media, serviceShared.media);
-            assert.deepStrictEqual(res.service.pricing, serviceShared.pricing);
-            assert.deepStrictEqual(res.service.fulfillmentMethod, serviceShared.fulfillmentMethod);
             assert(serviceShared.isActive);
         });
     });

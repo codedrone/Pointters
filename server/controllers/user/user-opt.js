@@ -1,11 +1,12 @@
 const { update, findOne } = require('../../../stores/user');
-const { email: { sendEmail } } = require('../../../services');
+
+const {email:{sendEmail}} = require('../../../services');
 const { optExpiresIn,
     longOfPasswordTemp,
     emailSenderingCong: {
         subjectOptEmail: subject,
-        contentOptEmail: content
-    }
+        contentOptEmail: _content
+}
 } = require('../../../config');
 
 const errorInUpdateUser = 'Error on update user';
@@ -20,12 +21,9 @@ module.exports = async(ctx) => {
         tempPassword: Math.random().toString(36).slice(-longOfPasswordTemp),
         resetPasswordExpires: new Date(Date.now() + optExpiresIn)
     };
-    ctx.body = Object.assign({}, updateTheAuthSettings);
     const { error } = await update(queryToFindUser, updateTheAuthSettings);
 
     if (error) ctx.throw(500, errorInUpdateUser);
-
-    const { error: errorFromSendEmail } = await sendEmail(user.email, subject, content);
-
-    if (errorFromSendEmail) ctx.throw(500, errorFromSendEmail.message);
+    const content = _content + updateTheAuthSettings.tempPassword;
+    await sendEmail(user.email, subject, content);
 };

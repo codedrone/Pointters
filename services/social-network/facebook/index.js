@@ -1,7 +1,6 @@
-const ValidateTokenFacebook = require('./validate-token-facebook');
+const validateTokenFacebook = require('./validate-token-facebook');
 
 
 module.exports = {
-    ValidateTokenFacebook
-}
-;
+    validateTokenFacebook
+};

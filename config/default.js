@@ -24,7 +24,7 @@ module.exports = {
         emailRemitentInOpt: 'help@pointters.com',
         sendgridApiKey: process.env.SENDGRID_API_KEY || '',
         subjectOptEmail: 'Password Reset',
-        contentOptEmail: 'Your password was resetted'
+        contentOptEmail: 'Your password was resetted with: '
 
     },
     pathUnprotected: [
@@ -39,5 +39,8 @@ module.exports = {
         BounceEmail: '00 00 * * * *',
         SpamEmail: '00 00 * * * *',
         InvalidEmail: '00 00 * * * *'
+    },
+    checkr: {
+        authToken: ''
     }
 };

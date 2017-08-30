@@ -7,7 +7,7 @@ module.exports = async(ctx) => {
 
     const service = await findOne(queryToFindService);
 
-    if (!service || service.error) ctx.throw(400, errorMessage);
+    if (!service || service.error) ctx.throw(404, errorMessage);
 
     ctx.body = { service };
 };

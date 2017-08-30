@@ -8,11 +8,12 @@ const excludeFields = {
 };
 
 
-module.exports = (client) => async(query, data) => {
+module.exports = (client) => async (query, data) => {
     let user = await catchErrorFromPromise(client.findOne(query, excludeFields));
 
     if (!user) user = await catchErrorFromPromise(client.create(data));
 
     user = user.toObject();
     user._id = user._id.toString();
+    return user;
 };

@@ -1,8 +1,8 @@
 
 test:
-	DEBUG=*api* mocha $(shell find test)
+	DEBUG=*api* mocha test/bootstrap $(shell find test -name *test.js)
 test_small:
-	mocha $(shell find test/small) 
+	mocha $(shell find test/small -name *test.js) 
 start:
 	DEBUG=*Pointers-API* pm2 start index.js --name pointers-app
 restart:

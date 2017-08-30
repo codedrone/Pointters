@@ -11,16 +11,7 @@ describe('User services', () => {
                 category: {
                     category: 'category'
                 },
-                description: 'description',
-                media: {
-                    media: 'media'
-                },
-                pricing: {
-                    pricing: 'pricing'
-                },
-                fulfillmentMethod: {
-                    fulfillmentMethod: 'fulfillmentMethod'
-                },
+                description: 'description'
             };
             const { body: res } = await agent.post('/service')
                 .send(body)
@@ -31,11 +22,8 @@ describe('User services', () => {
             assert(res.success === true);
             assert(typeof res.service === 'object');
             const serviceCreated = await findOne({});
-            console.log('serviceCreated ', serviceCreated);
             assert.deepEqual(serviceCreated.category, body.category);
             assert.deepEqual(serviceCreated.description, body.description);
-            assert.deepEqual(serviceCreated.pricing, body.pricing);
-            assert.deepEqual(serviceCreated.fulfillmentMethod, body.fulfillmentMethod);
         });
     });
 

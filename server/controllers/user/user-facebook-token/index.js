@@ -3,20 +3,20 @@ const { findOne } = require('../../../../stores/user');
 const signToken = require('../../../lib/sign-token');
 const getHeaders = require('../../../lib/get-headers');
 const getSession = require('../../../lib/get-session');
-const {socialNetwork:{facebook:{validateFacebookToken}}} = require('../../../../services');
+const { socialNetwork: { facebook: { validateTokenFacebook } } } = require('../../../../services');
 const createUser = require('./create-user');
 const debug = require('../../../../lib/debug');
 
 const successMessage = 'Successful created a new user.';
 const socialNetwork = 'facebook';
 module.exports = async(ctx) => {
-    const {body:{token: facebookToken}} = ctx.request;
-    const { name, id: idFacebook, error } = await validateFacebookToken(facebookToken);
+    const { body: { token: facebookToken } } = ctx.request;
+    const { name, id: idFacebook, error } = await validateTokenFacebook(facebookToken);
 
     if (error) {
         debug.service.error(`Error from facebook ${error.message}`);
         ctx.status = 403;
-        ctx.body = {msg: 'Token not Valid'};
+        ctx.body = { msg: 'Token not Valid' };
         return;
     }
 

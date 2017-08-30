@@ -12,15 +12,6 @@ describe('User services', () => {
                     category: 'category'
                 },
                 description: 'description',
-                media: {
-                    media: 'media'
-                },
-                pricing: {
-                    pricing: 'pricing'
-                },
-                fulfillmentMethod: {
-                    fulfillmentMethod: 'fulfillmentMethod'
-                },
                 shared: {
                     originUser: __user._id
                 }
@@ -32,9 +23,6 @@ describe('User services', () => {
                 .set(Cookie)
                 .expect(200);
             assert.deepStrictEqual(res.service.category, service.category);
-            assert.deepStrictEqual(res.service.media, service.media);
-            assert.deepStrictEqual(res.service.pricing, service.pricing);
-            assert.deepStrictEqual(res.service.fulfillmentMethod, service.fulfillmentMethod);
             assert.deepStrictEqual(res.service.shared, service.shared);
             assert(res.service.isActive);
         });

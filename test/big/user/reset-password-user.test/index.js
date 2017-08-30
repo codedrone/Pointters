@@ -35,28 +35,34 @@ describe('Reset the password using temporal password', () => {
             assert(!match.error);
         });
 
-        it('/user/reset/password POST -> should reset the password with complete flow', async () => {
+        it('/user/reset/password POST -> should reset the password with complete flow', (done) => {
             const body = {
                 email: faker.internet.email(),
                 password: faker.internet.password()
             };
-            features(emailRemitentInOpt, body.email, subject, content);
-            await createUser(body);
-            const { body: resOtp } = await agent
-                .post('/user/otp')
-                .send({ email: body.email });
-            const data = {
-                email: body.email,
-                oldPassword: resOtp.tempPassword,
-                newPassword: 'new_password'
-            };
-            await agent
-                .post('/user/reset/password')
-                .send(data)
-                .expect(200);
-            const user = await findOne({ email: body.email });
-            const match = await comparePassword(data.newPassword, user.password);
-            assert(!match.error);
+            const emitter = features(emailRemitentInOpt, body.email, subject);
+
+            emitter.on('content', (content) => {
+                console.log('content ', content);
+                const tempPassword = content.split(': ')[1];
+                console.log('tempPassword ', tempPassword);
+                const data = {
+                    email: body.email,
+                    oldPassword: tempPassword,
+                    newPassword: 'new_password'
+                };
+                agent.post('/user/reset/password')
+                    .send(data)
+                    .expect(200)
+                    .then(() => {
+                        const user = findOne({ email: body.email });
+                        const match = comparePassword(data.newPassword, user.password);
+                        assert(!match.error);
+                        done();
+                    });
+            });
+            createUser(body)
+            .then(() => agent.post('/user/otp').send({email: body.email}));
         });
     });
 });
