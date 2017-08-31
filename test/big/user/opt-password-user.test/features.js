@@ -1,31 +1,17 @@
 const nock = require('nock');
+const EventEmitter = require('events');
+const emitter = new EventEmitter();
 
-
-module.exports = (fromEmail, toEmail, subject, content) => {
-    const body = {
-        from: {
-            email: fromEmail
-        },
-        personalizations: [
-            {
-                to: [
-                    {
-                        email: toEmail
-                    }
-                ]
-            }
-        ],
-        subject,
-        content: [
-            {
-                type: 'text/plain',
-                value: content
-            }
-        ]
-    };
-    nock('https://api.sendgrid.com:443', { encodedQueryParams: true })
-        .post('/v3/mail/send', body)
-        .reply(202, '', [ 'Server',
+module.exports = (fromEmail, toEmail, subject) => {
+    nock('https://api.sendgrid.com:443', {encodedQueryParams:true})
+        .post('/v3/mail/send', (req) => {
+            emitter.emit('content', req.content[0].value);
+            return req.subject === subject &&
+                req.from.email === fromEmail &&
+                req.personalizations[0].to[0].email === toEmail;
+        })
+        .reply(202, '', [
+            'Server',
             'nginx',
             'Date',
             'Wed, 16 Aug 2017 20:38:36 GMT',
@@ -49,4 +35,6 @@ module.exports = (fromEmail, toEmail, subject, content) => {
             '600',
             'X-No-CORS-Reason',
             'https://sendgrid.com/docs/Classroom/Basics/API/cors.html' ]);
+
+    return emitter;
 };
