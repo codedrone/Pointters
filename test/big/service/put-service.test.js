@@ -7,13 +7,43 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/service PUT sohuld create a service given', async() => {
             const body = {
-                userId: 'id of user',
                 category: {
-                    category: 'category'
+                    id:'123',
+                    name:'Home'
                 },
-                description: 'description',
+                userId:'id of user',
+                description: 'service description',
+                fulfillmentMethod: {
+                    local:true,
+                    online:false,
+                    shipment:false,
+                    store:false
+                },
+                location: [ {
+                    city:'Chicago',
+                    country:'US',
+                    geoJson: {
+                        type: 'Point',
+                        coordinates: [ -73.856077, 40.848447 ]
+                    },
+                    postalCode:'12345',
+                    province:'',
+                    state:'IL'
+                } ],
+                media:
+                {
+                    fileName:'123.jpg',
+                    mediaType:'image'
+                },
+                pricing: {
+                    description:'1 hour service',
+                    price:20,
+                    time:'1',
+                    timeUnitOfMeasure:'hour'
+                }
             };
             const serviceCreated = await create(body);
+            console.log('serviceCreated ', serviceCreated);
             const update = {
                 category: {
                     category: 'category-updated'

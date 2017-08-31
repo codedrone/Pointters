@@ -4,7 +4,7 @@ test:
 test_small:
 	mocha $(shell find test/small -name *test.js) 
 start:
-	DEBUG=*Pointers-API* pm2 start index.js --name pointers-app
+	DEBUG=*error pm2 start index.js --name pointers-app
 restart:
 	pm2 restart pointers-app --update-env
 stop:

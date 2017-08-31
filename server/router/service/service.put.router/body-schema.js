@@ -2,8 +2,8 @@ const joi = require('joi');
 
 
 module.exports = joi.object().keys({
-    category: joi.object().required(),
-    description: joi.string().required(),
+    category: joi.object(),
+    description: joi.string(),
     media: joi.array().items(joi.object().keys({
         fileName: joi.string(),
         mediaType: joi.string().valid([ 'image', 'video' ])
@@ -25,11 +25,11 @@ module.exports = joi.object().keys({
         state: joi.string()
     })),
     prices: joi.array().items(joi.object().keys({
-        description: joi.string().required(),
+        description: joi.string(),
         location: joi.object(),
         price: joi.number(),
-        time: joi.number().required(),
-        timeUnitOfMeasure: joi.string().valid([ 'hour', 'day', 'week' ]).required()
+        time: joi.number(),
+        timeUnitOfMeasure: joi.string().valid([ 'hour', 'day', 'week' ])
     }))
 });
 
