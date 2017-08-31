@@ -1,6 +1,6 @@
 const joi = require('joi');
 
-module.exports = joi.object.keys({
+module.exports = joi.object().keys({
     first_name: joi.string().required(),
     middle_name: joi.string(),
     last_name: joi.string().required(),

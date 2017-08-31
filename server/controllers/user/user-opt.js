@@ -1,12 +1,12 @@
 const { update, findOne } = require('../../../stores/user');
 
-const {email:{sendEmail}} = require('../../../services');
+const { email: { sendEmail } } = require('../../../services');
 const { optExpiresIn,
     longOfPasswordTemp,
     emailSenderingCong: {
         subjectOptEmail: subject,
         contentOptEmail: _content
-}
+    }
 } = require('../../../config');
 
 const errorInUpdateUser = 'Error on update user';

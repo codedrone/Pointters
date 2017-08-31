@@ -2,8 +2,6 @@ const { findOne } = require('../../../stores/user');
 const unless = require('./unless');
 
 const middelware = async (ctx, next) => {
-    console.log('ctx.queryToFindUserById', ctx.queryToFindUserById);
-    console.log('ctx.session.id', ctx.session.id);
     const userUsingJwt = await findOne(ctx.queryToFindUserById);
 
     let userUsingSession = null;

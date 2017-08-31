@@ -13,6 +13,8 @@ module.exports = (client) => async (query, data) => {
 
     if (!user) user = await catchErrorFromPromise(client.create(data));
 
+    if (user.error) return await Promise.resolve({error: user.error});
+    
     user = user.toObject();
     user._id = user._id.toString();
     return user;

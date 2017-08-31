@@ -1,6 +1,8 @@
 const joi = require('joi');
 
+console.log('joi', joi);
 const schema = require('./schema-candidate');
 
-module.exports = (data) => joi.validate(schema, data);
+console.log('schema =', schema);
+module.exports = (data) => joi.validate(data, schema);
 

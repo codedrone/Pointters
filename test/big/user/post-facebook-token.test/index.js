@@ -26,7 +26,7 @@ describe('User services', () => {
             const user = await findOne({
                 'socialNetwork.name': 'facebook',
             });
-            assert(user);
+            assert(!user.error);
         });
     });
     describe('FAIL', () => {

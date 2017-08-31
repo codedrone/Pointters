@@ -28,7 +28,7 @@ module.exports = {
             ref: 'user'
         }
     },
-    media: media,
+    media: [ media ],
     fulfillmentMethod: fulfillmentMethod,
     geofence: {
         type: Array
