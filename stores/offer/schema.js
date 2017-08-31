@@ -21,8 +21,7 @@ module.exports = {
         type: Object
     },
     serviceId: {
-        type: String,
-        required: true
+        type: String
     },
     isActive: {
         type: Boolean,
@@ -36,6 +35,6 @@ module.exports = {
     },
     workDurationUom: {
         type: String,
-        enum: ['hour', 'day', 'week']
+        enum: [ 'hour', 'day', 'week' ]
     },
 };

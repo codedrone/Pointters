@@ -28,7 +28,7 @@ module.exports = {
         type: Number
     },
     scheduleDate: {
-        type: Number
+        type: Date
     },
     updatedAt: {
         type: Date

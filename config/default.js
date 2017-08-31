@@ -1,6 +1,6 @@
 module.exports = {
     elasticsearch: {
-        hosts: [ 'localhost:9200' ]
+        hosts: ['localhost:9200']
     },
     timeout: {
         apiTimeout: 30000,

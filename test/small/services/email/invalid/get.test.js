@@ -21,7 +21,7 @@ const pathStub = {
 
 const GetInvalid = proxyquire('../../../../../services/email/invalid/get.js', pathStub);
 
-describe('Get email invalidd', () => {
+describe('Get email invalid', () => {
     describe('Success', () => {
         it('should return the invalid Getted', async() => {
             const invalidsGettedbyGetInvalid = await GetInvalid();

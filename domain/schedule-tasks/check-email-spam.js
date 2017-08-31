@@ -1,8 +1,8 @@
-const {get:getSpam, delete:deleteSpam} = require('../../services/email/spam');
+const { get: getSpam, delete: deleteSpam } = require('../../services/email/spam');
 
-const { updateEmailSpam:updateEmailSettingsOfUser} = require('../../stores/user');
+const { updateEmailSpam: updateEmailSettingsOfUser } = require('../../stores/user');
 
-module.exports = async () => {
+module.exports = async() => {
     const spams = await getSpam();
 
     if (!spams.length) return;

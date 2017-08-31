@@ -11,10 +11,7 @@ describe('User services', () => {
                 category: {
                     category: 'category'
                 },
-                description: 'description',
-                media: {
-                    media: 'media'
-                }
+                description: 'description'
             };
             const serviceCreated = await create(body);
             const { body: { service: res } } = await agent.get(`/service/${serviceCreated._id}`)

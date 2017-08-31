@@ -43,6 +43,7 @@
     "koa-timeout-v2": "^1.0.0",
     "koa-unless": "^1.0.7",
     "koa2-validation": "0.0.2",
+    "mocha": "^3.5.0",
     "mongoosastic": "^4.3.0",
     "mongoose": "*",
     "node-pre-gyp": "^0.6.36",

@@ -10,6 +10,7 @@ const { optExpiresIn,
 } = require('../../../config');
 
 const errorInUpdateUser = 'Error on update user';
+const errorInSendEmailMessage = 'Error on send email';
 
 module.exports = async(ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
@@ -25,5 +26,7 @@ module.exports = async(ctx) => {
 
     if (error) ctx.throw(500, errorInUpdateUser);
     const content = _content + updateTheAuthSettings.tempPassword;
-    await sendEmail(user.email, subject, content);
+    const {error: errorInSendEmail} = await sendEmail(user.email, subject, content);
+
+    if (errorInSendEmail) ctx.throw(404, errorInSendEmailMessage);
 };

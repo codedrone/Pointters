@@ -4,7 +4,7 @@ const proxyquire = require('proxyquire');
 
 const requestToAPI = {};
 const pathToModule = '../../../../services/email/send-email';
-const response = { error: 'error' };
+const response = { };
 const pathStub = {
     './client': {
         emptyRequest: ({ method, path, body }) => {
@@ -27,7 +27,7 @@ const sender = 'test@test.com';
 const subject = 'subject';
 const content = 'content';
 
-describe('delete email invalid', () => {
+describe('Get the sendMail object', () => {
     describe('Success', () => {
         it('should return the get object', async () => {
             const reponseFromSendEmail = await sendEmail(sender, subject, content);

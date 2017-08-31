@@ -25,7 +25,7 @@ module.exports = (fromEmail, toEmail, subject, content) => {
     };
     nock('https://api.sendgrid.com:443', { encodedQueryParams: true })
         .post('/v3/mail/send', body)
-        .reply(202, '', ['Server',
+        .reply(202, '', [ 'Server',
             'nginx',
             'Date',
             'Wed, 16 Aug 2017 20:38:36 GMT',
@@ -48,5 +48,5 @@ module.exports = (fromEmail, toEmail, subject, content) => {
             'Access-Control-Max-Age',
             '600',
             'X-No-CORS-Reason',
-            'https://sendgrid.com/docs/Classroom/Basics/API/cors.html']);
+            'https://sendgrid.com/docs/Classroom/Basics/API/cors.html' ]);
 };

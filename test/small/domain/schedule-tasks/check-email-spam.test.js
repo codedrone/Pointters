@@ -7,10 +7,10 @@ const pathToModule = '../../../../domain/schedule-tasks/check-email-spam.js';
 describe('CheckSpams test', () => {
     describe('Success', () => {
         it('should call the delete function', (done) => {
-            const spams = [ {} ];
-            const updated = [ {} ];
+            const spams = [{}];
+            const updated = [{}];
             const pathStub = {
-                '../../services/email/spam':{
+                '../../services/email/spam': {
                     get: () => Promise.resolve(spams),
                     delete: (toDelete) => {
                         assert.deepStrictEqual(toDelete, updated);
@@ -19,7 +19,7 @@ describe('CheckSpams test', () => {
                     },
                 },
                 '../../stores/user': {
-                    updateEmailSpam:(update) => {
+                    updateEmailSpam: (update) => {
                         assert.deepStrictEqual(update, spams);
                         return Promise.resolve(updated);
                     }
@@ -30,14 +30,14 @@ describe('CheckSpams test', () => {
         });
 
         it('should not call the update if spams is empty', () => {
-            const spams = [ ];
+            const spams = [];
             const pathStub = {
-                '../../services/email/spam':{
+                '../../services/email/spam': {
                     get: () => Promise.resolve(spams),
                     delete: () => ({}),
                 },
                 '../../stores/user': {
-                    updateEmailSpam:() => {
+                    updateEmailSpam: () => {
                         throw new Error('this no happen');
                     }
                 }
@@ -47,17 +47,17 @@ describe('CheckSpams test', () => {
         });
 
         it('should not call the delete if update return empty', () => {
-            const spams = [ {} ];
-            const updated = [ ];
+            const spams = [{}];
+            const updated = [];
             const pathStub = {
-                '../../services/email/spam':{
+                '../../services/email/spam': {
                     get: () => Promise.resolve(spams),
                     delete: () => {
                         throw new Error('delete is not called');
                     },
                 },
                 '../../stores/user': {
-                    updateEmailSpam:() => Promise.resolve(updated)
+                    updateEmailSpam: () => Promise.resolve(updated)
                 }
             };
             const checkSpams = proxyquire(pathToModule, pathStub);

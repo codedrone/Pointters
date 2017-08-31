@@ -22,7 +22,8 @@ describe('User requests', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res, { success: true });
+            assert(res.success);
+            assert(res.offer._id);
             const offer = await findOneOffer(body);
             assert(offer.isActive === true);
         });

@@ -21,7 +21,7 @@ const pathStub = {
 
 const GetSpam = proxyquire('../../../../../services/email/spam/get.js', pathStub);
 
-describe('Get email spamd', () => {
+describe('Get email spamed', () => {
     describe('Success', () => {
         it('should return the spam Getted', async() => {
             const spamsGettedbyGetSpam = await GetSpam();

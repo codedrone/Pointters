@@ -21,7 +21,7 @@ const pathStub = {
 const client = proxyquire(pathToModule, pathStub);
 
 
-describe('delete email invalid', () => {
+describe('Get the client', () => {
     describe('Success', () => {
         it('should return the get object', () => {
             assert.deepStrictEqual(client, clientReturned);

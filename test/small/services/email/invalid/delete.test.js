@@ -23,7 +23,7 @@ const pathStub = {
 
 const deleteInvalid = proxyquire('../../../../../services/email/invalid/delete.js', pathStub);
 
-describe('delete email invalided', () => {
+describe('delete email invalid', () => {
     describe('Success', () => {
         it('should return the invalid deleted', async() => {
             const invalidsDeltedbyDeleteInvalid = await deleteInvalid(emailToDelete);

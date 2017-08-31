@@ -1,10 +1,10 @@
 
 const callAPI = require('./client');
 const uri = '/reports';
-const method = 'GET';
+const method = 'POST';
 const options = { uri, method };
 
-module.exports = async (reportId) => {
-    options.uri = `/reports/${reportId}`;
+module.exports = async(data) => {
+    options.json = data;
     return await callAPI(options);
 };

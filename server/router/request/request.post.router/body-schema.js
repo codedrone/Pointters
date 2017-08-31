@@ -7,5 +7,5 @@ module.exports = joi.object().keys({
     media:joi.object(),
     minPrice:joi.number(),
     maxPrice:joi.number(),
-    scheduleDate:joi.number()
+    scheduleDate:joi.string()
 });

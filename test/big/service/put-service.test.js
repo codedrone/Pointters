@@ -12,15 +12,6 @@ describe('User services', () => {
                     category: 'category'
                 },
                 description: 'description',
-                media: {
-                    media: 'media'
-                },
-                pricing: {
-                    pricing: 'pricing'
-                },
-                fulfillmentMethod: {
-                    fulfillmentMethod: 'fulfillmentMethod'
-                },
             };
             const serviceCreated = await create(body);
             const update = {
