@@ -14,7 +14,7 @@ module.exports = async(ctx) => {
     const reviewToCreate = Object.assign(dataFromRequest, ctx.request.body);
     const review = await createReview(reviewToCreate);
 
-    if (review.error) ctx.throw(500, review.error.message);
+    if (review.error) ctx.throw(404, review.error.message);
 
     ctx.body = { success: true, review };
 };

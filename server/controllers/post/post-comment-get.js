@@ -10,7 +10,7 @@ module.exports = async(ctx) => {
 
     if (!postComment) ctx.throw(403, commentDoesNotExists);
 
-    if (postComment.error) ctx.throw(500, errorInGetWatching);
+    if (postComment.error) ctx.throw(404, errorInGetWatching);
 
     ctx.body = {
         comment: postComment

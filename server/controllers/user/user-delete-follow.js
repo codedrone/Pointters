@@ -17,5 +17,5 @@ module.exports = async(ctx) => {
     };
     const { error } = await pull(ctx.queryToFindUserById, userToUnfollow._id);
 
-    if (error) ctx.throw(500, error.message);
+    if (error) ctx.throw(404, error.message);
 };

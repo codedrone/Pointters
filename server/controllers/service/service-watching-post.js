@@ -10,7 +10,7 @@ module.exports = async(ctx) => {
 
     const { error } = await pushToWatching(ctx.queryToFindUserById, ctx.params.idService);
 
-    if (error) ctx.throw(500, error.message);
+    if (error) ctx.throw(404, error.message);
 
     ctx.body = { success: true };
 };

@@ -6,7 +6,7 @@ module.exports = async (ctx) => {
     data.createdAt = new Date().toString();
     const { error } = await update(ctx.queryToFindUserById, data);
 
-    if (error) ctx.throw(500, errorMessageInUpdateUser);
+    if (error) ctx.throw(404, errorMessageInUpdateUser);
 
     ctx.status = 200;
     ctx.body = { success: true };

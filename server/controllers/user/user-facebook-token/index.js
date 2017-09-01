@@ -28,7 +28,7 @@ module.exports = async(ctx) => {
     const [ firstName, lastName ] = name.split(' ');
     if (!savedUser) userCreatedOrUpdated = await createUser(ctx, { idFacebook, firstName, lastName });
 
-    if (userCreatedOrUpdated.error) ctx.throw(500, userCreatedOrUpdated.error.message);
+    if (userCreatedOrUpdated.error) ctx.throw(404, userCreatedOrUpdated.error.message);
 
     const paramsToGetToken = { id: userCreatedOrUpdated._id };
     const token = signToken(paramsToGetToken);

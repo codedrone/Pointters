@@ -23,7 +23,7 @@ module.exports = async (ctx) => {
     };
     const { error } = await update(queryToFindUser, updateTheAuthSettings);
 
-    if (error) ctx.throw(500, error.message);
+    if (error) ctx.throw(404, error.message);
     const token = signToken({ id: user._id });
     ctx.response.set(getHeaders());
     ctx.session = getSession(user);

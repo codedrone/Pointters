@@ -12,7 +12,7 @@ module.exports = async(ctx) => {
 
     const likes = await getToLikes(ctx.queryToFindUserById);
     console.log('likes = ', likes);
-    if (likes.error) ctx.throw(500, errorInGetLikes);
+    if (likes.error) ctx.throw(404, errorInGetLikes);
 
     ctx.body = { likes: new Set(likes).has(ctx.params.idService) };
 };

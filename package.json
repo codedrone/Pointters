@@ -23,6 +23,7 @@
   "dependencies": {
     "aws-sdk": "^2.100.0",
     "bcrypt": "^1.0.2",
+    "camelcase": "^4.1.0",
     "cron": "^1.2.1",
     "debug": "^2.6.8",
     "elasticsearch": "^13.3.1",
@@ -48,7 +49,8 @@
     "mongoose": "*",
     "node-pre-gyp": "^0.6.36",
     "request": "^2.81.0",
-    "sendgrid": "^5.2.2"
+    "sendgrid": "^5.2.2",
+    "to-snake-case": "^1.0.0"
   },
   "scripts": {
     "start": "DEBUG=*Pointers-API* pm2 start server/index.js --name",

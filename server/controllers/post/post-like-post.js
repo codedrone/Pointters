@@ -9,7 +9,7 @@ module.exports = async(ctx) => {
     console.log('ctx.params.idPost ', ctx.params.idPost);
     const res = await pushToLikes(ctx.queryToFindUserById, ctx.params.idPost);
     console.log('error ', res);
-    if (res.error) ctx.throw(500, res.error.message);
+    if (res.error) ctx.throw(404, res.error.message);
 
     ctx.body = { success: true };
 };

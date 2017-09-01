@@ -15,6 +15,6 @@ module.exports = async(ctx) => {
     serviceToShare.userId = ctx.state.user.id;
     const serviceShared = await createService(serviceToShare);
 
-    if (serviceShared && serviceShared.error) ctx.throw(500, errorShareService);
+    if (serviceShared && serviceShared.error) ctx.throw(404, errorShareService);
     ctx.body = { service: serviceShared };
 };

@@ -10,7 +10,7 @@ module.exports = async (ctx) => {
 
     const { error } = await pullToWatching(ctx.queryToFindUserById, ctx.params.idService);
 
-    if (error) ctx.throw(500, 'Error on delete watching');
+    if (error) ctx.throw(404, 'Error on delete watching');
 
     ctx.body = { success: true };
 };

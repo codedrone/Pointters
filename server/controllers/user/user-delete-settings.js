@@ -12,7 +12,7 @@ module.exports = async (ctx) => {
     const res = await unset(userToRemoveSettings, settings);
     console.log('res =', res);
 
-    if (res.error) ctx.throw(500, errorMessageInRemoveSetting);
+    if (res.error) ctx.throw(404, errorMessageInRemoveSetting);
 
     ctx.body = { success: true };
 };

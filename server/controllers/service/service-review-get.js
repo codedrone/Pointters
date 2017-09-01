@@ -5,7 +5,7 @@ module.exports = async(ctx) => {
     const queryToFindReview = { _id: ctx.params.reviewId };
     const review = await findOneReview(queryToFindReview);
 
-    if (review.error) ctx.throw(500, review.error.message);
+    if (review.error) ctx.throw(404, review.error.message);
     console.log('review ======== ', review);
     ctx.body = { success: true, review };
 };

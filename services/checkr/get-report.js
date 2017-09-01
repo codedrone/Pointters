@@ -1,4 +1,3 @@
-
 const callAPI = require('./client');
 const uri = '/reports';
 const method = 'GET';

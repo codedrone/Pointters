@@ -10,7 +10,7 @@ module.exports = async (ctx) => {
 
     if (!offer) ctx.throw(403, offerDoesNotExists);
 
-    if (offer.error) ctx.throw(500, errorInGetWatching);
+    if (offer.error) ctx.throw(404, errorInGetWatching);
 
     ctx.body = { offer };
 };

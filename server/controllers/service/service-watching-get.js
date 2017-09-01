@@ -12,7 +12,7 @@ module.exports = async(ctx) => {
 
     const watching = await getToWatching(ctx.queryToFindUserById);
 
-    if (watching.error) ctx.throw(500, errorInGetWatching);
+    if (watching.error) ctx.throw(404, errorInGetWatching);
 
     ctx.body = {
         watching: new Set(watching).has(ctx.params.idService)

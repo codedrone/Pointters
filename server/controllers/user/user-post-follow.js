@@ -15,7 +15,7 @@ module.exports = async(ctx) => {
 
     const { error } = await push(userToAddFollowing, userToFollow._id);
 
-    if (error) ctx.throw(500, error.message);
+    if (error) ctx.throw(404, error.message);
 
     ctx.body = { success: true };
 };
