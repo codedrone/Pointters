@@ -1,4 +1,4 @@
-const { findOne: findOneCheckr } = require('../../../stores/background-check');
+const { findOne: findOneCheckr } = require('../../../stores/background-report');
 
 const errorInGetWatching = 'Error in get to request-checkr';
 const checkrDoesNotExists = 'Error in get to request-checkr';

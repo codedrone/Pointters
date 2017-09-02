@@ -6,6 +6,6 @@ const Schema = mongo.Schema;
 const requestBackGroundCheckSchema = new Schema(schema);
 addSyncHook(requestBackGroundCheckSchema);
 addIndex(requestBackGroundCheckSchema);
-const requestBackGroundCheck = mongo.model('background-check', requestBackGroundCheckSchema);
+const requestBackGroundCheck = mongo.model('background-candidate', requestBackGroundCheckSchema);
 
 module.exports = requestBackGroundCheck;

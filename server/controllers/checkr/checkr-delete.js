@@ -1,4 +1,4 @@
-const { remove: removeCheckr } = require('../../../stores/background-check');
+const { remove: removeCheckr } = require('../../../stores/background-report');
 
 const errorMessage = 'Request does not exists';
 module.exports = async(ctx) => {

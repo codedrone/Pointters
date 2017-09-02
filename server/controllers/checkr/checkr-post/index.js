@@ -1,4 +1,4 @@
-const createCandidateAsync = require('./create-candidate-async');
+const createCandidateAsync = require('./create-report-async');
 
 
 module.exports = async(ctx) => {
