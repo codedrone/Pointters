@@ -21,8 +21,10 @@ module.exports = async(ctx) => {
         tempPassword: Math.random().toString(36).slice(-longOfPasswordTemp),
         resetPasswordExpires: new Date(Date.now() + optExpiresIn)
     };
-    await update(queryToFindUser, updateTheAuthSettings);
-
+    const error = await update(queryToFindUser, updateTheAuthSettings);
+    
+    if (error ) ctx.throw(404, error.message)
+    
     const content = _content + updateTheAuthSettings.tempPassword;
     const {error: errorInSendEmail} = await sendEmail(user.email, subject, content);
 
