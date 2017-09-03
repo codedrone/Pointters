@@ -6,25 +6,34 @@ const {createCandidate, createReport, getReport} = require('../../../../services
 
 module.exports = (candidate, state) => (async() => {
     const candidateCreated = await createCandidate(candidate);
-    const {error} = await saveCandidate(candidate);
+    console.log('candidateCreated =', candidateCreated);
+    const candidateToSave = Object.assign({
+        userId: state.user.id,
+    }, candidate);
+    const candidateSaved = await saveCandidate(candidateToSave);
+    console.log('candidateSaved ', candidateSaved);
 
-    if (error) return Promise.reject(error);
+    if (candidateSaved.error) return Promise.reject(candidateSaved.error);
+
     const report = await createReport({
         package:'driver_pro',
         candidate_id:candidateCreated.id
     });
-
+    console.log('report  ', report);
     const reportCompleted = await getReport(report.id);
-
+    console.log('reportCompleted  ', reportCompleted);
     const reportToSave = Object.assign({
         userId: state.user.id,
     }, reportCompleted);
-    const {error: errorSavingReport} = await saveReport(reportToSave);
-
-    if (errorSavingReport) return Promise.reject(errorSavingReport);
+    const reportSaved = await saveReport(reportToSave);
+    console.log('reportSaved ', reportSaved);
+    if (reportSaved.error) return Promise.reject(reportSaved.error);
 })()
-    .catch((error) => createLog({
-        error,
-        body: candidate,
-        user:state.user
-    }));
+    .catch((error) => {
+        console.log('error = ', error);
+        return createLog({
+            error,
+            body: candidate,
+            user:state.user
+        });
+    });

@@ -1,9 +1,9 @@
-const snake = require('to-snake-case');
+const camelcase = require('camelcase');
 
 
 module.exports = (obj) => {
     const keys = Object.keys(obj);
-    return keys.map((key) => snake(key))
+    return keys.map((key) => camelcase(key))
         .reduce((res, key, index) => {
             res[key] = obj[keys[index]] ?
                 obj[keys[index]].toString() :

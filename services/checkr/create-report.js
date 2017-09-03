@@ -1,6 +1,6 @@
 
 const callAPI = require('./client');
-const uri = '/reports';
+const uri = '/v1/reports';
 const method = 'POST';
 const options = { uri, method };
 

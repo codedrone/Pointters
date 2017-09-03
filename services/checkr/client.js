@@ -6,7 +6,7 @@ const auth = {
     user: authToken,
     password: ''
 };
-const baseUrl = ' https://api.checkr.com/v1';
+const baseUrl = ' https://api.checkr.com/';
 const defaultOptiosn = { auth, baseUrl };
 
 module.exports = (options = {}) => new Promise((resolve, reject) => {

@@ -41,6 +41,6 @@ module.exports = {
         InvalidEmail: '00 00 * * * *'
     },
     checkr: {
-        authToken: ''
+        authToken: 'f2416654047474c3d1257bb7c6894e0a0482c8c8'
     }
 };

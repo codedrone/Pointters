@@ -11,6 +11,10 @@ module.exports = {
     createdAt: {
         type: Date
     },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
     firstName: String,
     middleName: String,
     lastName: String,

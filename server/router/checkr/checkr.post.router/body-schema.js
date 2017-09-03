@@ -4,7 +4,7 @@ module.exports = joi.object().keys({
     firstName: joi.string(),
     middleName: joi.string(),
     lastName: joi.string(),
-    email: joi.string(),
+    email: joi.string().email(),
     phone: joi.string(),
     zipcode: joi.string(),
     dob: joi.date(),

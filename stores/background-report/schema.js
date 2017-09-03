@@ -11,14 +11,20 @@ module.exports = {
     createdAt: {
         type: Date
     },
-    firstName: String,
-    middleName: String,
-    lastName: String,
-    email: String,
-    phone: String,
-    zipcode: String,
-    dob: Date,
-    ssn:String,
-    driverLicenseNumber: String,
-    driverLicenseState: String
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+    status: String,
+    turnaroundTime: Number,
+    tags: String,
+    candidateId: String,
+    ssnTraceId: String,
+    sexOffenderSearchId: String,
+    nationalCriminalSearchId: String,
+    federalCriminalSearchId: String,
+    countyCriminalSearchIds: [ String ],
+    motorVehicleReportId: String,
+    stateCriminalSearchIds: [ String ],
+    documentIds: [ String ]
 };

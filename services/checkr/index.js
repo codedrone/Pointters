@@ -5,5 +5,5 @@ const getReport = require('./get-report');
 module.exports = {
     createCandidate,
     createReport,
-    getReport
+    getReport,
 };

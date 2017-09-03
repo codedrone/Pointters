@@ -33,7 +33,8 @@ describe('Create report', () => {
             const createCandidate = proxyquire(pathToModule, pathStub);
             const options = {};
             const {error: errorReturned} = await createCandidate(options);
-            assert.deepStrictEqual(errorReturned, response.error);
+            console.log('errorReturned', errorReturned);
+            assert(errorReturned === response.error.toString());
         });
     });
 });
