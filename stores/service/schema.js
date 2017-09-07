@@ -35,7 +35,14 @@ module.exports = {
     },
     location: [ location ],
     prices: [ price ],
-    createdAt: Date
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
+    updatedAt: {
+        type: Date,
+        default: new Date()
+    }
 };
 
 

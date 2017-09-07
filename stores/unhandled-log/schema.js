@@ -5,6 +5,6 @@ module.exports = {
         ref: 'user'
     },
     createdAt: {
-        type: Date
+        type: Date,         default: new Date()
     }
 };

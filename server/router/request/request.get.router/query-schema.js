@@ -2,5 +2,5 @@ const joi = require('joi');
 
 
 module.exports = joi.object().keys({
-    idRequest: joi.string()
+    id_gt: joi.string()
 });

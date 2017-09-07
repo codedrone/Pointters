@@ -6,9 +6,10 @@ describe('User posts', () => {
         it('/post POST sohuld create a post given', async() => {
             const body = {
                 message: 'mesage',
-                media: {
-                    media: 'the media is here'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 tags: [ 'tags_1', 'tag_2' ]
             };
             const { body: res } = await agent.post('/post')

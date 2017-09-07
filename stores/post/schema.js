@@ -1,3 +1,5 @@
+const {schema: media} = require('./sub-schema/media');
+
 module.exports = {
     userId: {
         type: String,
@@ -5,13 +7,19 @@ module.exports = {
         index: true,
         ref: 'user'
     },
-    createdAt: Date,
+    createdAt: {
+        type: Date,
+        default: new Date()
+    },
     isActive: {
         type: Boolean,
         default: true
     },
     message: String,
-    media: Object,
+    media: [ media ],
     tags: [ String ],
-    updatedAt: Date
+    updatedAt:{
+        type: Date,
+        default: new Date()
+    }
 };

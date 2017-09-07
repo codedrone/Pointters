@@ -1,11 +1,10 @@
-const { getrequest } = require('../../../controllers/request');
+const { putpost } = require('../../../controllers/post');
 const body = require('./body-schema');
 const params = require('./params-schema');
-const query = require('./query-schema');
 const validate = require('koa2-validation');
 const Router = require('koa-router');
 const router = new Router();
 
-router.get('/(request|requests)/:idRequest?', validate({ body, params, query}), getrequest);
+router.put('/post/:idPost/media/:IdMedia', validate({ body, params }), putpost);
 
 module.exports = router;

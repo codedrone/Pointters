@@ -9,7 +9,7 @@ module.exports = {
         type: Object
     },
     createdAt: {
-        type: Date
+        type: Date, default: new Date()
     },
     isActive: {
         type: Boolean,
@@ -28,9 +28,9 @@ module.exports = {
         type: Number
     },
     scheduleDate: {
-        type: Date
+        type: Date, default: new Date()
     },
     updatedAt: {
-        type: Date
+        type: Date, default: new Date()
     }
 };

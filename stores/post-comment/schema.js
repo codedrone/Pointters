@@ -15,7 +15,13 @@ module.exports = {
         type: Boolean,
         default: true
     },
-    createdAt: Date,
+    updatedAt:{
+        type: Date,
+        default: new Date()
+    },
     comment: String,
-    updatedAt: Date
+    createdAt:{
+        type: Date,
+        default: new Date(),
+    }
 };

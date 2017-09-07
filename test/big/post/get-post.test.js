@@ -9,9 +9,10 @@ describe('User posts', () => {
             const body = {
                 userId: __user._id,
                 message: 'mesage',
-                media: {
-                    media: 'the media is here'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 tags: [ 'tags_1', 'tag_2' ]
             };
             const postCreated = await create(body);
@@ -24,7 +25,8 @@ describe('User posts', () => {
                 .expect(200);
             console.log('res = ', res);
             assert.deepEqual(res.message, body.message);
-            assert.deepEqual(res.media, body.media);
+            assert.equal(res.media.fileName, body.media.fileName);
+            assert.equal(res.media.mediaType, body.media.mediaType);
             assert.deepEqual(res.tags, body.tags);
         });
     });

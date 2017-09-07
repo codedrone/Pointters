@@ -10,7 +10,7 @@ module.exports = {
         minlength: minLengthForComment
     },
     createdAt: {
-        type: Date
+        type: Date,         default: new Date()
     },
     isActive: {
         type: Boolean,

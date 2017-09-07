@@ -6,13 +6,13 @@ module.exports = {
         ref: 'user'
     },
     createdAt: {
-        type: Date
+        type: Date,         default: new Date()
     },
     isActive: {
         type: Boolean,
         default: true
     },
     updatedAt: {
-        type: Date
+        type: Date,         default: new Date()
     }
 };

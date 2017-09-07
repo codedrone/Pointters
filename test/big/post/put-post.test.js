@@ -9,25 +9,24 @@ describe('User posts', () => {
             const body = {
                 userId: __user._id,
                 message: 'mesage',
-                media: {
-                    media: 'the media is here'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 tags: [ 'tags_1', 'tag_2' ]
             };
             const postCreated = await create(body);
             const update = {
-                media: {
-                    media: 'the media is here updated'
-                }
+                message: 'mesage upddated'
             };
-            
+
             await agent.put(`/post/${postCreated._id}`)
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             const updated = await findOne({ _id: postCreated._id });
-            assert.deepEqual(updated.category, update.category);
+            assert.deepEqual(updated.message, update.message);
         });
     });
 
