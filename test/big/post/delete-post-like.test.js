@@ -11,9 +11,10 @@ describe('User posts', () => {
             const post = {
                 userId: __user._id,
                 message: 'mesage',
-                media: {
-                    media: 'the media is here'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 tags: ['tags_1', 'tag_2']
             };
 

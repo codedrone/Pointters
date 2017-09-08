@@ -4,6 +4,8 @@ const create = require('./create');
 const remove = require('./remove');
 const updateIfExistsAndCreateIfNot = require('./update-if-exists-create-if-not');
 const update = require('./update');
+const find = require('./find');
+const count = require('./count');
 const search = require('./search');
 
 const Delete = require('./delete');
@@ -16,6 +18,8 @@ module.exports = {
     search: search(client),    
     create: create(client),
     update: update(client),
+    find: find(client),
+    count: count(client),
     remove: remove(client),
     updateIfExistsAndCreateIfNot: updateIfExistsAndCreateIfNot(client)
 };

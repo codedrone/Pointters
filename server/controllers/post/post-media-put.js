@@ -1,12 +1,9 @@
-const { put: putToMedias } = require('../../../stores/post/sub-schema/media');
+const {media:{ put: putToMedias }} = require('../../../stores/post');
 
 module.exports = async(ctx) => {
-    const res = await putToMedias({
-        _id: ctx.params.idPost
-    }, {
-        _id: ctx.params.idMedia
-    },
-    ctx.request.body);
+    const query = ctx.params.idMedia ? {'media._id':ctx.params.idMedia} : ctx.query;
+    query._id = ctx.params.idPost;
+    const res = await putToMedias(query, ctx.request.body);
 
     if (res.error) ctx.throw(404, res.error.message);
 

@@ -25,7 +25,6 @@ describe('User requests', () => {
             const requestCreated = await create(body);
             console.log('requestCreated ', requestCreated);
             const { body: { request: res } } = await agent.get(`/request/${requestCreated._id}`)
-                .send(body)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
@@ -85,19 +84,16 @@ describe('User requests', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            console.log('res', res, next);
 
             assert(res.length === limit);
-            assert(/^\/requests\/.*$/.test(next));
+            assert(next);
 
-            const { body: { requests: resSecond, nextSecond } } = await agent.get(next)
+            const { body: { requests: resSecond, next:nextSecond } } = await agent.get(next)
                 .send(body)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            console.log('resSecond', resSecond);
             assert(resSecond.length === 1);
-            console.log('nextSecond ', nextSecond);
             assert(!nextSecond);
         });
     });

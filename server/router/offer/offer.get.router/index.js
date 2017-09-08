@@ -5,6 +5,6 @@ const validate = require('koa2-validation');
 const Router = require('koa-router');
 const router = new Router();
 
-router.get('/offer/:idOffer', validate({ body, params }), getOffer);
+router.get('/(offer|offers)/:idOffer?', validate({ body, params }), getOffer);
 
 module.exports = router;

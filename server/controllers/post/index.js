@@ -9,5 +9,9 @@ module.exports = {
     postpostComment: require('./post-comment-post'),
     getpostComment: require('./post-comment-get'),
     deletepostComment: require('./post-comment-delete'),
-    putpostComment: require('./post-comment-put')
+    putpostComment: require('./post-comment-put'),
+    putpostMedia: require('./post-media-put'),
+    postpostMedia: require('./post-media-post'),
+    deletepostMedia: require('./post-media-delete'),
+    getpostMedia: require('./post-media-get')
 };

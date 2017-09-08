@@ -44,6 +44,8 @@ module.exports = {
         authToken: 'f2416654047474c3d1257bb7c6894e0a0482c8c8'
     },
     pagination: {
-        requests: 100
+        requests: 100,
+        offers: 100,
+        postComments:100
     }
 };

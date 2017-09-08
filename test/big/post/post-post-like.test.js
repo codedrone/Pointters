@@ -14,9 +14,10 @@ describe('User posts', () => {
                     category: 'category'
                 },
                 description: 'description',
-                media: {
-                    media: 'the media is here'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 tags: [ 'tags_1', 'tag_2' ]
             };
             const postCreated = await createpost(post);

@@ -10,9 +10,10 @@ describe('User posts', () => {
             const body = {
                 userId: __user._id,
                 message: 'mesage',
-                media: {
-                    media: 'the media is here'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 tags: [ 'tags_1', 'tag_2' ]
             };
             const postCreated = await createPost(body);

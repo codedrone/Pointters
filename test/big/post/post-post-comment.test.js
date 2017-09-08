@@ -12,9 +12,10 @@ describe('User posts', () => {
                     category: 'category'
                 },
                 description: 'description',
-                media: {
-                    media: 'media'
-                },
+                media: [ {
+                    fileName:'filiname',
+                    mediaType:'image'
+                } ],
                 pricing: {
                     pricing: 'pricing'
                 },
