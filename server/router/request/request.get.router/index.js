@@ -6,6 +6,7 @@ const validate = require('koa2-validation');
 const Router = require('koa-router');
 const router = new Router();
 
+
 router.get('/(request|requests)/:idRequest?', validate({ body, params, query}), getrequest);
 
 module.exports = router;

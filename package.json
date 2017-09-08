@@ -48,6 +48,7 @@
     "mongoosastic": "^4.3.0",
     "mongoose": "*",
     "node-pre-gyp": "^0.6.36",
+    "path-to-regexp": "^2.0.0",
     "request": "^2.81.0",
     "sendgrid": "^5.2.2",
     "to-snake-case": "^1.0.0",

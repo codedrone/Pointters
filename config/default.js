@@ -46,6 +46,7 @@ module.exports = {
     pagination: {
         requests: 100,
         offers: 100,
-        postComments:100
+        postComments:100,
+        requestOffers:100
     }
 };

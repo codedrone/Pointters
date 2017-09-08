@@ -22,8 +22,9 @@ module.exports = {
         }
     },
     pagination: {
-        requests: 2,
+        requests: 100,
         offers: 100,
-        postComments:100
+        postComments:100,
+        requestOffers:100
     }
 };

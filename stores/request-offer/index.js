@@ -5,12 +5,16 @@ const remove = require('./remove');
 const updateIfExistsAndCreateIfNot = require('./update-if-exists-create-if-not');
 const update = require('./update');
 const search = require('./search');
+const find = require('./find');
+const count = require('./count');
 
 const Delete = require('./delete');
 const unset = require('./unset');
 
 module.exports = {
     unset: unset(client),
+    find: find(client),
+    count: count(client),
     findOne: findOne(client),
     delete: Delete(client),
     search: search(client),    

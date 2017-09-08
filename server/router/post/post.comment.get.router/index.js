@@ -5,6 +5,6 @@ const validate = require('koa2-validation');
 const Router = require('koa-router');
 const router = new Router();
 
-router.get('/post/:idComment?/comment', validate({ body, params }), getpostComment);
+router.get('/post/:idComment?/(comment|comments)', validate({ body, params }), getpostComment);
 
 module.exports = router;
