@@ -28,6 +28,7 @@ module.exports = {
         requests: 2,
         offers: 2,
         postComments:2,
-        requestOffers:2
+        requestOffers:2,
+        categories:2
     }
 };
