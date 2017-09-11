@@ -1,28 +1,13 @@
 const assert = require('assert');
 
-const { create: createdOrder, findOne: findOnedOrder } = require('../../../stores/order');
+const { create: createdOrder, findOne: findOnedOrder } = require('../../../../stores/order');
+const getOrder = require('./get_order');
 
+const order = getOrder();
 
 describe('User requests', () => {
     describe('SUCCESS', () => {
         it('/order/:iddOrder DELETE sohuld create a request given', async () => {
-            const order = {
-                userId: __user._id,
-                serviceId: 'id of service',
-                isActive: true,
-                category: {
-                    type: 'Object'
-                },
-                location: {
-                    type: 'Object'
-                },
-                media: {
-                    type: 'Object'
-                },
-                minPrice: 0,
-                maxPrice: 1,
-                scheduleDate: 1
-            };
             const orderCreated = await createdOrder(order);
             console.log('order ====: ', orderCreated);
             await agent.delete(`/order/${orderCreated._id}`)

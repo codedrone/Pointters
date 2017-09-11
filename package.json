@@ -47,6 +47,7 @@
     "mocha": "^3.5.0",
     "mongoosastic": "^4.3.0",
     "mongoose": "*",
+    "mongoose-geojson-schema": "^2.1.2",
     "node-pre-gyp": "^0.6.36",
     "path-to-regexp": "^2.0.0",
     "request": "^2.81.0",

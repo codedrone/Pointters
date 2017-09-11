@@ -1,3 +1,4 @@
+require('mongoose-geojson-schema');
 const mongoose = require('mongoose');
 
 const debug = require('../lib/debug');
