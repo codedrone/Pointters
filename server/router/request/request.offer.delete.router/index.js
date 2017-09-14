@@ -6,6 +6,6 @@ const Router = require('koa-router');
 const router = new Router();
 
 
-router.delete('/request/:idOffer/offer', validate({ body, params }), deleterequestOffer);
+router.delete('/request/offer/:idOffer', validate({ body, params }), deleterequestOffer);
 
 module.exports = router;

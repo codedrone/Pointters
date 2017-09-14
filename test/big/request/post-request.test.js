@@ -15,7 +15,7 @@ describe('User requests', () => {
                 },
                 minPrice: 1,
                 maxPrice: 1,
-                scheduleDate: new Date().toString(),
+                scheduleDate: 1,
             };
             const { body: res } = await agent.post('/request')
                 .send(body)

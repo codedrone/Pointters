@@ -8,7 +8,7 @@ describe('User requests', () => {
         it('/offer/:idOffer DELETE sohuld create a request given', async () => {
             const offer = {
                 userId: __user._id,
-                serviceId: 'id of service',
+                serviceId: require('mongoose').Types.ObjectId(),
                 isActive: true,
                 category: {
                     type: 'Object'

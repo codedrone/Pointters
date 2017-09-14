@@ -1,12 +1,15 @@
+const {Schema} = require('mongoose')
+ 
 module.exports = {
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'
     },
     createdAt: {
-        type: Date,         default: new Date()
+        type: Date,       
+          default: new Date()
     },
     fulfillmentMethod: {
         type: Object
@@ -21,14 +24,15 @@ module.exports = {
         type: Object
     },
     serviceId: {
-        type: String
+        type: Schema.Types.ObjectId
     },
     isActive: {
         type: Boolean,
         default: true
     },
     updatedAt: {
-        type: Date,         default: new Date()
+        type: Date,        
+         default: new Date()
     },
     workDuration: {
         type: Object

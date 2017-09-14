@@ -1,5 +1,5 @@
 const {location:{schema:location}} = require('./sub-schema');
-
+const {Schema} = require('mongoose')
 
 module.exports = {
     completedRegistration: {
@@ -116,19 +116,19 @@ module.exports = {
         }
     },
     likes: {
-        type: [ String ],
+        type: [ Schema.Types.Mixed ],
         default: []
     },
     following: {
-        type: [ String ],
+        type: [ Schema.Types.Mixed ],
         default: []
     },
     watching: {
-        type: [ String ],
+        type: [ Schema.Types.Mixed ],
         default: []
     },
     likesPost: {
-        type: [ String ],
+        type: [ Schema.Types.Mixed ],
         default: []
     },
     phoneNumber: {

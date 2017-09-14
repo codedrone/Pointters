@@ -7,7 +7,7 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/service/share POST sohuld create a service given', async() => {
             const service = {
-                userId: 'id of user',
+                userId: require('mongoose').Types.ObjectId(),
                 category: {
                     category: 'category'
                 },

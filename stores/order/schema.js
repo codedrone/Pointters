@@ -1,5 +1,5 @@
 const subschemas = require('./sub-schema');
-
+const {Schema} = require('mongoose')
 module.exports = {
     createdAt: {
         type: Date,
@@ -10,7 +10,7 @@ module.exports = {
         default: new Date()
     },
     buyerId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'
@@ -47,7 +47,7 @@ module.exports = {
     sellerAcceptedBuyerServiceLocation: Boolean,
     sellerDeliveredMedia: [ subschemas.media.schema ],
     sellerId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'

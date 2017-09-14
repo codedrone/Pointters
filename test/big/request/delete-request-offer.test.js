@@ -44,7 +44,7 @@ describe('User requests', () => {
             };
             console.log('offer: ', offer);
             const offerCreated = await createOffer(offer);
-            await agent.delete(`/request/${offerCreated._id}/offer`)
+            await agent.delete(`/request/offer/${offerCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);

@@ -6,6 +6,6 @@ const Router = require('koa-router');
 const router = new Router();
 
 router
-    .put('/request/:idOffer/offer', validate({ body, params }), putrequestOffer);
+    .put('/request/offer/:idOffer', validate({ body, params }), putrequestOffer);
 
 module.exports = router;

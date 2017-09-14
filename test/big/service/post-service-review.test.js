@@ -8,7 +8,7 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/service/watch POST sohuld create a service given', async() => {
             const service = {
-                userId: 'id of user',
+                userId: require('mongoose').Types.ObjectId(),
                 category: {
                     category: 'category'
                 },
@@ -25,7 +25,7 @@ describe('User services', () => {
             };
             const serviceCreated = await createService(service);
             const review = {
-                orderId:'someorderId',
+                orderId:require('mongoose').Types.ObjectId(),
                 comment: 'comments to test review',
                 qualityOfService: 4,
                 overallRating: 80,

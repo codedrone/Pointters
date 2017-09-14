@@ -11,7 +11,7 @@ describe('User requests', () => {
                 location: { location: 'location' },
                 media: { media: 'media' },
                 price: { price: 'price' },
-                serviceId: 'id of service',
+                serviceId: require('mongoose').Types.ObjectId(),
                 workDuration: { workDuration: 'workDuration' },
                 workDurationUom: 'hour'
             };

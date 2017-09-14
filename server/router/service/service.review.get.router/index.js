@@ -4,7 +4,11 @@ const validate = require('koa2-validation');
 const Router = require('koa-router');
 const router = new Router();
 
+const path = [
+    '/service/(review|reviews)/:reviewId?',
+    '/service/:idService/reviews'
+];
 router
-    .get('/service/review/:reviewId', validate({ body: schema }), getserviceReview);
+    .get(path, validate({ body: schema }), getserviceReview);
 
 module.exports = router;

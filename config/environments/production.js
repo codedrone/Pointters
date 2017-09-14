@@ -26,6 +26,7 @@ module.exports = {
         offers: 100,
         postComments:100,
         requestOffers:100,
-        categories:100        
+        categories:100,
+        serviceReviews:100    
     }
 };

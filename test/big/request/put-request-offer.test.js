@@ -41,13 +41,12 @@ describe('User requests', () => {
                     amount: 0
                 }
             };
-            await agent.put(`/request/${offerCreated._id}/offer`)
+            await agent.put(`/request/offer/${offerCreated._id}`)
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             const updated = await findOneOffer({ _id: offerCreated._id });
-            console.log('update ', updated);
             assert.deepEqual(updated.price, update.price);
         });
     });

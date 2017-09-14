@@ -1,6 +1,9 @@
+const {Schema} = require('mongoose')
+
+
 module.exports = {
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'
@@ -27,9 +30,7 @@ module.exports = {
     maxPrice: {
         type: Number
     },
-    scheduleDate: {
-        type: Date, default: new Date()
-    },
+    scheduleDate: Number,
     updatedAt: {
         type: Date, default: new Date()
     }

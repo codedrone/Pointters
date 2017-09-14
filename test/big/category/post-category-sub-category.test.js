@@ -19,11 +19,12 @@ describe('User requests', () => {
                 keywords: [ 'string sub' ],
                 name: 'sub name post',
             };
-            await agent.post(`/category/${categoryCreated._id}/sub-category`)
+            const {body: {subCategories}} = await agent.post(`/category/${categoryCreated._id}/sub-category`)
                 .send(subCategory)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
+            assert(subCategories)
             const updated = await findOneCategory({_id:categoryCreated._id});
             assert.deepStrictEqual(updated.subCategories[0].keywords, subCategory.keywords);
             assert.equal(updated.subCategories[0].name, subCategory.name);

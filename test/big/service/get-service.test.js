@@ -7,7 +7,7 @@ describe('User services', () => {
     describe('SUCCESS', () => {
         it('/service GET sohuld create a service given', async () => {
             const body = {
-                userId: 'id of user',
+                userId: require('mongoose').Types.ObjectId(),
                 category: {
                     category: 'category'
                 },

@@ -19,7 +19,7 @@ describe('User offers', () => {
                 minPrice: 0,
                 maxPrice: 1,
                 scheduleDate: 1,
-                serviceId: 'id of service',
+                serviceId: require('mongoose').Types.ObjectId(),
                 userId: __user._id
 
             });
@@ -45,7 +45,7 @@ describe('User offers', () => {
                 minPrice: 0,
                 maxPrice: 1,
                 scheduleDate: 1,
-                serviceId: 'id of service',
+                serviceId: require('mongoose').Types.ObjectId(),
                 userId: __user._id
             };
             for (let i = 0; i <= limit; i++) await createOffer(body);

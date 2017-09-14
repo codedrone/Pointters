@@ -5,9 +5,9 @@ module.exports = async(ctx) => {
         userId: ctx.state.user.id,
         _id: ctx.params.idCategory
     };
-    const category = await pushCategory(query, ctx.request.body);
+    const {subCategories,error} = await pushCategory(query, ctx.request.body);
 
-    if (category.error) ctx.throw(404, category.error.message);
+    if (error) ctx.throw(404, error.message);
 
-    ctx.body = { success: true, category };
+    ctx.body = { success: true, subCategories };
 };

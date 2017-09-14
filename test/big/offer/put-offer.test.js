@@ -7,7 +7,7 @@ describe('User requests', () => {
     describe('SUCCESS', () => {
         it('/offer/:idOffer PUT sohuld create a request given', async() => {
             const offer = {
-                serviceId: 'id of service',
+                serviceId: require('mongoose').Types.ObjectId(),
                 fulfillmentMethod: {},
                 location: {},
                 media: {},

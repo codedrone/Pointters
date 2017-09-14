@@ -11,7 +11,7 @@ describe('User services', () => {
                     id:'123',
                     name:'Home'
                 },
-                userId:'id of user',
+                userId:require('mongoose').Types.ObjectId(),
                 description: 'service description',
                 fulfillmentMethod: {
                     local:true,

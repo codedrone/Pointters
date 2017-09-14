@@ -8,7 +8,7 @@ describe('User requests', () => {
     describe('SUCCESS', () => {
         it('/request/offer POST sohuld create a request given', async() => {
             const request = {
-                userId: 'id of user',
+                userId: require('mongoose').Types.ObjectId(),
                 category:{
                     type: Object
                 },
@@ -39,7 +39,8 @@ describe('User requests', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res, { success: true });
+            assert.equal(res.success, true );
+            assert(res.offer );
             const offer = await findOneOffer({ requestId: requestCreated._id });
             assert(offer.isActive === true);
         });

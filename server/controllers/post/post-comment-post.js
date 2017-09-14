@@ -18,5 +18,5 @@ module.exports = async(ctx) => {
 
     if (comment.error) ctx.throw(404, comment.error.message);
 
-    ctx.body = { success: true ,id: comment._id};
+    ctx.body = { success: true , comment};
 };

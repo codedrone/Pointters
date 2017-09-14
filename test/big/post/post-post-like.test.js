@@ -9,7 +9,7 @@ describe('User posts', () => {
     describe('SUCCESS', () => {
         it('/post/like POST sohuld create a post given', async() => {
             const post = {
-                userId: 'id of user',
+                userId: require('mongoose').Types.ObjectId(),
                 category: {
                     category: 'category'
                 },

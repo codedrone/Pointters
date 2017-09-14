@@ -1,8 +1,9 @@
 const {schema: media} = require('./sub-schema/media');
+const {Schema} = require('mongoose')
 
 module.exports = {
     userId: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'

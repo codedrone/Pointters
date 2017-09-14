@@ -7,7 +7,7 @@ describe('User posts', () => {
     describe('SUCCESS', () => {
         it('/post/comment POST sohuld create a post given', async() => {
             const post = {
-                userId: 'id of user',
+                userId: require('mongoose').Types.ObjectId(),
                 category: {
                     category: 'category'
                 },
@@ -32,7 +32,8 @@ describe('User posts', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res, { success: true });
+            assert.equal(res.success,true);
+            assert(res.comment);
         });
     });
 
