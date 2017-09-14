@@ -3,8 +3,9 @@ const { filterKeysOfUserByRequester } = require('../../../stores/user/privacity'
 
 module.exports = async(ctx) => {
     const queryToGetRequester = ctx.queryToFindUserById;
-    const queryToGetOtherUser = ctx.request.body.userId ? { _id: ctx.request.body.userId } :
-        ctx.queryToFindUserById;
+    const queryToGetOtherUser = {
+        _id: ctx.request.query.userId || ctx.request.body.userId || ctx.queryToFindUserById._id
+    };
     const requester = await findOne(queryToGetRequester);
     if (!requester || requester.error) ctx.throw(404, 'No User found');
 

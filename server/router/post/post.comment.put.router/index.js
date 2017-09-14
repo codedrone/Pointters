@@ -6,6 +6,6 @@ const Router = require('koa-router');
 const router = new Router();
 
 router
-    .put('/post/:idComment/comment', validate({ body, params }), putpostComment);
+    .put('/post/comment/:idComment', validate({ body, params }), putpostComment);
 
 module.exports = router;

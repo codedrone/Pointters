@@ -7,7 +7,6 @@ const { socialNetwork: { facebook: { validateTokenFacebook } } } = require('../.
 const createUser = require('./create-user');
 const debug = require('../../../../lib/debug');
 
-const successMessage = 'Successful created a new user.';
 const socialNetwork = 'facebook';
 module.exports = async(ctx) => {
     const { body: { token: facebookToken } } = ctx.request;
@@ -25,20 +24,22 @@ module.exports = async(ctx) => {
         'socialNetwork.name': socialNetwork
     });
     let userCreatedOrUpdated = savedUser;
+    ctx.body.msg = 'Successful login';
     const [ firstName, lastName ] = name.split(' ');
-    if (!savedUser) userCreatedOrUpdated = await createUser(ctx, { idFacebook, firstName, lastName });
-
+    if (!savedUser) {
+        userCreatedOrUpdated = await createUser(ctx, { idFacebook, firstName, lastName });
+        ctx.body.msg = 'Successful created a new user';
+    }
     if (userCreatedOrUpdated.error) ctx.throw(404, userCreatedOrUpdated.error.message);
 
     const paramsToGetToken = { id: userCreatedOrUpdated._id };
     const token = signToken(paramsToGetToken);
     ctx.response.set(getHeaders());
     ctx.session = getSession(userCreatedOrUpdated);
-    ctx.body = {
+    Object.assign(ctx.body, {
         success: true,
         id: userCreatedOrUpdated._id,
-        msg: successMessage,
         token
-    };
+    });
 };
 

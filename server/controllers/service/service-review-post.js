@@ -5,7 +5,7 @@ const errorOnFindService = 'Error in find service';
 module.exports = async(ctx) => {
     const serviceToAddReview = findOneService({ _id: ctx.params.serviceId });
 
-    if (!serviceToAddReview || serviceToAddReview.error) ctx.throw(400, errorOnFindService);
+    if (!serviceToAddReview || serviceToAddReview.error) ctx.throw(404, errorOnFindService);
 
     const dataFromRequest = {
         userId: ctx.state.user.id,

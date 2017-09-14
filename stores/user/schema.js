@@ -1,3 +1,6 @@
+const {location:{schema:location}} = require('./sub-schema');
+
+
 module.exports = {
     completedRegistration: {
         type: Boolean,
@@ -58,9 +61,7 @@ module.exports = {
     license: {
         type: String
     },
-    location: {
-        type: Object
-    },
+    location: [ location ],
     phone: {
         type: String
     },
@@ -80,54 +81,54 @@ module.exports = {
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: ['pushNotification', 'email', 'all'],
+            enum: [ 'pushNotification', 'email', 'all' ],
             default: 'all'
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: ['pushNotification', 'email', 'all'],
+            enum: [ 'pushNotification', 'email', 'all' ],
             default: 'all'
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: ['pushNotification', 'email', 'all'],
+            enum: [ 'pushNotification', 'email', 'all' ],
             default: 'all'
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: ['daily', 'weekly', 'all'],
+            enum: [ 'daily', 'weekly', 'all' ],
             default: 'all'
         },
         locationViewPermission: {
             type: String,
             description: 'locationViewPermission',
-            enum: ['public', 'followers', 'onlyme'],
+            enum: [ 'public', 'followers', 'onlyme' ],
             default: 'onlyme'
         },
         phoneViewPermission: {
             type: String,
             description: 'phoneViewPermission',
-            enum: ['public', 'followers', 'onlyme'],
+            enum: [ 'public', 'followers', 'onlyme' ],
             default: 'onlyme'
         }
     },
     likes: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     following: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     watching: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     likesPost: {
-        type: [String],
+        type: [ String ],
         default: []
     },
     phoneNumber: {

@@ -19,8 +19,6 @@ module.exports = async (ctx) => {
     }
     ctx.body = {comments:postComments};
     const lastOne = postComments[postComments.length - 1];
-    console.log('comments:postComments', ctx.body);
     const remaining = await count({_id:{$gt: ObjectId(lastOne._id)}});
-    console.log('remaining ', remaining);
     if (remaining) ctx.body.next = `${ctx.url}?id_gt=${lastOne._id}`;
 };

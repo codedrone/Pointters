@@ -6,6 +6,6 @@ const Router = require('koa-router');
 const router = new Router();
 
 
-router.delete('/post/:idComment/comment', validate({ body, params }), deletepostComment);
+router.delete('/post/comment/:idComment', validate({ body, params }), deletepostComment);
 
 module.exports = router;

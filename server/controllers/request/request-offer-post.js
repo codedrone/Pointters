@@ -6,7 +6,7 @@ module.exports = async(ctx) => {
     console.log(' ctx.params.idRequest', ctx.params.idRequest);
     const request = await findOneRequest({ _id: ctx.params.idRequest });
 
-    if (!request || request.error) ctx.throw(400, errorMessage);
+    if (!request || request.error) ctx.throw(404, errorMessage);
 
     const offerToCreate = Object.assign({
         userId: ctx.state.user.id,

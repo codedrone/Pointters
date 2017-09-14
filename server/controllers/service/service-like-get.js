@@ -8,7 +8,7 @@ module.exports = async(ctx) => {
     console.log('ctx.params.idService', ctx.params.idService);
     const service = await findOneService({ _id: ctx.params.idService });
 
-    if (!service || service.error) ctx.throw(400, errorMessage);
+    if (!service || service.error) ctx.throw(404, errorMessage);
 
     const likes = await getToLikes(ctx.queryToFindUserById);
     console.log('likes = ', likes);

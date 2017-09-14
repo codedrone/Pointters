@@ -27,7 +27,7 @@ describe('User posts', () => {
             };
             console.log('comment: ', comment);
             const commentCreated = await createComment(comment);
-            await agent.delete(`/post/${commentCreated._id}/comment`)
+            await agent.delete(`/post/comment/${commentCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);

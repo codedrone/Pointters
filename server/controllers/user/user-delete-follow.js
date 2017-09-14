@@ -6,7 +6,7 @@ const idInvalidMessage = 'Id is not Valid';
 
 module.exports = async(ctx) => {
     const isValidId = await checkIfIsValidId(ctx.params.followedId);
-    if (!isValidId) return ctx.throw(400, idInvalidMessage);
+    if (!isValidId) return ctx.throw(404, idInvalidMessage);
 
     const userToUnfollow = await findOne({ _id: ctx.params.followedId });
 

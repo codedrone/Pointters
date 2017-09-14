@@ -5,7 +5,7 @@ const errorMessage = 'Post does not exists';
 module.exports = async(ctx) => {
     const post = await findOnePost({ _id: ctx.params.idPost });
 
-    if (!post || post.error) ctx.throw(400, errorMessage);
+    if (!post || post.error) ctx.throw(404, errorMessage);
     console.log('ctx.params.idPost ', ctx.params.idPost);
     const res = await pushToLikes(ctx.queryToFindUserById, ctx.params.idPost);
     console.log('error ', res);

@@ -10,7 +10,8 @@ module.exports = {
         minlength: minLengthForComment
     },
     createdAt: {
-        type: Date,         default: new Date()
+        type: Date,
+        default: new Date()
     },
     isActive: {
         type: Boolean,
@@ -30,6 +31,12 @@ module.exports = {
         type: String,
         required: true,
         ref: 'service'
+    },
+    orderId: {
+        type: String,
+        required: true,
+        ref: 'order',
+        unique:true
     },
     willingToBuyServiceAgain: Boolean
 };

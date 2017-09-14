@@ -3,6 +3,8 @@ const { propsToBeEverPrivate = '' } = require('../../../config');
 const filterEverForPrivacity = new RegExp(propsToBeEverPrivate.replace(/,/g, '|'));
 
 module.exports = (userToFilter, userRequester) => {
+    if (!userToFilter || !userRequester) return {};
+
     const { settings = {} } = userToFilter;
     const requesterIsFollower = new Set(userRequester.following)
         .has(userToFilter._id);

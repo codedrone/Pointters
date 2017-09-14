@@ -25,6 +25,7 @@ describe('User services', () => {
             };
             const serviceCreated = await createService(service);
             const review = {
+                orderId:'someorderId',
                 comment: 'comments to test review',
                 qualityOfService: 4,
                 overallRating: 80,

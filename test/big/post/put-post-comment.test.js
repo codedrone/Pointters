@@ -28,7 +28,7 @@ describe('User posts', () => {
             const update = {
                 comment: 'comment 2'
             };
-            const { body: res } = await agent.put(`/post/${commentCreated._id}/comment`)
+            const { body: res } = await agent.put(`/post/comment/${commentCreated._id}`)
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)

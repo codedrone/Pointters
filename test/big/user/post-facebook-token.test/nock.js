@@ -35,7 +35,7 @@ module.exports = (token, id, name) => {
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
         .get('/v2.4/me')
         .query({ access_token: 'invalid_token', appsecret_proof: 'b1450f52ae59df279ba1726e25bd3c7a16225f929a69b6a3911ee459caf0f894' })
-        .reply(400, { error: { message: 'Invalid OAuth access token.', type: 'OAuthException', code: 190, fbtrace_id: 'BNvzw2rgrFJ' } }, [ 'Access-Control-Allow-Origin',
+        .reply(404, { error: { message: 'Invalid OAuth access token.', type: 'OAuthException', code: 190, fbtrace_id: 'BNvzw2rgrFJ' } }, [ 'Access-Control-Allow-Origin',
             '*',
             'WWW-Authenticate',
             'OAuth "Facebook Platform" "invalid_token" "Invalid OAuth access token."',

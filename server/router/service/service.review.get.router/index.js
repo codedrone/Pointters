@@ -5,6 +5,6 @@ const Router = require('koa-router');
 const router = new Router();
 
 router
-    .get('/service/:reviewId/review', validate({ body: schema }), getserviceReview);
+    .get('/service/review/:reviewId', validate({ body: schema }), getserviceReview);
 
 module.exports = router;

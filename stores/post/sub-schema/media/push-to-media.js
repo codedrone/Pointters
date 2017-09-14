@@ -1,7 +1,7 @@
 const catchingErrorFromPromise = require('../../../../lib/catching-error-from-promise');
 
 module.exports = (client) => async(query, media) => catchingErrorFromPromise(
-    client.update(query, {
+    client.findOneAndUpdate(query, {
         $push:{media}
-    })
+    }, {new:true})
 );

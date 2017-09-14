@@ -6,7 +6,7 @@ module.exports = async(ctx) => {
     console.log(' ctx.params.idService', ctx.params.idService);
     const serviceToShare = await findOneService({ _id: ctx.params.idService });
 
-    if (!serviceToShare || serviceToShare.error) ctx.throw(400, errorMessage);
+    if (!serviceToShare || serviceToShare.error) ctx.throw(404, errorMessage);
 
     delete serviceToShare._id;
     serviceToShare.shared = {

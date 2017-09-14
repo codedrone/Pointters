@@ -14,7 +14,7 @@ module.exports = async (ctx) => {
         !user.error &&
         !isMatch.error;
 
-    if (!isValidToResetTheUser) return ctx.throw(400, 'The password not valid');
+    if (!isValidToResetTheUser) return ctx.throw(404, 'The password not valid');
 
     const updateTheAuthSettings = {
         password: ctx.request.body.newPassword,

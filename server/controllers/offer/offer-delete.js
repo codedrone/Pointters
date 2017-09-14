@@ -5,7 +5,7 @@ module.exports = async(ctx) => {
     console.log('ctx.params.idOffer in delete', ctx.params.idOffer);
     const offerRemoved = await removeOffer({ _id: ctx.params.idOffer });
     console.log('offerRemoved', offerRemoved);
-    if (!offerRemoved || offerRemoved.error) ctx.throw(400, errorMessage);
+    if (!offerRemoved || offerRemoved.error) ctx.throw(404, errorMessage);
 
     ctx.body = { success: Boolean(offerRemoved.ok) };
 };

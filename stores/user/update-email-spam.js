@@ -9,7 +9,7 @@ module.exports = (client) => async function(spams) {
     for (let i = 0; i < spams.length; i++) {
         const {email, reason} = spams[i];
         const isEmail = {spam, reason, valid};
-        const {error} = await client.update({email}, {$set: {isEmail, sendEmail}})
+        const {error} = await client.findOneAndUpdate({email}, {$set: {isEmail, sendEmail}})
             .catch((error) => {
                 console.log(`${error } on `, spams[i]);
                 return {error};

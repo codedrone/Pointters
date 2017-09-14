@@ -9,7 +9,7 @@ module.exports = (client) => async function(bounces) {
     for (let i = 0; i < bounces.length; i++) {
         const {email, reason} = bounces[i];
         const isEmail = {bounced, reason, valid};
-        const {error} = await client.update({email}, {$set: {isEmail, sendEmail}})
+        const {error} = await client.findOneAndUpdate({email}, {$set: {isEmail, sendEmail}})
             .catch((error) => {
                 console.log(`${error } on `, bounces[i]);
                 return {error};

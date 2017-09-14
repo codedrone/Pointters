@@ -6,12 +6,12 @@ const idInvalidMessage = 'Id is not Valid';
 module.exports = async(ctx) => {
     const validId = await isValidId(ctx.params.followedId);
 
-    if (!validId) return ctx.throw(400, idInvalidMessage);
+    if (!validId) return ctx.throw(404, idInvalidMessage);
 
     const userToAddFollowing = ctx.queryToFindUserById;
     const userToFollow = await findOne({ _id: ctx.params.followedId });
 
-    if (!userToFollow) return ctx.throw(400, userNotValidMessage);
+    if (!userToFollow) return ctx.throw(404, userNotValidMessage);
 
     const { error } = await push(userToAddFollowing, userToFollow._id);
 

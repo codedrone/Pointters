@@ -5,7 +5,7 @@ module.exports = (client) => (query, opt = {}) => {
 
     if (opt.limit) _query.limit(opt.limit).sort({createdAt:-1});
 
-    return catchingErrorFromPromise(_query.exec()
+    return catchingErrorFromPromise(_query.populate().exec()
     .then((results) => results.map((_res) => {
         if (!_res) return _res;
         const res = _res.toObject();

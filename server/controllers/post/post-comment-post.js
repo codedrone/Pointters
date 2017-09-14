@@ -6,7 +6,7 @@ module.exports = async(ctx) => {
     console.log(' ctx.params.idPost', ctx.params.idPost);
     const post = await findOnePost({ _id: ctx.params.idPost });
 
-    if (!post || post.error) ctx.throw(400, errorMessage);
+    if (!post || post.error) ctx.throw(404, errorMessage);
 
     const commentToCreate = Object.assign({
         userId: ctx.state.user.id,
@@ -14,9 +14,9 @@ module.exports = async(ctx) => {
     },
     ctx.request.body
     );
-    const { error } = await createComment(commentToCreate);
+    const comment = await createComment(commentToCreate);
 
-    if (error) ctx.throw(404, error.message);
+    if (comment.error) ctx.throw(404, comment.error.message);
 
-    ctx.body = { success: true };
+    ctx.body = { success: true ,id: comment._id};
 };

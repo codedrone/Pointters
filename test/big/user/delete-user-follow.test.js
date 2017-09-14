@@ -75,7 +75,7 @@ describe('User services', () => {
             const { body: res } = await agent.delete('/user/this_id_does_not_exists/follow')
                 .set(authorizationHeader)
                 .set(Cookie)
-                .expect(400);
+                .expect(404);
             assert.deepEqual(res, { message: 'Id is not Valid' });
         });
     });

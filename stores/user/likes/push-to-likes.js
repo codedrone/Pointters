@@ -11,6 +11,6 @@ module.exports = (client) => (query, _likes) => {
             }
         }
     };
-    return catchingErrorFromPromise(client.update(query, update).exec());
+    return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());
 };
 

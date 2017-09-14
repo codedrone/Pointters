@@ -9,5 +9,5 @@ module.exports = (client) => (query, _likesPost) => {
             likesPost: { $in: likesPost }
         }
     };
-    return catchingErrorFromPromise(client.update(query, update).exec());
+    return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());
 };
