@@ -22,11 +22,24 @@ describe('User services', () => {
             assert.equal(headers['x-rate-limit'], '1000');
             assert(headers['x-expires-after']);
             assert(res.success === true);
+            assert(res.msg === 'Successful created a new user');
             assert(typeof res.token === 'string');
             const user = await findOne({
                 'socialNetwork.name': 'facebook',
             });
             assert(!user.error);
+        });
+
+        it('/user/facebook/token POST -> should return a message if user exists', async() => {
+            await agent.post('/user/facebook/token')
+                .send(body)
+                .expect(200);
+            const { body: resAfterLoggued } = await agent.post('/user/facebook/token')
+                .send(body)
+                .expect(200);
+            console.log('resAftderLoggued ', resAfterLoggued);
+            assert(resAfterLoggued.msg === 'Successful login');
+            assert(resAfterLoggued);
         });
     });
     describe('FAIL', () => {

@@ -9,6 +9,7 @@ const debug = require('../../../../lib/debug');
 
 const socialNetwork = 'facebook';
 module.exports = async(ctx) => {
+    ctx.body = {};
     const { body: { token: facebookToken } } = ctx.request;
     const { name, id: idFacebook, error } = await validateTokenFacebook(facebookToken);
 

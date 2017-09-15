@@ -1,7 +1,7 @@
 const { Schema } = require('../../../../databases/mongo');
 
 
-module.exports = new Schema({
+const schema = new Schema({
     city: String,
     country: String,
     geoJson: Schema.Types.GeoJSON,
@@ -9,3 +9,7 @@ module.exports = new Schema({
     province: String,
     state: String
 });
+
+schema.index({ geoJson: '2dsphere' });
+
+module.exports = schema;
