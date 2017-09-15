@@ -21,7 +21,7 @@ describe('User requests', () => {
                 },
                 minPrice: 0,
                 maxPrice: 1,
-                scheduleDate: 1
+                scheduleDate: new Date().toString()
             };
             const offerCreated = await createOffer(offer);
             console.log('offer ====: ', offerCreated);

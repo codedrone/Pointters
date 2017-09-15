@@ -1,12 +1,14 @@
 const { update: updateCategory } = require('../../../../stores/category');
 const getQuery = require('./get_query');
 const getUpdate = require('./get-update');
+
+const errorMessage = 'Category not found';
 module.exports = async (ctx) => {
     const query = getQuery(ctx);
     const update = getUpdate(ctx);
-    const { error } = await updateCategory(query, update);
+    const category = await updateCategory(query, update);
 
-    if (error) ctx.throw(404, error.message);
+    if (!category || category.error) ctx.throw(404, errorMessage);
 
     ctx.body = { success: true };
 };

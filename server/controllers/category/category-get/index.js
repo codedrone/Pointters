@@ -17,7 +17,6 @@ module.exports = async (ctx) => {
         return;
     }
     ctx.body = {categories};
-    console.log('ctx.body para regresar = ', ctx.body);
     const lastOne = categories[categories.length - 1];
     const remaining = await count({_id:{$gt: ObjectId(lastOne._id)}});
     console.log();

@@ -30,7 +30,7 @@ module.exports = {
     maxPrice: {
         type: Number
     },
-    scheduleDate: Number,
+    scheduleDate: Date,
     updatedAt: {
         type: Date, default: new Date()
     }

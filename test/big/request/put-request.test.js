@@ -19,7 +19,7 @@ describe('User requests', () => {
                 },
                 minPrice:1,
                 maxPrice:1,
-                scheduleDate:1,
+                scheduleDate:new Date().toString(),
             };
             const requestCreated = await create(body);
 

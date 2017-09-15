@@ -18,7 +18,7 @@ describe('User offers', () => {
                 },
                 minPrice: 0,
                 maxPrice: 1,
-                scheduleDate: 1,
+                scheduleDate: new Date().toString(),
                 serviceId: require('mongoose').Types.ObjectId(),
                 userId: __user._id
 
@@ -44,7 +44,7 @@ describe('User offers', () => {
                 },
                 minPrice: 0,
                 maxPrice: 1,
-                scheduleDate: 1,
+                scheduleDate: new Date().toString(),
                 serviceId: require('mongoose').Types.ObjectId(),
                 userId: __user._id
             };

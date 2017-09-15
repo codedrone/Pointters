@@ -34,7 +34,19 @@ describe('User requests', () => {
         });
     });
 
-    describe('FAIL', () => {});
+    describe('FAIL', () => {
+        it('/category/subCategory catch the error with cateogry does not exists', async() => {
+            const subCategory = {
+                keywords: [ 'string sub' ],
+                name: 'sub name post',
+            };
+            await agent.post('/category/59bddaa97de7b907bbb600da/sub-category')
+                .send(subCategory)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
+    });
 
     after(() => deleteCategody({}));
 });

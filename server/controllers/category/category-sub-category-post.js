@@ -6,9 +6,8 @@ module.exports = async(ctx) => {
         _id: ctx.params.idCategory
     };
     const category = await pushCategory(query, ctx.request.body);
-    console.log('category ', category);
-    const {subCategories, error} = category;
-    if (error) ctx.throw(404, error.message);
+    if (!category || category.error) ctx
+        .throw(404, category.error ? category.error.message : 'Not found');
 
-    ctx.body = { success: true, subCategories };
+    ctx.body = { success: true, subCategories:category.subCategories };
 };

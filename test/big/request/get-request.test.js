@@ -20,7 +20,7 @@ describe('User requests', () => {
                 },
                 minPrice:1,
                 maxPrice:1,
-                scheduleDate:1,
+                scheduleDate:new Date().toString(),
             };
             const requestCreated = await create(body);
             console.log('requestCreated ', requestCreated);
@@ -48,7 +48,7 @@ describe('User requests', () => {
                 },
                 minPrice:1,
                 maxPrice:1,
-                scheduleDate:1,
+                scheduleDate:new Date().toString(),
             };
             const requestCreated = await create(body);
             const { body: { request: res } } = await agent.get(`/requests/${requestCreated._id}`)
@@ -75,7 +75,7 @@ describe('User requests', () => {
                 },
                 minPrice:1,
                 maxPrice:1,
-                scheduleDate:1,
+                scheduleDate:new Date().toString(),
             };
             for (let i = 0; i <= limit; i++) await create(body);
 
