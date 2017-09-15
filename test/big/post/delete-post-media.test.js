@@ -22,7 +22,7 @@ describe('User posts', () => {
                 .set(Cookie)
                 .expect(200);
             const updated = await findOne({ _id: postCreated._id });
-            console.log('updated ', updated)
+            console.log('updated ', updated);
             assert(!updated.media[0]);
         });
     });

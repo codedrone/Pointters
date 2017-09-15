@@ -21,6 +21,6 @@ module.exports = new Schema({
     timeUnitOfMeasure: {
         type: String,
         required: true,
-        enum: ['hour', 'day', 'week']
+        enum: [ 'hour', 'day', 'week' ]
     }
 });

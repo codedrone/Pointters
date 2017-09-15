@@ -29,8 +29,8 @@ describe('User services', () => {
             await updateUser({
                 email: __user.email
             }, {
-                    watching: [serviceCreated._id]
-                });
+                watching: [ serviceCreated._id ]
+            });
             const { body: res } = await agent
                 .delete(`/service/${serviceCreated._id}/watch`)
                 .set(authorizationHeader)

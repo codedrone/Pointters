@@ -24,9 +24,9 @@ describe('User posts', () => {
             await updateUser({
                 email: __user.email
             },
-            {
-                likesPost: []
-            });
+                {
+                    likesPost: []
+                });
             const { body: res } = await agent.post(`/post/${postCreated._id}/like`)
                 .set(authorizationHeader)
                 .set(Cookie)

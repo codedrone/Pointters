@@ -14,9 +14,9 @@ module.exports = async(ctx) => {
     },
     ctx.request.body
     );
-    const offer= await createOffer(offerToCreate);
+    const offer = await createOffer(offerToCreate);
 
     if (offer.error) ctx.throw(404, offer.error.message);
 
-    ctx.body = { success: true , offer};
+    ctx.body = { success: true, offer};
 };

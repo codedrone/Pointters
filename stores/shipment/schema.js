@@ -1,4 +1,5 @@
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
+const {address:{schema: addressSchema}} = require('./sub-schemas');
 
 module.exports = {
     userId: {
@@ -8,7 +9,7 @@ module.exports = {
         ref: 'user'
     },
     createdAt: {
-        type: Date,         
+        type: Date,
         default: new Date()
     },
     isActive: {
@@ -16,7 +17,8 @@ module.exports = {
         default: true
     },
     updatedAt: {
-        type: Date,         
+        type: Date,
         default: new Date()
-    }
+    },
+    address: addressSchema
 };

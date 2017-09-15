@@ -2,5 +2,5 @@ const joi = require('joi');
 
 
 module.exports = joi.object().keys({
-    idCategory: joi.string().required()    
+    idCategory: joi.string().required()
 });

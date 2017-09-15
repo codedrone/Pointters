@@ -24,10 +24,13 @@ describe('User requests', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert(subCategories)
+            assert(subCategories.length === 1);
             const updated = await findOneCategory({_id:categoryCreated._id});
             assert.deepStrictEqual(updated.subCategories[0].keywords, subCategory.keywords);
             assert.equal(updated.subCategories[0].name, subCategory.name);
+            assert.equal(updated.subCategories[0]._id, subCategories[0]._id);
+
+            assert(updated.subCategories.length === 1);
         });
     });
 

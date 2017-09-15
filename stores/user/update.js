@@ -11,6 +11,6 @@ module.exports = (client) => async (query = {}, _data = {}, options = {}) => {
     if (data.tempPassword) data.tempPassword = await bcrypt.genSalt(10)
         .then((salt) => bcrypt.hash(data.tempPassword, salt));
 
-    return catchingErrorFromPromise(client.findOneAndUpdate(query, { $set: data }, options).exec()
+    return catchingErrorFromPromise(client.findOneAndUpdate(query, { $set: data }, options).exec()             .then((res) => res && res.toObject? res.toObject() : res)
     );
 };

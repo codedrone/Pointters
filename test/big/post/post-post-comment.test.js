@@ -32,7 +32,7 @@ describe('User posts', () => {
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.equal(res.success,true);
+            assert.equal(res.success, true);
             assert(res.comment);
         });
     });

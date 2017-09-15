@@ -33,9 +33,9 @@ describe('User services', () => {
                 body: { token },
                 headers: { 'set-cookie': cookie }
             } = await agent.post('/user/login').send({
-                    email: bodyFollowing.email,
-                    password: bodyFollowing.password
-                });
+                email: bodyFollowing.email,
+                password: bodyFollowing.password
+            });
             const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
             const { body: res } = await agent.post(`/user/${userFollowed._id}/follow`)
@@ -60,16 +60,16 @@ describe('User services', () => {
                     offerNotifications: 'email',
                     summaryEmail: 'weekly'
                 },
-                following: ['this_id_does_exist']
+                following: [ 'this_id_does_exist' ]
             };
             await createUser(bodyFollowing);
             const {
                 body: { token },
                 headers: { 'set-cookie': cookie }
             } = await agent.post('/user/login').send({
-                    email: bodyFollowing.email,
-                    password: bodyFollowing.password
-                });
+                email: bodyFollowing.email,
+                password: bodyFollowing.password
+            });
             const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
             const { body: res } = await agent.post('/user/this_id_does_not_exists/follow')

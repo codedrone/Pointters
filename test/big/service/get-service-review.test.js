@@ -1,5 +1,5 @@
 const assert = require('assert');
-const mongo = require('mongoose')
+const mongo = require('mongoose');
 const { create:createService, delete: deleteRequests } = require('../../../stores/service');
 const { create: createReview } = require('../../../stores/service-review');
 const {pagination:{serviceReviews:limit}} = require('../../../config');
@@ -35,7 +35,7 @@ describe('User services', () => {
                 willingToBuyServiceAgain: false
             };
             const reviewCreated = await createReview(review);
-            console.log('reviewCreated ',reviewCreated)
+            console.log('reviewCreated ', reviewCreated);
             const { body: { review: res } } = await agent.get(`/service/review/${reviewCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)

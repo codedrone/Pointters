@@ -23,8 +23,7 @@ describe('User requests', () => {
                 .set(Cookie)
                 .expect(200);
             const updated = await findOneCategory({ _id: categoryCreated._id });
-            console.log('update ', updated);
-            assert.deepEqual(updated.price, update.price);
+            assert.deepEqual(updated.name, update.name);
         });
     });
 

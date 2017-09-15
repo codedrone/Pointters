@@ -7,8 +7,8 @@ const pathToModule = '../../../../domain/schedule-tasks/check-email-spam.js';
 describe('CheckSpams test', () => {
     describe('Success', () => {
         it('should call the delete function', (done) => {
-            const spams = [{}];
-            const updated = [{}];
+            const spams = [ {} ];
+            const updated = [ {} ];
             const pathStub = {
                 '../../services/email/spam': {
                     get: () => Promise.resolve(spams),
@@ -47,7 +47,7 @@ describe('CheckSpams test', () => {
         });
 
         it('should not call the delete if update return empty', () => {
-            const spams = [{}];
+            const spams = [ {} ];
             const updated = [];
             const pathStub = {
                 '../../services/email/spam': {

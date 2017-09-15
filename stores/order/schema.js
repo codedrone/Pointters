@@ -1,5 +1,5 @@
 const subschemas = require('./sub-schema');
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 module.exports = {
     createdAt: {
         type: Date,

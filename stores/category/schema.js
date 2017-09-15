@@ -1,5 +1,5 @@
 const {schema: subCategories} = require('./sub-schema/sub-category');
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 module.exports = {
     userId: {
         type: Schema.Types.ObjectId,

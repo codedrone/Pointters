@@ -15,12 +15,12 @@ describe('User posts', () => {
                     fileName:'filiname',
                     mediaType:'image'
                 } ],
-                tags: ['tags_1', 'tag_2']
+                tags: [ 'tags_1', 'tag_2' ]
             };
 
             const postCreated = await createPost(post);
             console.log('postCreated ', postCreated);
-            await updateUser({ _id: __user._id }, { likesPost: [postCreated._id] });
+            await updateUser({ _id: __user._id }, { likesPost: [ postCreated._id ] });
             const user1 = await findOneUser({ _id: __user._id });
             console.log('user =  ', user1);
 

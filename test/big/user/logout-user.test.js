@@ -38,7 +38,7 @@ describe('logout services', () => {
                 .put('/user')
                 .send(data)
                 .set(authorizationHeader)
-                .set(Cookie)
+                .set(Cookie);
         });
     });
 

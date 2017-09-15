@@ -1,5 +1,5 @@
 const {location:{schema:location}} = require('./sub-schema');
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 
 module.exports = {
     completedRegistration: {

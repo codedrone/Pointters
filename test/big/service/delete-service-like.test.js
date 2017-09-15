@@ -28,8 +28,8 @@ describe('User services', () => {
             await updateUser({
                 _id: __user._id
             }, {
-                    likes: [serviceCreated._id]
-                });
+                likes: [ serviceCreated._id ]
+            });
             const { body: res } = await agent.delete(`/service/${serviceCreated._id}/like`)
                 .set(authorizationHeader)
                 .set(Cookie)

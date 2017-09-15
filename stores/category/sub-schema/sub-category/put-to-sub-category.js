@@ -1,13 +1,13 @@
 const catchingErrorFromPromise = require('../../../../lib/catching-error-from-promise');
 
 module.exports = (client) => async(query, subCategories) => {
-    const post = await client.findOne(query, {subCategories:1});
+    const category = await client.findOne(query, {subCategories:1});
 
-    if (!post) return {};
+    if (!category) return {};
 
-    post.subCategories.forEach((_subCategories) => {
+    category.subCategories.forEach((_subCategories) => {
         _subCategories.keyword = _subCategories.keywords.concat(subCategories.keywords);
         if (subCategories.name) _subCategories.name = subCategories.name;
     });
-    return await catchingErrorFromPromise(post.save());
+    return await catchingErrorFromPromise(category.save());
 };

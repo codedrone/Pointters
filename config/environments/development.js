@@ -26,10 +26,13 @@ module.exports = {
     },
     pagination: {
         requests: 2,
-        serviceReviews:2,        
+        serviceReviews:2,
         offers: 2,
         postComments:2,
         requestOffers:2,
         categories:2
+    },
+    easyPost:{
+        ApiKey: 'y1ssBgKnItXIiHlu5McAEQ'
     }
 };

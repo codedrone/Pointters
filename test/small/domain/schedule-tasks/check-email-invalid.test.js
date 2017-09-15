@@ -7,8 +7,8 @@ const pathToModule = '../../../../domain/schedule-tasks/check-email-invalid';
 describe('CheckInvalids test', () => {
     describe('Success', () => {
         it('should call the delete function', (done) => {
-            const invalids = [{}];
-            const updated = [{}];
+            const invalids = [ {} ];
+            const updated = [ {} ];
             const pathStub = {
                 '../../services/email/invalid': {
                     get: () => Promise.resolve(invalids),
@@ -47,7 +47,7 @@ describe('CheckInvalids test', () => {
         });
 
         it('should not call the delete if update return empty', () => {
-            const invalids = [{}];
+            const invalids = [ {} ];
             const updated = [];
             const pathStub = {
                 '../../services/email/invalid': {

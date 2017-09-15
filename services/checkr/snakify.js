@@ -1,13 +1,15 @@
 const snake = require('to-snake-case');
 
 
-module.exports = (obj) => {
+const snakify = (obj) => {
     const keys = Object.keys(obj);
     return keys.map((key) => snake(key))
         .reduce((res, key, index) => {
-            res[key] = obj[keys[index]] ?
-                obj[keys[index]].toString() :
+            res[key] = typeof obj[keys[index]] === 'object' ?
+            snakify(obj[keys[index]]) :
                 obj[keys[index]];
             return res;
         }, {});
 };
+
+module.exports = snakify;

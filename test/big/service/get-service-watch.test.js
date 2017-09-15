@@ -28,7 +28,7 @@ describe('User services', () => {
                 email: __user.email
             },
                 {
-                    watching: [serviceCreated._id]
+                    watching: [ serviceCreated._id ]
                 });
             const { body: res } = await agent
                 .get(`/service/${serviceCreated._id}/watch`)

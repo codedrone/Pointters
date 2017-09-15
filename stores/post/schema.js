@@ -1,5 +1,5 @@
 const {schema: media} = require('./sub-schema/media');
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 
 module.exports = {
     userId: {

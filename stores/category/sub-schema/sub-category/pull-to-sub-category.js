@@ -7,7 +7,7 @@ module.exports = (client) => (query, _subCategories) => {
     const subCategories = isArray(_subCategories) ? _subCategories : [ _subCategories ];
     const update = {
         $pull: {
-            "subCategories": { $in: subCategories }
+            subCategories: { $in: subCategories }
         }
     };
     return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());

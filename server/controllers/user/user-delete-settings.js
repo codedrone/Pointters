@@ -4,7 +4,7 @@ const errorMessageInRemoveSetting = 'Error in remove settings';
 
 module.exports = async (ctx) => {
     const settings = ctx.request.body.fields.reduce((setting, field) => {
-        setting[`settings.${field}`] = "";
+        setting[`settings.${field}`] = '';
         return setting;
     }, {});
     const userToRemoveSettings = ctx.queryToFindUserById;

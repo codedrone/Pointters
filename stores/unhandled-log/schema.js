@@ -1,4 +1,4 @@
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 
 module.exports = {
     userId: {
@@ -7,7 +7,7 @@ module.exports = {
         ref: 'user'
     },
     createdAt: {
-        type: Date,         
+        type: Date,
         default: new Date()
     }
 };

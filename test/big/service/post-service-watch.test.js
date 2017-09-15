@@ -28,9 +28,9 @@ describe('User services', () => {
             await updateUser({
                 email: __user.email
             },
-            {
-                watching: []
-            });
+                {
+                    watching: []
+                });
             const { body: res } = await agent
                 .post(`/service/${serviceCreated._id}/watch`)
                 .set(authorizationHeader)

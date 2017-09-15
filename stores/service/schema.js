@@ -2,11 +2,11 @@ const fulfillmentMethod = require('./sub-schemas/fulfillment-method');
 const location = require('./sub-schemas/location');
 const price = require('./sub-schemas/price');
 const media = require('./sub-schemas/media');
-const {Schema} = require('mongoose')
+const {Schema} = require('mongoose');
 
 module.exports = {
     userId: {
-        type:Schema.Types.ObjectId ,
+        type:Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'

@@ -33,7 +33,7 @@ describe('User services', () => {
                 .expect(200);
             assert.deepEqual(res, { success: true });
             const likes = await getLikes({ _id: __user._id });
-            assert.deepEqual(likes, [serviceCreated._id]);
+            assert.deepEqual(likes, [ serviceCreated._id ]);
         });
     });
 

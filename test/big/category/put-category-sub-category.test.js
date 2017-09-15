@@ -19,13 +19,15 @@ describe('User requests', () => {
                 name: 'name put 2 sub'
             };
             const categoryCreated = await createCategory(body);
-            await agent.put(`/category/${categoryCreated._id}/sub-category/${categoryCreated.subCategories[0]._id}`)
+            const {body:{subCategories}} = await agent.put(`/category/${categoryCreated._id}/sub-category/${categoryCreated.subCategories[0]._id}`)
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
+            assert(subCategories.length === 1);
             const updated = await findOneCategory({_id:categoryCreated._id});
             assert.deepStrictEqual(updated.subCategories[0].name, update.name);
+            assert(updated.subCategories.length === 1);
         });
     });
 

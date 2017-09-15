@@ -6,9 +6,9 @@ module.exports = async (ctx) => {
         '_id': ctx.params.idCategory,
         'subCategories._id': ctx.params.idSubCategory
     };
-    const { error } = await putCategory(query, categoryToupdate);
+    const { error, subCategories} = await putCategory(query, categoryToupdate);
 
     if (error) ctx.throw(404, error.message);
 
-    ctx.body = { success: true };
+    ctx.body = { success: true, subCategories };
 };

@@ -15,7 +15,7 @@ module.exports = {
     unset: unset(client),
     findOne: findOne(client),
     delete: Delete(client),
-    search: search(client),    
+    search: search(client),
     create: create(client),
     update: update(client),
     find: find(client),

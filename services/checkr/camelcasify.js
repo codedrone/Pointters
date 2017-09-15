@@ -1,13 +1,14 @@
 const camelcase = require('camelcase');
 
 
-module.exports = (obj) => {
+const camelcasify = (obj) => {
     const keys = Object.keys(obj);
     return keys.map((key) => camelcase(key))
         .reduce((res, key, index) => {
-            res[key] = obj[keys[index]] ?
-                obj[keys[index]].toString() :
+            res[key] = typeof obj[keys[index]] === 'object' ?
+            camelcasify(obj[keys[index]]) :
                 obj[keys[index]];
             return res;
         }, {});
 };
+module.exports = camelcasify;

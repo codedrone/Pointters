@@ -23,6 +23,6 @@
      });
 
      it('should return createCandidate', () => {
-        assert.deepStrictEqual(checkr.createCandidate, createCandidate);
-    });
+         assert.deepStrictEqual(checkr.createCandidate, createCandidate);
+     });
  });

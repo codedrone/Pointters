@@ -1,5 +1,5 @@
-const {Schema} = require('mongoose')
- 
+const {Schema} = require('mongoose');
+
 module.exports = {
     userId: {
         type: Schema.Types.ObjectId,
@@ -8,8 +8,8 @@ module.exports = {
         ref: 'user'
     },
     createdAt: {
-        type: Date,       
-          default: new Date()
+        type: Date,
+        default: new Date()
     },
     fulfillmentMethod: {
         type: Object
@@ -31,8 +31,8 @@ module.exports = {
         default: true
     },
     updatedAt: {
-        type: Date,        
-         default: new Date()
+        type: Date,
+        default: new Date()
     },
     workDuration: {
         type: Object

@@ -50,5 +50,8 @@ module.exports = {
         postComments:100,
         requestOffers:100,
         categories:100
+    },
+    easyPost:{
+        ApiKey: 'y1ssBgKnItXIiHlu5McAEQ'
     }
 };

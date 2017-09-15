@@ -34,7 +34,7 @@ describe('Create report', () => {
             const options = {};
             const {error: errorReturned} = await createCandidate(options);
             console.log('errorReturned', errorReturned);
-            assert(errorReturned === response.error.toString());
+            assert.deepStrictEqual(errorReturned,response.error);
         });
     });
 });
