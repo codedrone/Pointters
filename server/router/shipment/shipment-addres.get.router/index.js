@@ -10,4 +10,4 @@ router.get('/shipment/:idShipment/address',
     getShipmentAddress
 );
 
-module.exports = router;
+module.exports = router.routes();

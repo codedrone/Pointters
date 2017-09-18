@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/post/:idPost/like', validate({ body, params }), postpostLike);
 
-module.exports = router;
+module.exports = router.routes();

@@ -14,7 +14,7 @@ module.exports = {
     facebook: {
         appId: '995599163788797',
         appSecret: '4868095834fef8a3538045527b5c7da9',
-        version: 'v2.4'
+        version: 'v2.5'
     },
     review: {
         minLengthForComment: 100
@@ -33,7 +33,19 @@ module.exports = {
         '/user/facebook/token',
         '/user/otp',
         '/user/reset',
-        '/user/reset/password'
+        '/user/reset/password',
+        {
+            path:'/category/:idCategory/sub-category/:idSubCategory',
+            method: 'GET'
+        },
+        {
+            path:'/category/:idCategory?',
+            method: 'GET'
+        },
+        {
+            path:'/categories/:idCategory?',
+            method: 'GET'
+        }
     ],
     schedule: {
         BounceEmail: '00 00 * * * *',

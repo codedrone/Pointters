@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/post/:idPost/comment', validate({ body, params }), postpostComment);
 
-module.exports = router;
+module.exports = router.routes();

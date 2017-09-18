@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/offer', validate({ body, params }), postOffer);
 
-module.exports = router;
+module.exports = router.routes();

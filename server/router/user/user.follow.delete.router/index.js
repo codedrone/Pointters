@@ -6,4 +6,4 @@ const router = new Router();
 
 router.delete('/user/:followedId/follow', validate({ body: schema }), deleteuserFollow);
 
-module.exports = router;
+module.exports = router.routes();

@@ -8,4 +8,4 @@ const router = new Router();
 
 router.put('/post/:idPost', validate({ body, params }), putpost);
 
-module.exports = router;
+module.exports = router.routes();

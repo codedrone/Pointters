@@ -7,4 +7,4 @@ const router = new Router();
 
 router.get('/post/:idPost', validate({ body, params }), getpost);
 
-module.exports = router;
+module.exports = router.routes();

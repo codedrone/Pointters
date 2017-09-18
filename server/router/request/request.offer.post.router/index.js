@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/request/:idRequest/offer', validate({ body, params }), postrequestOffer);
 
-module.exports = router;
+module.exports = router.routes();

@@ -7,4 +7,4 @@ const router = new Router();
 router
     .post('/service/:idService/watch', validate({ body: schema }), postserviceWatching);
 
-module.exports = router;
+module.exports = router.routes();

@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/user/reset/password', validate({ body: schema }), userresetPassword);
 
-module.exports = router;
+module.exports = router.routes();

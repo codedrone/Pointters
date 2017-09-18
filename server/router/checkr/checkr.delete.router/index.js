@@ -8,4 +8,4 @@ const router = new Router();
 
 router.delete('/checkr/:idCheckr', validate({ body, params }), deleteCheckr);
 
-module.exports = router;
+module.exports = router.routes();

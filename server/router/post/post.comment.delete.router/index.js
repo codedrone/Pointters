@@ -8,4 +8,4 @@ const router = new Router();
 
 router.delete('/post/comment/:idComment', validate({ body, params }), deletepostComment);
 
-module.exports = router;
+module.exports = router.routes();

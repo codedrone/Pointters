@@ -9,7 +9,8 @@ before(async() => {
     global.agent = supertest(app);
     const body = {
         email: 'test@test.com',
-        password: 'test'
+        password: 'test',
+        isAdmin: true
     };
     const user = await createUser(body);
     global.__user = user;

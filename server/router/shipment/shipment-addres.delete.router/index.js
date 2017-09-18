@@ -9,4 +9,4 @@ const path = '/shipment/:idShipment/address';
 router.delete(path, validate({ body, params }), deleteShipmentAddress
 );
 
-module.exports = router;
+module.exports = router.routes();

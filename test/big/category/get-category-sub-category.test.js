@@ -17,8 +17,6 @@ describe('User requests', () => {
             };
             const categoryCreated = await createCategory(body);
             const {body:{subCategories}} = await agent.get(`/category/${categoryCreated._id}/sub-category/${categoryCreated.subCategories[0]._id}`)
-                .set(authorizationHeader)
-                .set(Cookie)
                 .expect(200);
             assert.deepStrictEqual(subCategories[0].keywords, body.subCategories[0].keywords);
             assert.equal(subCategories[0].name, body.subCategories[0].name);

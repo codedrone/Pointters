@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/user/facebook/token', validate({ body: schema }), postFacebookToken);
 
-module.exports = router;
+module.exports = router.routes();

@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/service/:idService/share', validate({ body: schema }), postserviceShare);
 
-module.exports = router;
+module.exports = router.routes();

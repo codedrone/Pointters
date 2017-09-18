@@ -8,4 +8,4 @@ const router = new Router();
 router
     .delete('/request/:idRequest', validate({ body, params }), deleterequest);
 
-module.exports = router;
+module.exports = router.routes();

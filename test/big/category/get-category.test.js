@@ -17,9 +17,8 @@ describe('User categorys', () => {
             console.log('categoryCreated ', categoryCreated);
             const { body: res } = await agent
                 .get(`/category/${categoryCreated._id}`)
-                .set(authorizationHeader)
-                .set(Cookie)
                 .expect(200);
+            console.log('res  =', res);
             assert(typeof res.category === 'object');
         });
 
@@ -31,16 +30,12 @@ describe('User categorys', () => {
             });
 
             const { body: {categories:res, next} } = await agent.get('/categories')
-                .set(authorizationHeader)
-                .set(Cookie)
                 .expect(200);
             console.log('res.length ', res);
             assert(res.length === limit);
             assert(next);
 
             const { body: { categories: resSecond, next:nextSecond } } = await agent.get(next)
-                .set(authorizationHeader)
-                .set(Cookie)
                 .expect(200);
             assert(resSecond.length === 2);
             assert(!nextSecond);

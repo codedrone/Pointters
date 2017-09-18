@@ -5,7 +5,7 @@ test_small:
 	mocha $(shell find test/small -name *test.js)
 
 test_big:
-	mocha $(shell find test/big -name *test.js)
+	DEBUG=*api* mocha test/bootstrap $(shell find test/big -name *test.js)
 start:
 	DEBUG=*error pm2 start index.js --name pointers-app
 restart:

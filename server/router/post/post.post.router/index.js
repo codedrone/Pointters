@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/post', validate({ body, params }), postpost);
 
-module.exports = router;
+module.exports = router.routes();

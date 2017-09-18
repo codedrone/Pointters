@@ -8,4 +8,4 @@ const router = new Router();
 
 router.delete('/order/:idOrder', validate({ body, params }), deleteOrder);
 
-module.exports = router;
+module.exports = router.routes();

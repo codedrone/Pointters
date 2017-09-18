@@ -6,4 +6,4 @@ const router = new Router();
 
 router.delete('/service/:idService/like', validate({ body: schema }), deleteserviceLike);
 
-module.exports = router;
+module.exports = router.routes();

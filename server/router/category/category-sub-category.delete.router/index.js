@@ -9,4 +9,4 @@ const path = '/category/:idCategory/sub-category/:idSubCategory';
 router.delete(path, validate({ body, params }), deleteCategorySubCategory
 );
 
-module.exports = router;
+module.exports = router.routes();

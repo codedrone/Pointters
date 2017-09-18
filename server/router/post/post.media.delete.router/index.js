@@ -7,4 +7,4 @@ const router = new Router();
 
 router.delete('/post/:idPost/media/:idMedia?', validate({ body, params }), deletepostMedia);
 
-module.exports = router;
+module.exports = router.routes();

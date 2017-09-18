@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/shipment', validate({ body, params }), postShipment);
 
-module.exports = router;
+module.exports = router.routes();

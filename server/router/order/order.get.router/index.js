@@ -7,4 +7,4 @@ const router = new Router();
 
 router.get('/order/:idOrder', validate({ body, params }), getOrder);
 
-module.exports = router;
+module.exports = router.routes();

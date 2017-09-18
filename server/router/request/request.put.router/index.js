@@ -7,4 +7,4 @@ const router = new Router();
 
 router.put('/request/:idRequest', validate({ body, params }), putrequest);
 
-module.exports = router;
+module.exports = router.routes();

@@ -7,4 +7,4 @@ const router = new Router();
 
 router.get('/(shipment|shipments)/:idShipment?', validate({ body, params }), getShipment);
 
-module.exports = router;
+module.exports = router.routes();

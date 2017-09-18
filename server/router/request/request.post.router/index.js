@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/request', validate({ body, params }), postrequest);
 
-module.exports = router;
+module.exports = router.routes();

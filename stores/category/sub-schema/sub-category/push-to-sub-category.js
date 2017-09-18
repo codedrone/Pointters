@@ -2,6 +2,7 @@ const catchingErrorFromPromise = require('../../../../lib/catching-error-from-pr
 
 module.exports = (client) => (query, subCategory) => catchingErrorFromPromise(
     (async() => {
+        console.log('query', query);
         const doc = await client.findOne(query);
         if (!doc) return {error:new Error('Category does not exists')};
         doc.subCategories.push(subCategory);

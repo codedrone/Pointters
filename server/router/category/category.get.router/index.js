@@ -7,4 +7,4 @@ const router = new Router();
 
 router.get('/(category|categories)/:idCategory?', validate({ body, params }), getCategory);
 
-module.exports = router;
+module.exports = router.routes();

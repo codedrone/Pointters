@@ -6,4 +6,4 @@ const router = new Router();
 
 router.get('/service/:idService', validate({ body: schema }), getservice);
 
-module.exports = router;
+module.exports = router.routes();

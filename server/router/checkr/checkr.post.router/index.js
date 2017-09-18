@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/checkr', validate({ body, params }), postCheckr);
 
-module.exports = router;
+module.exports = router.routes();

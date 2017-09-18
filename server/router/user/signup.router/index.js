@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/user/signup', validate({ body: schema }), usersignup);
 
-module.exports = router;
+module.exports = router.routes();

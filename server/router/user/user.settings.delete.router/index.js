@@ -6,4 +6,4 @@ const router = new Router();
 
 router.delete('/user/setting', validate({ body: schema }), deleteuserSettings);
 
-module.exports = router;
+module.exports = router.routes();

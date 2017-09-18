@@ -7,4 +7,4 @@ const router = new Router();
 
 router.delete('/post/:idPost/like', validate({ body, params }), deletepostLike);
 
-module.exports = router;
+module.exports = router.routes();

@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/service', validate({ body: schema }), postservice);
 
-module.exports = router;
+module.exports = router.routes();

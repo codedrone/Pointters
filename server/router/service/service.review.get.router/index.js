@@ -11,4 +11,4 @@ const path = [
 router
     .get(path, validate({ body: schema }), getserviceReview);
 
-module.exports = router;
+module.exports = router.routes();

@@ -10,4 +10,4 @@ router.get('/category/:idCategory/sub-category/:idSubCategory',
     getCategorySubCategory
 );
 
-module.exports = router;
+module.exports = router.routes();

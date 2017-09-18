@@ -12,4 +12,4 @@ router.get('/user', validate({
     body
 }), getuser);
 
-module.exports = router;
+module.exports = router.routes();

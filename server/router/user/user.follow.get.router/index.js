@@ -6,4 +6,4 @@ const router = new Router();
 
 router.get('/user/:followedId/follow', validate({ body: schema }), getuserFollow);
 
-module.exports = router;
+module.exports = router.routes();

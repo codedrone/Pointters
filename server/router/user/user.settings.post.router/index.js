@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/user/setting', validate({ body: schema }), postuserSettings);
 
-module.exports = router;
+module.exports = router.routes();

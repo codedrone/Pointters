@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/user/login', validate({ body: schema }), userlogin);
 
-module.exports = router;
+module.exports = router.routes();

@@ -8,4 +8,4 @@ const router = new Router();
 router
     .put('/request/offer/:idOffer', validate({ body, params }), putrequestOffer);
 
-module.exports = router;
+module.exports = router.routes();

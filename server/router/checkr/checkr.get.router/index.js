@@ -7,4 +7,4 @@ const router = new Router();
 
 router.get('/checkr/:idCheckr', validate({ body, params }), getCheckr);
 
-module.exports = router;
+module.exports = router.routes();

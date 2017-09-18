@@ -41,6 +41,18 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
+        it('/request PUT sohuld return 404 if user does not exists', async() => {
+            const update = {
+                media: {
+                    media: 'the media is here updated'
+                }
+            };
 
+            await agent.put('/request/sfsdrwaaaa8sd9d783ds21ws')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

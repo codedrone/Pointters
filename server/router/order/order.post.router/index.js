@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/order', validate({ body, params }), postOrder);
 
-module.exports = router;
+module.exports = router.routes();

@@ -12,11 +12,11 @@ describe('User requests', () => {
                 name: 'name delete'
             };
             const categoryCreated = await createCategory(category);
-            console.log('category ====: ', categoryCreated);
-            await agent.delete(`/category/${categoryCreated._id}`)
+            const {body: res} = await agent.delete(`/category/${categoryCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
+            assert(res.success === true);
             const categoryNotActive = findOneCategory({ _id: categoryCreated._id });
             assert(!categoryNotActive.isActive);
         });

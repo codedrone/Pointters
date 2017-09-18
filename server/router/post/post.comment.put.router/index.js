@@ -8,4 +8,4 @@ const router = new Router();
 router
     .put('/post/comment/:idComment', validate({ body, params }), putpostComment);
 
-module.exports = router;
+module.exports = router.routes();

@@ -12,4 +12,4 @@ const router = new Router();
 
 router.get(path, validate({ body, params }), getrequestOffer);
 
-module.exports = router;
+module.exports = router.routes();

@@ -6,7 +6,6 @@ const middelware = async (ctx, next) => {
 
     let userUsingSession = null;
     if (ctx.session.id) userUsingSession = await findOne({ _id: ctx.session.id });
-
     let isAuth = userUsingJwt || userUsingSession;
 
     if (userUsingJwt && userUsingSession) isAuth = isAuth &&

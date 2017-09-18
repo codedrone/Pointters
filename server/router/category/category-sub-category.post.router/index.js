@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/category/:idCategory/sub-category', validate({ body, params }), postCategorySubCategory);
 
-module.exports = router;
+module.exports = router.routes();

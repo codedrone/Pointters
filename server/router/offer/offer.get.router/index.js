@@ -7,4 +7,4 @@ const router = new Router();
 
 router.get('/(offer|offers)/:idOffer?', validate({ body, params }), getOffer);
 
-module.exports = router;
+module.exports = router.routes();

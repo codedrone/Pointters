@@ -6,4 +6,4 @@ const router = new Router();
 
 router.put('/user', validate({ body: schema }), putuser);
 
-module.exports = router;
+module.exports = router.routes();

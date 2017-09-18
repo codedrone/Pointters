@@ -11,4 +11,4 @@ router.post('/user/otp', async(ctx, next) => {
 
 , validate({ body: schema }), userOpt);
 
-module.exports = router;
+module.exports = router.routes();

@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/shipment/:idShipment/address', validate({ body, params }), postShipmentAddress);
 
-module.exports = router;
+module.exports = router.routes();

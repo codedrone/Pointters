@@ -8,4 +8,4 @@ const router = new Router();
 router
     .delete('/post/:idPost', validate({ body, params }), deletepost);
 
-module.exports = router;
+module.exports = router.routes();

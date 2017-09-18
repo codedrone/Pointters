@@ -7,4 +7,4 @@ const router = new Router();
 router
     .delete('/service/:idService/watch', validate({ body: schema }), deleteserviceWatching);
 
-module.exports = router;
+module.exports = router.routes();

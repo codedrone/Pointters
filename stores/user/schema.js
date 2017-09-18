@@ -11,6 +11,10 @@ module.exports = {
         type: Boolean,
         default: true
     },
+    isAdmin:{
+        type: Boolean,
+        default: false
+    },
     isEmail: {
         valid: {
             type: Boolean,

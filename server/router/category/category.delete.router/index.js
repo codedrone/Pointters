@@ -8,4 +8,4 @@ const router = new Router();
 
 router.delete('/category/:idCategory', validate({ body, params }), deleteCategory);
 
-module.exports = router;
+module.exports = router.routes();

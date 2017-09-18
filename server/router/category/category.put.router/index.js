@@ -8,4 +8,4 @@ const router = new Router();
 router
     .put('/category/:idCategory', validate({ body, params }), putCategory);
 
-module.exports = router;
+module.exports = router.routes();

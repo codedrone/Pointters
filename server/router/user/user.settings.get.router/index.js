@@ -6,4 +6,4 @@ const router = new Router();
 
 router.get('/user/setting', validate({ body: schema }), getuserSettings);
 
-module.exports = router;
+module.exports = router.routes();

@@ -1,29 +1,26 @@
-const { update, findOne } = require('../../../stores/user');
+const { update, findOne } = require('../../../../stores/user');
 
-const { email: { sendEmail } } = require('../../../services');
+const { email: { sendEmail } } = require('../../../../services');
 const { optExpiresIn,
     longOfPasswordTemp,
     emailSenderingCong: {
         subjectOptEmail: subject,
         contentOptEmail: _content
     }
-} = require('../../../config');
+} = require('../../../../config');
 
 const errorInUpdateUser = 'Error on update user';
-
+const getResetParams = require('./get-reset-params');
 module.exports = async(ctx) => {
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
 
-    if (!user || user.error) return ctx.throw(404, 'User not found');
+    if (!user || user.error) return ctx.throw(404, `User:${ctx.request.body.email} not found`);
 
-    const updateTheAuthSettings = {
-        tempPassword: Math.random().toString(36).slice(-longOfPasswordTemp),
-        resetPasswordExpires: new Date(Date.now() + optExpiresIn)
-    };
-    const error = await update(queryToFindUser, updateTheAuthSettings);
+    const updateTheAuthSettings = getResetParams(longOfPasswordTemp, optExpiresIn);
+    const updated = await update(queryToFindUser, updateTheAuthSettings);
 
-    if (error) ctx.throw(404, error.message);
+    if (updated && updated.error) ctx.throw(404, errorInUpdateUser);
 
     const content = _content + updateTheAuthSettings.tempPassword;
     const {error: errorInSendEmail} = await sendEmail(user.email, subject, content);

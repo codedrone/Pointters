@@ -7,4 +7,4 @@ const router = new Router();
 
 router.post('/post/:idPost/media', validate({ body, params }), postpostMedia);
 
-module.exports = router;
+module.exports = router.routes();

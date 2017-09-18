@@ -6,4 +6,4 @@ const router = new Router();
 
 router.post('/service/:idService/like', validate({ body: schema }), postserviceLike);
 
-module.exports = router;
+module.exports = router.routes();
