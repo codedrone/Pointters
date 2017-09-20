@@ -31,7 +31,39 @@ describe('User requests', () => {
         });
     });
 
-    describe('FAIL', () => {});
+    describe('FAIL', () => {
+        it('/category/:idCategory PUT sohuld create a request given', async() => {
+            const update = {
+                name: 'name put 2 sub'
+            };
+            await agent.put('/category/1234567890qwertyuiopasdf/sub-category/1234567890qwertyuiopasdf')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
+
+        it('/category/:idCategory PUT sohuld create a request given', async() => {
+            const body = {
+                keywords: [ 'string' ],
+                name: 'name put',
+                subCategories:[ {
+                    keywords: [ 'string' ],
+                    name: 'name post'
+                } ],
+                userId: __user._id
+            };
+            const update = {
+                name: 'name put 2 sub'
+            };
+            const categoryCreated = await createCategory(body);
+            await agent.put(`/category/${categoryCreated._id}/sub-category/1234567890qwertyuiopasdf`)
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
+    });
 
     after(() => deleteCategody({}));
 });

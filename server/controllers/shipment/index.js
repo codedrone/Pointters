@@ -1,9 +1,13 @@
 module.exports = {
     postShipment: require('./shipment-post'),
-    postShipmentAddress: require('./shipment-address-post'),
-    deleteShipmentAddress: require('./shipment-address-delete'),
-    putShipmentAddress: require('./shipment-address-put'),
-    getShipmentAddress: require('./shipment-address-get'),
+    postShipmentToAddress: require('./shipment-to-address-post'),
+    deleteShipmentToAddress: require('./shipment-to-address-delete'),
+    putShipmentToAddress: require('./shipment-to-address-put'),
+    getShipmentToAddress: require('./shipment-to-address-get'),
+    postShipmentParcel: require('./shipment-parcel-post'),
+    deleteShipmentParcel: require('./shipment-parcel-delete'),
+    putShipmentParcel: require('./shipment-parcel-put'),
+    getShipmentParcel: require('./shipment-parcel-get'),
     getShipment: require('./shipment-get'),
     deleteShipment: require('./shipment-delete'),
     putShipment: require('./shipment-put')

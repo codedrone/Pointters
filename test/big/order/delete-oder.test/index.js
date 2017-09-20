@@ -20,6 +20,11 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/order/:iddOrder DELETE sohuld return error', async () => {
+            await agent.delete('/order/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

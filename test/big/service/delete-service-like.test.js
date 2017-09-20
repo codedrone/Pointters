@@ -41,6 +41,11 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/service/like DELETE sohuld create a service given', async () => {
+            await agent.delete('/service/1234567890qwertyuiopasdf/like')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(200);
+        });
     });
 });

@@ -32,6 +32,11 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/post/like GET sohuld create a post given', async () => {
+            await agent.get('/post/1234567890qwertyuiopasdf/like')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

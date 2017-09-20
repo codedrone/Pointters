@@ -1,9 +1,9 @@
 const joi = require('joi');
 
-const generalNotifications = [ 'pushNotification', 'email' ];
-const orderNotifications = [ 'pushNotification', 'email' ];
-const offerNotifications = [ 'pushNotification', 'email' ];
-const summaryEmail = [ 'daily', 'weekly' ];
+const generalNotifications = [ 'pushNotification', 'email', 'all' ];
+const orderNotifications = [ 'pushNotification', 'email', 'all' ];
+const offerNotifications = [ 'pushNotification', 'email', 'all' ];
+const summaryEmail = [ 'daily', 'weekly', 'all' ];
 
 module.exports = joi.object().keys({
     generalNotifications: joi.string().valid(generalNotifications),

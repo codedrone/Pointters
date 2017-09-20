@@ -99,7 +99,12 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/request GET sohuld create a request given', async() => {
+            await agent.get('/request/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 
     after(() => deleteRequests({}));

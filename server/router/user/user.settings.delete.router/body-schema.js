@@ -7,5 +7,5 @@ const fields = [ 'generalNotifications',
 ];
 
 module.exports = joi.object().keys({
-    fields: joi.array().items(fields)
+    fields: joi.array().min(1).items(fields).required()
 });

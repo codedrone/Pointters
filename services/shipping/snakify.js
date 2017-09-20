@@ -6,7 +6,9 @@ const snakify = (obj) => {
     return keys.map((key) => snake(key))
         .reduce((res, key, index) => {
             console.log('obj[keys[index]] ', obj[keys[index]]);
-            res[key] = obj[keys[index]] && typeof obj[keys[index]] === 'object' ?
+            res[key] = res[key] = obj[keys[index]] &&
+            typeof obj[keys[index]] === 'object' &&
+            !Array.isArray(obj[keys[index]]) ?
             snakify(obj[keys[index]]) :
                 obj[keys[index]];
             return res;

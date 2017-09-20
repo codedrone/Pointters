@@ -36,6 +36,12 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/request DELETE sohuld create a request given', async() => {
+            
+            await agent.delete(`/request/1234567890qwertyuiopasdf`)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

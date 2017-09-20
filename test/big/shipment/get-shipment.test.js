@@ -33,7 +33,13 @@ describe('User shipments', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/shipment GET sohuld create a request given', async() => {
+            await agent
+                .get('/shipment/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 
     after(() => deleteShipment({}));

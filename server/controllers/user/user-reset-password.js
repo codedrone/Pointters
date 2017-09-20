@@ -7,13 +7,16 @@ module.exports = async (ctx) => {
     console.log('ctx.request.body  in reset = ', ctx.request.body);
     const queryToFindUser = { email: ctx.request.body.email };
     const user = await findOne(queryToFindUser);
+    if (!user || user.error) ctx.throw(404, 'User not found');
     const isMatch = await comparePassword(ctx.request.body.oldPassword, user.tempPassword);
     const isValidToResetTheUser = user &&
         new Date() < new Date(user.resetPasswordExpires) &&
         isMatch &&
         !user.error &&
         !isMatch.error;
-
+    console.log('user ', user);
+    console.log('new Date() < new Date(user.resetPasswordExpires) ', new Date() < new Date(user.resetPasswordExpires));
+    console.log('isMatch ', isMatch);
     if (!isValidToResetTheUser) return ctx.throw(404, 'The password not valid');
 
     const updateTheAuthSettings = {

@@ -5,9 +5,9 @@ module.exports = async (ctx) => {
     console.log(
         'query ', query
     );
-    const address = await unset(query, {address:''});
+    const toAddress = await unset(query, {toAddress:''});
 
-    if (address.error) ctx.throw(404, address.error.message);
+    if (!toAddress || toAddress.error) ctx.throw(404);
 
     ctx.body = { success: true };
 };

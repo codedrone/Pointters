@@ -5,6 +5,7 @@ const { create: createLog } = require('../../../../stores/unhandled-log');
 const {createCandidate, createReport, getReport} = require('../../../../services/checkr');
 
 module.exports = (candidate, state) => (async() => {
+    console.log('candidate =', candidate);
     const candidateCreated = await createCandidate(candidate);
     console.log('candidateCreated =', candidateCreated);
     const candidateToSave = Object.assign({

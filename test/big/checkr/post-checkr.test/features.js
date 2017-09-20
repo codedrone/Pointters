@@ -4,9 +4,20 @@ const nock = require('nock');
 
 const emitter = new EventEmitter();
 
-module.exports = () => {
+module.exports = (email) => {
     nock('https://api.checkr.com:443', {encodedQueryParams:true})
-    .post('/v1/candidates', {first_name:'firstName', middle_name:'middleName', last_name:'lastName', email:'email@test.com', phone:'23432432432', zipcode:'90401', dob:'Wed Jan 21 1970 18:00:00 GMT-0600 (CST)', ssn:'111-11-2001', driver_license_number:'F1112001', driver_license_state:'CA'})
+    .post('/v1/candidates', {
+        first_name:'firstName',
+        middle_name:'middleName',
+        last_name:'lastName',
+        email:email,
+        phone:'23432432432',
+        zipcode:'90401',
+        dob:'Wed Jan 21 1970 18:00:00 GMT-0600 (CST)',
+        ssn:'111-11-2001',
+        driver_license_number:'F1112001',
+        driver_license_state:'CA'
+    })
     .reply(201, {id:'e449545d9007db19fd437324', object:'test_candidate', uri:'/v1/candidates/e449545d9007db19fd437324', created_at:'2017-09-03T01:40:10Z', first_name:'Firstname', last_name:'Lastname', middle_name:'Middlename', mother_maiden_name:null, dob:'1970-01-21', ssn:'XXX-XX-2001', email:'email@test.com', zipcode:'90401', phone:'23432432432', driver_license_state:'CA', driver_license_number:'F1112001', copy_requested:false, previous_driver_license_state:null, previous_driver_license_number:null, adjudication:null, custom_id:null, no_middle_name:false, report_ids:[], geo_ids:[]}, [ 'Date',
         'Sun, 03 Sep 2017 01:40:10 GMT',
         'Content-Type',
@@ -52,7 +63,10 @@ module.exports = () => {
         '3984ffe17f0a5384-LAX' ]);
 
     nock('https://api.checkr.com:443', {encodedQueryParams:true})
-    .get('/reports/57968c1e7fa87e328602ea7d', {package:'driver_pro', candidate_id:'e449545d9007db19fd437324'})
+    .get(/reports.*/, {
+        package:'driver_pro',
+        candidate_id:'e449545d9007db19fd437324'
+    })
     .reply(401, () => {
         emitter.emit('done');
         return {

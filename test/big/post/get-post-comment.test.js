@@ -72,6 +72,12 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/post/comment GET sohuld create a post given', async () => {
+            await agent
+                .get('/post/1234567890qwertyuiopasdf/comment')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

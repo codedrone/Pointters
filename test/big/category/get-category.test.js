@@ -43,7 +43,11 @@ describe('User categorys', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/request/category GET sohuld create a request given', async() => {
+            await agent
+                .get('/category/1234567890qwertyuiopasdf')
+                .expect(404);
+        });
     });
 
     after(() => deleteCategody({}));

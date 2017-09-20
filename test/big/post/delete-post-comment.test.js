@@ -37,6 +37,11 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/post/comment DELETE sohuld create a post given', async() => {
+            await agent.delete('/post/comment/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

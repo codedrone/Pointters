@@ -41,6 +41,15 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/post/:idPost/comment/:idComment PUT sohuld create a post given', async() => {
+            const update = {
+                comment: 'comment 2'
+            };
+            await agent.put('/post/comment/1234567890qwertyuiopasdf')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

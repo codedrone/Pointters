@@ -23,7 +23,28 @@ describe('User requests', () => {
         });
     });
 
-    describe('FAIL', () => {});
+    describe('FAIL', () => {
+        it('/category/:idCategory GET sohuld create a request given', async() => {
+            await agent
+                .get('/category/1234567890qwertyuiopasdf/sub-category/1234567890qwertyuiopasdf')
+                .expect(404);
+        });
+
+        it('/category/:idCategory GET sohuld return 404', async() => {
+            const body = {
+                keywords: [ 'string' ],
+                name: 'name put',
+                subCategories:[ {
+                    keywords: [ 'string' ],
+                    name: 'name post'
+                } ],
+                userId: __user._id
+            };
+            const categoryCreated = await createCategory(body);
+            await agent.get(`/category/${categoryCreated._id}/sub-category/1234567890qwertyuiopasdf`)
+                .expect(404);
+        });
+    });
 
     after(() => deleteCategody({}));
 });

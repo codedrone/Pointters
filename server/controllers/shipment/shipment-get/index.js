@@ -8,7 +8,7 @@ module.exports = async (ctx) => {
     const query = getQuery(ctx);
     console.log('query = ', query);
     const shipments = await findShipment(query, {limit});
-    if (!shipments || shipments.error) ctx.throw(404, errorInGetWatching);
+    if (!shipments || !shipments.length || !shipments.length || shipments.error) ctx.throw(404, errorInGetWatching);
 
     if (ctx.params.idShipment) {
         ctx.body = {

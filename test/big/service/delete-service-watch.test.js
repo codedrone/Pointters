@@ -43,6 +43,12 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/service/watch DELETE sohuld create a service given', async () => {
+            await agent
+                .delete('/service/1234567890qwertyuiopasdf/watch')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

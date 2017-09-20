@@ -16,9 +16,7 @@ module.exports = (schema) => {
     });
     schema.pre('save', function(next) {
         const user = this;
-
         if (!user.isModified('tempPassword') && !user.isNew || !user.tempPassword) return next();
-
         bcrypt.genSalt(10)
             .then((salt) => bcrypt.hash(user.tempPassword, salt))
             .then((hash) => {

@@ -33,6 +33,11 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/checkr/:idReport DELETE sohuld create a request given', async () => {
+            await agent.delete('/checkr/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

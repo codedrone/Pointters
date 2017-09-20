@@ -3,11 +3,15 @@ const catchingErrorFromPromise = require('../../../lib/catching-error-from-promi
 const { isArray } = Array;
 
 module.exports = (client) => (query, _likes) => {
-    const likes = isArray(_likes) ? _likes : [ _likes ];
-    const update = {
-        $pull: {
-            likes: { $in: likes }
-        }
-    };
-    return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());
+    try {
+        const likes = isArray(_likes) ? _likes : [ _likes ];
+        const update = {
+            $pull: {
+                likes: { $in: likes }
+            }
+        };
+        return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());
+    } catch (error) {
+        return {error};
+    }
 };

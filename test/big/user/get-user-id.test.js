@@ -16,6 +16,7 @@ describe('User/:id services', () => {
                 password: 'test'
             };
             const userOther = await createUser(bodyOther);
+            console.log('userOther ', userOther);
             const {
                 body: { token },
                 headers: { 'set-cookie': cookie }
@@ -26,7 +27,7 @@ describe('User/:id services', () => {
                 userId: userOther._id
             };
             const { body: res } = await agent.get('/user')
-                .send(toSend)
+                .query(toSend)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);

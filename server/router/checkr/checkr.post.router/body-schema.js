@@ -7,7 +7,7 @@ module.exports = joi.object().keys({
     email: joi.string().email(),
     phone: joi.string(),
     zipcode: joi.string(),
-    dob: joi.date(),
+    dob: joi.string(),
     ssn:joi.string(),
     driverLicenseNumber: joi.string(),
     driverLicenseState: joi.string()

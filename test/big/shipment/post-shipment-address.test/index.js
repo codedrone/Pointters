@@ -10,12 +10,12 @@ create: createShipment } = require('../../../../stores/shipment');
 describe('User requests', () => {
     before(() => feature());
     describe('SUCCESS', () => {
-        it('/shipment/:id/address POST sohuld create a request given', async() => {
+        it('/shipment/:id/toAddress POST sohuld create a request given', async() => {
             const body = {
                 userId: __user._id
             };
             const shipmentCreated = await createShipment(body);
-            const address = {
+            const toAddress = {
                 street1: '417 MONTGOMERY ST',
                 street2: 'FLOOR 5',
                 city: 'SAN FRANCISCO',
@@ -25,22 +25,21 @@ describe('User requests', () => {
                 company: 'EasyPost',
                 phone: '415-123-4567'
             };
-            await agent.post(`/shipment/${shipmentCreated._id}/address`)
-                .send(address)
+            await agent.post(`/shipment/${shipmentCreated._id}/to-address`)
+                .send(toAddress)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             const updated = await findOneShipment({_id:shipmentCreated._id});
-            delete updated.address.verifications;
-            console.log('updated.address ', updated.address);
-            assert(updated.address.street1, address.street1);
-            assert(updated.address.street2, address.street2);
-            assert(updated.address.city, address.city);
-            assert(updated.address.state, address.state);
-            assert(updated.address.zip, address.zip);
-            assert(updated.address.country, address.country);
-            assert(updated.address.company, address.company);
-            assert(updated.address.phone, address.phone);
+            delete updated.toAddress.verifications;
+            assert(updated.toAddress.street1, toAddress.street1);
+            assert(updated.toAddress.street2, toAddress.street2);
+            assert(updated.toAddress.city, toAddress.city);
+            assert(updated.toAddress.state, toAddress.state);
+            assert(updated.toAddress.zip, toAddress.zip);
+            assert(updated.toAddress.country, toAddress.country);
+            assert(updated.toAddress.company, toAddress.company);
+            assert(updated.toAddress.phone, toAddress.phone);
         });
     });
 

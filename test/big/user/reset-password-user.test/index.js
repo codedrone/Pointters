@@ -1,7 +1,7 @@
 const assert = require('assert');
 const faker = require('faker');
 const features = require('./features');
-const { findOne, create: createUser, comparePassword } = require('../../../../stores/user');
+const { findOne, create: createUser, comparePassword, delete: deleteUser } = require('../../../../stores/user');
 const {
     emailSenderingCong: {
         emailRemitentInOpt,
@@ -14,12 +14,14 @@ describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
         it('/user/reset/password POST -> should reset the password', async () => {
             const body = {
-                email: 'test_reset_pass@test.com',
+                email:  faker.internet.email(),
                 password: 'test_rest',
                 tempPassword: 'test_temp',
                 resetPasswordExpires: new Date(Date.now() + 10000)
             };
-            await createUser(body);
+            console.log('before create user ', body);
+            const created = await createUser(body);
+            console.log('created ', created);
             const data = {
                 email: body.email,
                 oldPassword: body.tempPassword,
@@ -62,7 +64,26 @@ describe('Reset the password using temporal password', () => {
                     });
             });
             createUser(body)
-            .then(() => agent.post('/user/otp').send({email: body.email}));
+            .then((res) => {
+                console.log('body =  ', body);
+                console.log('res =  ', res);
+                return agent.post('/user/otp').send({email: body.email});
+            });
         });
     });
+
+    describe('FAIL', () => {
+        it('/user/reset/password POST -> should reset the password with complete flow', async() => {
+            const body = {
+                email: faker.internet.email(),
+                oldPassword: 'tempPassword',
+                newPassword: 'new_password'
+            };
+            await agent.post('/user/reset/password')
+                .send(body)
+                .expect(404);
+        });
+    });
+
+    after(() => deleteUser({}));
 });

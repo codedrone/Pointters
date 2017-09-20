@@ -21,7 +21,12 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/shipment/:idShipment DELETE sohuld create a request given', async () => {
+            await agent.delete('/shipment/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 
     after(() => deleteShipment({}));

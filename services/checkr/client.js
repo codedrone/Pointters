@@ -11,11 +11,11 @@ const defaultOptiosn = { auth, baseUrl };
 
 module.exports = (options = {}) => new Promise((resolve, reject) => {
     const optionsWithDefaultAttached = Object.assign(defaultOptiosn, options);
-    request(optionsWithDefaultAttached, (err, { error, body }) => {
+    request(optionsWithDefaultAttached, (err, response) => {
         if (err) return reject(err);
 
-        if (error) return resolve({ error });
+        if (response.error) return resolve({ error:response.error });
 
-        resolve(parseBody(body));
+        resolve(parseBody(response.body));
     });
 });

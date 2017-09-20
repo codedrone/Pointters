@@ -8,23 +8,27 @@ describe('User requests', () => {
     describe('SUCCESS', () => {
         it('/checkr POST sohuld create a request given', (done) => {
             const body = {
-                firstName: 'firstName',
-                middleName: 'middleName',
-                lastName: 'lastName',
-                email: 'email@test.com',
-                phone: '23432432432',
-                zipcode: '90401',
-                dob: '1970-01-22',
+                first_name:'firstName',
+                middle_name:'middleName',
+                last_name:'lastName',
+                email:`email${Date.now()}@test.com`,
+                phone:'23432432432',
+                zipcode:'90401',
+                dob:'Wed Jan 21 1970 18:00:00 GMT-0600 (CST)',
                 ssn:'111-11-2001',
-                driverLicenseNumber: 'F1112001',
-                driverLicenseState: 'CA'
+                driver_license_number:'F1112001',
+                driver_license_state:'CA'
             };
-            const emitter = features();
+            const emitter = features(body.email);
             console.log('antes de agregar listener');
             emitter.on('done', () => {
                 delete body.bob;
-                findOneOffer(body)
-                    .then((candidate) => assert(candidate.isActive === true))
+                console.log('body = ', body);
+                findOneOffer({email:body.email})
+                    .then((candidate) => {
+                        console.log('candidate ', candidate);
+                        assert(candidate.isActive === true);
+                    })
                     .then(() => done());
             });
             console.log('antes de llamar la api');
@@ -38,6 +42,5 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
     });
 });

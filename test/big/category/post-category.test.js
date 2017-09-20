@@ -24,7 +24,16 @@ describe('User requests', () => {
         });
     });
 
-    describe('FAIL', () => {});
+    describe('FAIL', () => {
+        it('/category POST sohuld create a request given', async() => {
+            await agent
+                .post('/category')
+                .send({})
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(400);
+        });
+    });
 
     after(() => deleteCategody({}));
 });

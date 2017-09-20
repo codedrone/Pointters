@@ -32,6 +32,17 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
+        it('/post/media PUT sohuld create a post given', async() => {
+            const update = {
+                mediaType: 'video'
+            };
 
+            await agent
+                .put('/post/1234567890qwertyuiopasdf/media/1234567890qwertyuiopasdf')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

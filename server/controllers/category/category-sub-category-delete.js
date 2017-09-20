@@ -8,7 +8,7 @@ module.exports = async (ctx) => {
     const query = {_id: ctx.params.idCategory};
     const subCategories = await pullCategory(query, ctx.params.idSubCategory);
 
-    if (subCategories.error) ctx.throw(404, subCategories.error.message);
+    if (!subCategories || subCategories.error) ctx.throw(404, 'Not found');
 
     ctx.body = { success: true };
 };

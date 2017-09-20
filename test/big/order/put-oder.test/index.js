@@ -25,6 +25,15 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/order/:idOrder PUT sohuld create a request given', async() => {
+            const update = {
+                cancellationDate: new Date()
+            };
+            await agent.put('/order/1234567890qwertyuiopasdf')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

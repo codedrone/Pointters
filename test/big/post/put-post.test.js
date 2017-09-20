@@ -31,6 +31,16 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
+        it('/post PUT sohuld create a post given', async() => {
+            const update = {
+                message: 'mesage upddated'
+            };
 
+            await agent.put('/post/1234567890qwertyuiopasdf')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

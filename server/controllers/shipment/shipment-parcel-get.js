@@ -4,9 +4,9 @@ module.exports = async (ctx) => {
     const query = {
         _id: ctx.params.idShipment,
     };
-    const {address, error} = await findOne(query);
+    const shipment = await findOne(query);
 
-    if (error) ctx.throw(404, error.message);
+    if (!shipment || shipment.error) ctx.throw(404);
 
-    ctx.body = { success: true, address };
+    ctx.body = { success: true, parcel:shipment.parcel };
 };

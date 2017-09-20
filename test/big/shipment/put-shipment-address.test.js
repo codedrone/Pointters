@@ -8,7 +8,7 @@ describe('User requests', () => {
         it('/shipment/:idShipment PUT sohuld create a request given', async() => {
             const body = {
                 userId: __user._id,
-                address:{
+                toAddress:{
                     object:	'string',
                     mode	:'string',
                     street1	:'string',
@@ -31,17 +31,28 @@ describe('User requests', () => {
                 street1	:'string 2',
             };
             const shipmentCreated = await createShipment(body);
-            await agent.put(`/shipment/${shipmentCreated._id}/address`)
+            await agent.put(`/shipment/${shipmentCreated._id}/to-address`)
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             const updated = await findOneShipment({_id:shipmentCreated._id});
-            assert.equal(updated.address.street1, update.street1);
+            assert.equal(updated.toAddress.street1, update.street1);
         });
     });
 
-    describe('FAIL', () => {});
+    describe('FAIL', () => {
+        it('/shipment/:idShipment PUT sohuld create a request given', async() => {
+            const update = {
+                street1	:'string 2',
+            };
+            await agent.put('/shipment/1234567890qwertyuiopasdf/to-address')
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
+    });
 
     after(() => deleteShipment({}));
 });

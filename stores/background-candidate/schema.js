@@ -25,7 +25,7 @@ module.exports = {
     email: String,
     phone: String,
     zipcode: String,
-    dob: Date,
+    dob: String,
     ssn:String,
     driverLicenseNumber: String,
     driverLicenseState: String

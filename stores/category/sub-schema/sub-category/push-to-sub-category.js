@@ -2,14 +2,17 @@ const catchingErrorFromPromise = require('../../../../lib/catching-error-from-pr
 
 module.exports = (client) => (query, subCategory) => catchingErrorFromPromise(
     (async() => {
-        console.log('query', query);
-        const doc = await client.findOne(query);
-        if (!doc) return {error:new Error('Category does not exists')};
-        doc.subCategories.push(subCategory);
-        const saved = await doc.save();
-        const savedPlane = saved.toObject();
-        savedPlane.subCategories.forEach((sub) => {
-            sub._id = sub._id.toString();
-        });
-        return {subCategories:savedPlane.subCategories};
+        try {
+            const doc = await client.findOne(query);
+            if (!doc) return {error:new Error('Category does not exists')};
+            doc.subCategories.push(subCategory);
+            const saved = await doc.save();
+            const savedPlane = saved.toObject();
+            savedPlane.subCategories.forEach((sub) => {
+                sub._id = sub._id.toString();
+            });
+            return {subCategories:savedPlane.subCategories};
+        } catch (error) {
+            return {error};
+        }
     })());

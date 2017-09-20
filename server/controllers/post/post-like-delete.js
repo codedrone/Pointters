@@ -9,7 +9,7 @@ module.exports = async(ctx) => {
     console.log('ctx.params.idPost ', ctx.params.idPost);
     const res = await pullToLikes(ctx.queryToFindUserById, ctx.params.idPost);
     console.log('error ', res);
-    if (res.error) ctx.throw(404, res.error.message);
+    if (!res || res.error) ctx.throw(404, errorMessage);
 
     ctx.body = { success: true };
 };

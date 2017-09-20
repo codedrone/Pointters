@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const { findOne, create } = require('../../../stores/post');
+const { create } = require('../../../stores/post');
 
 
 describe('User posts', () => {
@@ -29,6 +29,11 @@ describe('User posts', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/post/media PUT sohuld create a post given', async() => {
+            await agent.get('/post/1234567890qwertyuiopasdf/media/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

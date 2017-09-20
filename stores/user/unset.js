@@ -1,11 +1,14 @@
 const catchingErrorFromPromise = require('../../lib/catching-error-from-promise');
 
-module.exports = (client) => (query = {}, data = {}) => {
-    console.log('query   ', query);
-    console.log('data   ', data);
-    return catchingErrorFromPromise(
-    client
-        .update(query, { $unset: data })
-        .exec()
-);
+module.exports = (client) => (query = {}, data = {}, options = {new:true}) => {
+    try {
+        return catchingErrorFromPromise(
+            client.findOneAndUpdate(query, { $unset: data }, options)
+                .exec()
+        );
+    } catch (error) {
+        return {error};
+    }
 };
+
+

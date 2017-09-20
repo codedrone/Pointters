@@ -11,7 +11,7 @@ const {
 
 describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
-        it('/user/reset/password POST -> should reset the password', async () => {
+        it('/user/opt POST -> should reset the password', async () => {
             const body = {
                 email: 'test_reset_pass@test.com',
                 password: 'test_rest',
@@ -34,7 +34,7 @@ describe('Reset the password using temporal password', () => {
             assert(!match.error);
         });
 
-        it('/user/reset/password POST -> should reset the password with complete flow', (done) => {
+        it('/user/opt  POST -> should reset the password with complete flow', (done) => {
             const body = {
                 email: faker.internet.email(),
                 password: faker.internet.password()
@@ -62,6 +62,20 @@ describe('Reset the password using temporal password', () => {
             });
             createUser(body)
             .then(() => agent.post('/user/otp').send({email: body.email}));
+        });
+    });
+
+    describe('FAIL', () => {
+        it('/user/opt  POST -> should reset the password', async () => {
+            const data = {
+                email: `this_email_not_exists_never@${Date.now()}.com`,
+                oldPassword: 'oldPassword',
+                newPassword: 'new_password'
+            };
+            await agent
+                .post('/user/reset/password')
+                .send(data)
+                .expect(404);
         });
     });
 });

@@ -5,10 +5,10 @@ const {delete: deleteShipment, create: createShipment, findOne} = require('../..
 
 describe('User requests', () => {
     describe('SUCCESS', () => {
-        it('/shipment/:idShipment/address DELETE sohuld create a request given', async() => {
+        it('/shipment/:idShipment/toAddress DELETE sohuld create a request given', async() => {
             const body = {
                 userId: __user._id,
-                address:{
+                toAddress:{
                     object:	'string',
                     mode	:'string',
                     street1	:'string',
@@ -28,17 +28,23 @@ describe('User requests', () => {
                 }
             };
             const shipmentCreated = await createShipment(body);
-            await agent.delete(`/shipment/${shipmentCreated._id}/address`)
+            await agent.delete(`/shipment/${shipmentCreated._id}/to-address`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
             const removed = await findOne({_id: shipmentCreated._id});
-            console.log('removed ', removed);
-            assert.deepStrictEqual(removed.address, { verifications: [] });
+            assert.deepStrictEqual(removed.toAddress, { verifications: [] });
         });
     });
 
-    describe('FAIL', () => {});
+    describe('FAIL', () => {
+        it('/shipment/:idShipment/toAddress DELETE sohuld create a request given', async() => {
+            await agent.delete('/shipment/1234567890qwertyuiopasdf/to-address')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
+    });
 
     after(() => deleteShipment({}));
 });

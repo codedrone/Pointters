@@ -35,4 +35,13 @@ describe('User posts', () => {
             assert.deepEqual(likesPost, []);
         });
     });
+
+    describe('FAIL', () => {
+        it('/post/like DELETE sohuld create a post given', async () => {
+            await agent.delete(`/post/1234567890qwertyuiopasdf/like`)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
+    });
 });

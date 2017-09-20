@@ -48,7 +48,7 @@ describe('User requests', () => {
                 }
             };
 
-            await agent.put('/request/sfsdrwaaaa8sd9d783ds21ws')
+            await agent.put('/request/123456789012345678901234')
                 .send(update)
                 .set(authorizationHeader)
                 .set(Cookie)

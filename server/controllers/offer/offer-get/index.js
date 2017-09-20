@@ -7,7 +7,7 @@ const errorInGetWatching = 'Error in get to offer-offer';
 module.exports = async (ctx) => {
     const query = getQuery(ctx);
     const offers = await findOffer(query, {limit});
-    if (!offers || offers.error) ctx.throw(404, errorInGetWatching);
+    if (!offers || !offers.length || offers.error) ctx.throw(404, errorInGetWatching);
 
     if (ctx.params.idOffer) {
         ctx.body = {

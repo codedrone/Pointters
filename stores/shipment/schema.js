@@ -1,5 +1,12 @@
 const {Schema} = require('mongoose');
-const {address:{schema: addressSchema}} = require('./sub-schemas');
+const {
+    address:{
+        schema: addressSchema
+    },
+    parcel:{
+        schema: parcelSchema
+    }
+} = require('./sub-schemas');
 
 module.exports = {
     userId: {
@@ -20,5 +27,7 @@ module.exports = {
         type: Date,
         default: new Date()
     },
-    address: addressSchema
+    toAddress: addressSchema,
+    fromAddress: addressSchema,
+    parcel:parcelSchema
 };

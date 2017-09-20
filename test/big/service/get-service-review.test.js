@@ -92,7 +92,12 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/service/review GET sohuld create a service given', async() => {
+            await agent.get('/service/review/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 
     after(() => deleteRequests({}));

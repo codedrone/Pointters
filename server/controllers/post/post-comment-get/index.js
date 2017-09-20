@@ -9,7 +9,7 @@ module.exports = async (ctx) => {
     console.log('query, {limit}', query, {limit});
     const postComments = await findComment(query, {limit});
 
-    if (!postComments || postComments.error) ctx.throw(404, commentDoesNotExists);
+    if (!postComments || !postComments.length || postComments.error) ctx.throw(404, commentDoesNotExists);
     console.log('comments ', postComments);
     if (ctx.params.idComment) {
         ctx.body = {

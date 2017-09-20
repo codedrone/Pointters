@@ -9,7 +9,7 @@ module.exports = async (ctx) => {
     console.log('query, {limit}', query, {limit});
     const serviceReviews = await findServiceReview(query, {limit});
 
-    if (!serviceReviews || serviceReviews.error) ctx.throw(404, reviewsDoesNotExists);
+    if (!serviceReviews || !serviceReviews.length || !serviceReviews.length || serviceReviews.error) ctx.throw(404, reviewsDoesNotExists);
     console.log('reviewss ', serviceReviews);
     if (ctx.params.reviewId) {
         ctx.body = {

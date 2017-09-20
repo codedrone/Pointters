@@ -60,6 +60,11 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/service PUT sohuld create a service given', async() => {
+            await agent.put('/service/wesdaqswedfrtgyt345re456')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

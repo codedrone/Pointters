@@ -23,7 +23,12 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/category/:idCategory DELETE sohuld create a request given', async () => {
+        await agent.delete(`/category/1234567890qwertyuiopasdf`)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 
     after(() => deleteCategody({}));

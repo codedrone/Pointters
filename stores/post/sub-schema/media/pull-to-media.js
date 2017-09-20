@@ -4,11 +4,15 @@ const { isArray } = Array;
 
 module.exports = (client) => (query, _medias) => {
     console.log('query ', query);
-    const medias = isArray(_medias) ? _medias : [ _medias ];
-    const update = {
-        $pull: {
-            media: { $in: medias }
-        }
-    };
-    return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());
+    try {
+        const medias = isArray(_medias) ? _medias : [ _medias ];
+        const update = {
+            $pull: {
+                media: { $in: medias }
+            }
+        };
+        return catchingErrorFromPromise(client.findOneAndUpdate(query, update).exec());
+    } catch (error) {
+        return {error};
+    }
 };

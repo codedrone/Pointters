@@ -18,8 +18,10 @@ module.exports = async(ctx) => {
     if (!user || user.error) return ctx.throw(404, `User:${ctx.request.body.email} not found`);
 
     const updateTheAuthSettings = getResetParams(longOfPasswordTemp, optExpiresIn);
+    console.log('updateTheAuthSettings ', updateTheAuthSettings);
+    console.log('queryToFindUser ', queryToFindUser);
     const updated = await update(queryToFindUser, updateTheAuthSettings);
-
+    console.log('updated ', updated);
     if (updated && updated.error) ctx.throw(404, errorInUpdateUser);
 
     const content = _content + updateTheAuthSettings.tempPassword;

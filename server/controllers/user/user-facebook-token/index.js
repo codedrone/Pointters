@@ -12,7 +12,9 @@ module.exports = async(ctx) => {
     ctx.body = {};
     const { body: { token: facebookToken } } = ctx.request;
     const { name, id: idFacebook, error } = await validateTokenFacebook(facebookToken);
-
+    console.log('name ', name);
+    console.log('idFacebook ', idFacebook);
+    console.log('error ', error);
     if (error) {
         debug.service.error(`Error from facebook ${error.message}`);
         ctx.status = 403;
@@ -24,6 +26,7 @@ module.exports = async(ctx) => {
         'socialNetwork.id': idFacebook,
         'socialNetwork.name': socialNetwork
     });
+    
     let userCreatedOrUpdated = savedUser;
     ctx.body.msg = 'Successful login';
     const [ firstName, lastName ] = name.split(' ');

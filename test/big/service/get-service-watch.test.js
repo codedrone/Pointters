@@ -41,6 +41,12 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/service/watch GET sohuld create a service given', async () => {
+             await agent
+                .get(`/service/1234567890qwertyuiopasdf/watch`)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

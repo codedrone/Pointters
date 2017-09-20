@@ -1,11 +1,11 @@
 
 test:
-	DEBUG=*api* mocha test/bootstrap $(shell find test -name *test.js)
+	DEBUG=*api* mocha --recursive test/bootstrap test
 test_small:
-	mocha $(shell find test/small -name *test.js)
+	mocha  --recursive test/small 
 
 test_big:
-	DEBUG=*api* mocha test/bootstrap $(shell find test/big -name *test.js)
+	DEBUG=*api* mocha --recursive test/bootstrap test/big
 start:
 	DEBUG=*error pm2 start index.js --name pointers-app
 restart:

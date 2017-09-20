@@ -52,6 +52,17 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/request/:idRequest/offer PUT sohuld create a request given', async() => {
+            const update = {
+                price: {
+                    amount: 0
+                }
+            };
+            await agent.put(`/request/offer/1234567890qwertyuiopasdf`)
+                .send(update)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

@@ -1,5 +1,7 @@
+const mongo = require('mongoose');
+
 module.exports = () => ({
-    buyerId: 'buyer id',
+    buyerId: mongo.Types.ObjectId(),
     buyerOrderDispute: {},
     buyerServiceLocation: [ {
         city: 'String',
@@ -59,7 +61,7 @@ module.exports = () => ({
         fileName: 'string',
         mediaType: 'image'
     } ],
-    sellerId: 'seller id',
+    sellerId: mongo.Types.ObjectId(),
     sellerServiceLocation: [ {
         city: 'String',
         country: 'String',

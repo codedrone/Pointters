@@ -103,6 +103,12 @@ describe('User requests', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/request/offer GET sohuld create a request given', async () => {
+            await agent
+                .get('/request/offer/1234567890qwertyuiopasdf')
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(404);
+        });
     });
 });

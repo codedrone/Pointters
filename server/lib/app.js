@@ -19,47 +19,15 @@ app.keys = [ secret ];
 
 app.use(logger());
 app.use(errors());
-app.use(async(ctx, next) =>{
-    console.log('url 1===   ', ctx.url);
-    await next()
-})
 app.use(timeout(apiTimeout, timeoutOptions));
-app.use(async(ctx, next) =>{
-    console.log('url 2 ===   ', ctx.url);
-    await next()
-})
 app.use(cookie.unless(pathUnprotected));
-app.use(async(ctx, next) =>{
-    console.log('url 3===   ', ctx.url);
-    await next()
-})
 app.use(session({maxAge}, app));
-app.use(async(ctx, next) =>{
-    console.log('url 4===   ', ctx.url);
-    await next()
-})
 app.use(jwt.unless(pathUnprotected));
-app.use(async(ctx, next) =>{
-    console.log('url 5===   ', ctx.url);
-    await next()
-})
 app.use(getQueries.unless(pathUnprotected));
-app.use(async(ctx, next) =>{
-    console.log('url 6===   ', ctx.url);
-    await next()
-})
 app.use(auth.unless(pathUnprotected));
-app.use(async(ctx, next) =>{
-    console.log('url 7===   ', ctx.url);
-    await next()
-})
 app.use(bodyParser({
     formLimit: '5mb',
     jsonLimit: '5mb',
     textLimit: '5mb'
 }));
-app.use(async(ctx, next) =>{
-    console.log('url ===   ', ctx.url);
-    await next()
-})
 module.exports = app;
