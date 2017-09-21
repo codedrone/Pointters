@@ -26,6 +26,6 @@ module.exports = async(ctx) => {
 
     const content = _content + updateTheAuthSettings.tempPassword;
     const {error: errorInSendEmail} = await sendEmail(user.email, subject, content);
-
+    console.log('errorInSendEmail  ', errorInSendEmail);
     if (errorInSendEmail) ctx.throw(404, errorInSendEmail.message);
 };
