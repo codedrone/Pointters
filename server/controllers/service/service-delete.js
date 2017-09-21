@@ -1,7 +1,5 @@
 const { remove } = require('../../../stores/service');
 
-const errorMessage = 'Service id not found';
-
 module.exports = async(ctx) => {
     const queryToFindService = { _id: ctx.params.idService };
 

@@ -47,6 +47,43 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-
+        it('/service/watch POST sohuld create a service given', async() => {
+            const service = {
+                userId: require('mongoose').Types.ObjectId(),
+                category: {
+                    category: 'category'
+                },
+                description: 'description',
+                media: {
+                    media: 'media'
+                },
+                pricing: {
+                    pricing: 'pricing'
+                },
+                fulfillmentMethod: {
+                    fulfillmentMethod: 'fulfillmentMethod'
+                },
+            };
+            const serviceCreated = await createService(service);
+            const review = {
+                orderId:require('mongoose').Types.ObjectId(),
+                comment: 'comments to test review',
+                qualityOfService: 4,
+                overallRating: 80,
+                willingToBuyServiceAgain: false
+            };
+            await agent
+                .post(`/service/${serviceCreated._id}/review`)
+                .send(review)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(200);
+            await agent
+                .post(`/service/${serviceCreated._id}/review`)
+                .send(review)
+                .set(authorizationHeader)
+                .set(Cookie)
+                .expect(200);
+        });
     });
 });
