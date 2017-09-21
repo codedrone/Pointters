@@ -14,7 +14,7 @@ module.exports = {
     facebook: {
         appId: '995599163788797',
         appSecret: '4868095834fef8a3538045527b5c7da9',
-        version: 'v2.5'
+        version: 'v2.10'
     },
     review: {
         minLengthForComment: 100
@@ -65,5 +65,14 @@ module.exports = {
     },
     easyPost:{
         ApiKey: 'y1ssBgKnItXIiHlu5McAEQ'
+    },
+    redis:{
+        url:'redis://127.0.0.1:6379'
+    },
+    rateLimitCalls:{
+        duration: 60000,
+        max: 100,
+        blacklist: [],
+        whitelist: []
     }
 };

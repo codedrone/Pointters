@@ -3,7 +3,7 @@ const catchingErrorFromPromise = require('../../../lib/catching-error-from-promi
 module.exports = (client) => (query) => {
     try {
         return catchingErrorFromPromise(
-            client.findOne(query).populate().exec()
+            client.findOne(query, {isActive:0}).populate().exec()
             .then((_res) => {
                 if (!_res) return _res;
                 return _res.toObject().following || [];

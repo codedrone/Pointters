@@ -6,10 +6,10 @@ module.exports = async (ctx) => {
         '_id': ctx.params.idCategory,
         'subCategories._id': ctx.params.idSubCategory
     };
+    console.log('query ', query);
     const subCategories = await getCategory(query, categoryToupdate);
-
-    if (!subCategories || subCategories.error) ctx
-        .throw(404, subCategories.error ? subCategories.error.message : 'Not found');
+    console.log('subCategories ', subCategories);
+    if (!subCategories || subCategories.error) ctx.throw(404, 'Not found');
 
     ctx.body = { success: true, subCategories };
 };

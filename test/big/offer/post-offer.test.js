@@ -25,7 +25,7 @@ describe('User requests', () => {
             assert(res.success);
             assert(res.offer._id);
             const offer = await findOneOffer(body);
-            assert(offer.isActive === true);
+            assert(offer.isActive === undefined);
         });
     });
 

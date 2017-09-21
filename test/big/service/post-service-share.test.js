@@ -22,7 +22,7 @@ describe('User services', () => {
             console.log('res = ', res);
             const serviceShared = await findOneService({ userId: __user._id });
             assert.deepStrictEqual(res.service.category, serviceShared.category);
-            assert(serviceShared.isActive);
+            assert(serviceShared.isActive === undefined);
         });
     });
 

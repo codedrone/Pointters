@@ -8,17 +8,23 @@ const session = require('koa-session');
 const cookie = require('./middelwares/cookie');
 const getQueries = require('./middelwares/attach-queries');
 const timeout = require('koa-timeout-v2');
+const rateLimit = require('./middelwares/rate-limit');
+const compress = require('./middelwares/compress');
 
-const app = new Koa();
+
 const {
     jwt: { secret, expiresIn:maxAge },
     timeout: { apiTimeout, timeoutOptions },
-    pathUnprotected
+    pathUnprotected,
 } = require('../../config');
-app.keys = [ secret ];
 
-app.use(logger());
+
+const app = new Koa();
+app.keys = [ secret ];
 app.use(errors());
+app.use(rateLimit());
+app.use(compress());
+app.use(logger());
 app.use(timeout(apiTimeout, timeoutOptions));
 app.use(cookie.unless(pathUnprotected));
 app.use(session({maxAge}, app));

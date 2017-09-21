@@ -20,7 +20,7 @@ const sendEmail = async(emailReceiver, subject, _content) => {
     });
 
     const response = await sg.API(request);
-
+    console.log('response = ', response);
     return response;
 };
 

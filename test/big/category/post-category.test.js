@@ -20,7 +20,7 @@ describe('User requests', () => {
             assert(res.success);
             assert(res.category._id);
             const category = await findOneCategory(body);
-            assert(category.isActive === true);
+            assert(category.isActive === undefined);
         });
     });
 

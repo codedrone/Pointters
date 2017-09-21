@@ -9,7 +9,6 @@ module.exports = async (ctx) => {
     console.log('query = ', query);
     const categories = await findCategory(query, {limit});
     if (!categories || !categories.length || categories.error) ctx.throw(404, errorInGetWatching);
-
     if (ctx.params.idCategory) {
         ctx.body = {
             category: categories[0]

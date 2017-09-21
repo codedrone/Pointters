@@ -44,6 +44,7 @@ describe('User services', () => {
                 .set(Cookie)
                 .expect(200);
             const following = await getFollowing({ _id: userFollowing._id });
+            console.log('following ', following);
             assert(following.length === 0);
             assert.deepEqual(res, { success: true });
         });

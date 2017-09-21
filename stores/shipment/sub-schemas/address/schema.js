@@ -1,7 +1,6 @@
 const verification = {
     zip4:{
         success: Boolean,
-        errors:	Array,
         details: {
             latitude: Number,
             longitude: Number,
@@ -10,7 +9,6 @@ const verification = {
     },
     delivery: {
         success: Boolean,
-        errors:	Array,
         details: {
             latitude: Number,
             longitude: Number,
@@ -37,7 +35,7 @@ module.exports = {
     email	:String,
     federalTaxId	:String,
     stateTaxId	:String,
-    verifications:[ verification ],
+    verifications:verification,
     verify	:String,
     verifyStrict:String
 };

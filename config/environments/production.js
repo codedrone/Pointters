@@ -31,5 +31,14 @@ module.exports = {
     },
     easyPost:{
         ApiKey: 'y1ssBgKnItXIiHlu5McAEQ'
+    },
+    redis:{
+        url:'redis://127.0.0.1:6379'
+    },
+    rateLimitCalls:{
+        duration: 60000,
+        max: 100,
+        blacklist: [],
+        whitelist: []
     }
 };

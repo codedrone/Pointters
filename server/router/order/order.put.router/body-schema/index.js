@@ -9,7 +9,7 @@ const fulfillmentMethod = require('./fulfillement-method');
 
 
 module.exports = joi.object().keys({
-    buyerId: joi.string().regex(/^[0-9a-fA-F]{24}$/),
+    buyerId: joi.string(),
     buyerOrderDispute: joi.object(),
     buyerServiceLocation: joi.array().items(location),
     cancellationDate: joi.date(),
@@ -28,7 +28,7 @@ module.exports = joi.object().keys({
     sellerAcceptedScheduleTime: joi.bool().default(false),
     sellerAcceptedBuyerServiceLocation: joi.bool().default(false),
     sellerDeliveredMedia: joi.array().items(media),
-    sellerId: joi.string().regex(/^[0-9a-fA-F]{24}$/),
+    sellerId: joi.string(),
     sellerServiceLocation: joi.array().items(location),
     serviceScheduleDate: joi.date(),
     serviceStartDate: joi.date(),

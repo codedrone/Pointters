@@ -2,7 +2,7 @@ const nock = require('nock');
 
 module.exports = (token, id, name) => {
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
-        .get('/v2.5/me')
+        .get('/v2.10/me')
         .query((query) => query.access_token === token)
         .reply(200, { name, id }, [
             'Access-Control-Allow-Origin',
@@ -20,7 +20,7 @@ module.exports = (token, id, name) => {
             'x-fb-trace-id',
             'BpT6tCmkVjY',
             'facebook-api-version',
-            'v2.5',
+            'v2.10',
             'Expires',
             'Sat, 01 Jan 2000 00:00:00 GMT',
             'X-FB-Debug',
@@ -33,7 +33,7 @@ module.exports = (token, id, name) => {
             '45' ]);
 
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
-        .get('/v2.5/me')
+        .get('/v2.10/me')
         .query((query) => query.access_token === token)
         .reply(200, { name, id }, [
             'Access-Control-Allow-Origin',
@@ -51,7 +51,7 @@ module.exports = (token, id, name) => {
             'x-fb-trace-id',
             'BpT6tCmkVjY',
             'facebook-api-version',
-            'v2.5',
+            'v2.10',
             'Expires',
             'Sat, 01 Jan 2000 00:00:00 GMT',
             'X-FB-Debug',
@@ -63,7 +63,7 @@ module.exports = (token, id, name) => {
             'Content-Length',
             '45' ]);
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
-        .get('/v2.5/me')
+        .get('/v2.10/me')
         .query((query) => query.access_token === token)
         .reply(200, { name, id }, [
             'Access-Control-Allow-Origin',
@@ -81,7 +81,7 @@ module.exports = (token, id, name) => {
             'x-fb-trace-id',
             'BpT6tCmkVjY',
             'facebook-api-version',
-            'v2.5',
+            'v2.10',
             'Expires',
             'Sat, 01 Jan 2000 00:00:00 GMT',
             'X-FB-Debug',
@@ -93,7 +93,7 @@ module.exports = (token, id, name) => {
             'Content-Length',
             '45' ]);
     nock('https://graph.facebook.com:443', { encodedQueryParams: true })
-        .get('/v2.5/me')
+        .get('/v2.10/me')
         .query({ access_token: 'invalid_token', appsecret_proof: 'b1450f52ae59df279ba1726e25bd3c7a16225f929a69b6a3911ee459caf0f894' })
         .reply(404, { error: { message: 'Invalid OAuth access token.', type: 'OAuthException', code: 190, fbtrace_id: 'BNvzw2rgrFJ' } }, [ 'Access-Control-Allow-Origin',
             '*',

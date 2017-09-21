@@ -42,7 +42,7 @@ describe('User requests', () => {
             assert.equal(res.success, true);
             assert(res.offer);
             const offer = await findOneOffer({ requestId: requestCreated._id });
-            assert(offer.isActive === true);
+            assert(offer.isActive === undefined);
         });
     });
 

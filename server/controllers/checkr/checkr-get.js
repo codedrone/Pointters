@@ -7,6 +7,7 @@ module.exports = async (ctx) => {
     const queryToFindCheckr = { _id: ctx.params.idCheckr };
     console.log('queryToFindCheckr ', queryToFindCheckr);
     const checkr = await findOneCheckr(queryToFindCheckr);
+    console.log('checkr ', checkr);
 
     if (!checkr) ctx.throw(403, checkrDoesNotExists);
 

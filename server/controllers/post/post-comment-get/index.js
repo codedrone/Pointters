@@ -3,14 +3,13 @@ const {pagination:{postComments:limit}} = require('../../../../config');
 const {Types:{ObjectId}} = require('../../../../databases/mongo');
 const getQuery = require('./get-query');
 
-const commentDoesNotExists = 'Error in get to comments';
 module.exports = async (ctx) => {
     const query = getQuery(ctx);
     console.log('query, {limit}', query, {limit});
     const postComments = await findComment(query, {limit});
 
-    if (!postComments || !postComments.length || postComments.error) ctx.throw(404, commentDoesNotExists);
     console.log('comments ', postComments);
+    if (!postComments || !postComments.length || postComments.error) ctx.throw(404);
     if (ctx.params.idComment) {
         ctx.body = {
             comment: postComments[0]

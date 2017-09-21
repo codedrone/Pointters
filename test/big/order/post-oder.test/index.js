@@ -16,7 +16,7 @@ describe('User requests', () => {
                 .expect(200);
             assert.deepEqual(res, { success: true });
             const orderCreated = await findOneOrder({ buyerId: order.buyerId });
-            assert(orderCreated.isActive === true);
+            assert(orderCreated.isActive === undefined);
         });
     });
 

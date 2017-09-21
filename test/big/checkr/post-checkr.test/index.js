@@ -27,7 +27,7 @@ describe('User requests', () => {
                 findOneOffer({email:body.email})
                     .then((candidate) => {
                         console.log('candidate ', candidate);
-                        assert(candidate.isActive === true);
+                        assert(candidate.isActive === undefined);
                     })
                     .then(() => done());
             });

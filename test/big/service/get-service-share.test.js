@@ -21,7 +21,7 @@ describe('User services', () => {
                 .expect(200);
             assert.deepStrictEqual(res.service.category, service.category);
             assert.deepStrictEqual(res.service.description, service.description);
-            assert(res.service.isActive);
+            assert(res.service.isActive === undefined);
         });
     });
 

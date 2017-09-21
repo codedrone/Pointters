@@ -33,7 +33,7 @@ describe('User requests', () => {
                 .set(Cookie)
                 .expect(200);
             const removed = await findOne({_id: shipmentCreated._id});
-            assert.deepStrictEqual(removed.toAddress, { verifications: [] });
+            assert(!removed.toAddress);
         });
     });
 

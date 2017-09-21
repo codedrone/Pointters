@@ -5,9 +5,9 @@ const errorMessage = 'Service id not found';
 module.exports = async(ctx) => {
     const queryToFindService = { _id: ctx.params.idService };
 
-    const { error } = await remove(queryToFindService);
-
-    if (error) ctx.throw(404, errorMessage);
+    const removed = await remove(queryToFindService);
+    console.log('removed ', removed);
+    if (!removed || removed.error) ctx.throw(404);
 
     ctx.body = { success: true };
 };

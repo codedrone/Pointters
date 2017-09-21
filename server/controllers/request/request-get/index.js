@@ -6,6 +6,7 @@ const errorMessage = 'Request does not exists';
 
 module.exports = async(ctx) => {
     const query = getQuery(ctx);
+    console.log('query ', query);
     const requests = await findRequest(query, {limit});
     console.log('requests ', requests);
     if (!requests || !requests.length || requests.error) ctx.throw(404, errorMessage);

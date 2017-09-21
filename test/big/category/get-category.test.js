@@ -18,8 +18,8 @@ describe('User categorys', () => {
             const { body: res } = await agent
                 .get(`/category/${categoryCreated._id}`)
                 .expect(200);
-            console.log('res  =', res);
             assert(typeof res.category === 'object');
+            assert(res.category.isActive === undefined);
         });
 
         it('/categorys GET all request saved with pagination', async() => {
