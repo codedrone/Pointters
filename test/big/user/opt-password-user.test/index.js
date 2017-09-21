@@ -11,29 +11,6 @@ const {
 
 describe('Reset the password using temporal password', () => {
     describe('SUCCESS', () => {
-        it('/user/opt POST -> should reset the password', async () => {
-            const body = {
-                email: 'test_reset_pass@test.com',
-                password: 'test_rest',
-                tempPassword: 'test_temp',
-                resetPasswordExpires: new Date(Date.now() + 10000)
-            };
-            await createUser(body);
-            const data = {
-                email: body.email,
-                oldPassword: body.tempPassword,
-                newPassword: 'new_password'
-            };
-            await agent
-                .post('/user/reset/password')
-                .send(data)
-                .expect(200);
-            const query = { email: body.email };
-            const _user = await findOne(query);
-            const match = await comparePassword(data.newPassword, _user.password);
-            assert(!match.error);
-        });
-
         it('/user/opt  POST -> should reset the password with complete flow', (done) => {
             const body = {
                 email: faker.internet.email(),
@@ -61,19 +38,33 @@ describe('Reset the password using temporal password', () => {
                     });
             });
             createUser(body)
-            .then(() => agent.post('/user/otp').send({email: body.email}));
+            .then(() => agent.post('/user/otp')
+            .send({email: body.email})
+            .expect(200));
+        });
+
+        it('/user/opt  POST -> should return a 200 when email is send', async() => {
+            const body = {
+                email: faker.internet.email(),
+                password: faker.internet.password()
+            };
+            features(emailRemitentInOpt, body.email, subject);
+            await createUser(body);
+            await agent.post('/user/otp')
+                .send({email: body.email})
+                .expect(200);
         });
     });
 
     describe('FAIL', () => {
-        it('/user/opt  POST -> should reset the password', async () => {
+        it('/user/opt  POST -> should return error if email does not exists', async () => {
             const data = {
                 email: `this_email_not_exists_never@${Date.now()}.com`,
                 oldPassword: 'oldPassword',
                 newPassword: 'new_password'
             };
             await agent
-                .post('/user/reset/password')
+                .post('/user/otp')
                 .send(data)
                 .expect(404);
         });

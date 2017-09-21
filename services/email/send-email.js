@@ -19,8 +19,8 @@ const sendEmail = async(emailReceiver, subject, _content) => {
         body: mail.toJSON()
     });
 
-    const response = await sg.API(request);
-    console.log('response = ', response);
+    const response = await sg.API(request).catch((error) => ({error}));
+    console.log('response =   =============', response);
     return response;
 };
 

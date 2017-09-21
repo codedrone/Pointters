@@ -67,7 +67,10 @@ describe('Reset the password using temporal password', () => {
             .then((res) => {
                 console.log('body =  ', body);
                 console.log('res =  ', res);
-                return agent.post('/user/otp').send({email: body.email});
+                return agent
+                    .post('/user/otp')
+                    .send({email: body.email})
+                    .expect(200);
             });
         });
     });

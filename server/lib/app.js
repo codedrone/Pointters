@@ -8,7 +8,7 @@ const session = require('koa-session');
 const cookie = require('./middelwares/cookie');
 const getQueries = require('./middelwares/attach-queries');
 const timeout = require('koa-timeout-v2');
-const rateLimit = require('./middelwares/rate-limit');
+// const rateLimit = require('./middelwares/rate-limit');
 const compress = require('./middelwares/compress');
 
 
@@ -22,7 +22,7 @@ const {
 const app = new Koa();
 app.keys = [ secret ];
 app.use(errors());
-app.use(rateLimit());
+// app.use(rateLimit());
 app.use(compress());
 app.use(logger());
 app.use(timeout(apiTimeout, timeoutOptions));

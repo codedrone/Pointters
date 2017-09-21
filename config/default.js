@@ -22,7 +22,7 @@ module.exports = {
     propsToBeEverPrivate: 'settings,password',
     emailSenderingCong: {
         emailRemitentInOpt: 'help@pointters.com',
-        sendgridApiKey: process.env.SENDGRID_API_KEY || '',
+        sendgridApiKey: process.env.SENDGRID_API_KEY || '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',
         subjectOptEmail: 'Password Reset',
         contentOptEmail: 'Your password was resetted with: '
 
