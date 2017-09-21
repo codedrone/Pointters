@@ -11,5 +11,5 @@ module.exports = async (ctx) => {
     console.log('subCategories ', subCategories);
     if (!subCategories || subCategories.error) ctx.throw(404, 'Not found');
 
-    ctx.body = { success: true, subCategories };
+    ctx.body = { success: Boolean(subCategories.lenght), subCategories: subCategories || []};
 };

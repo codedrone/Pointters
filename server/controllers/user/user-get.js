@@ -11,7 +11,7 @@ module.exports = async(ctx) => {
     const requester = await findOne(queryToGetRequester);
     console.log('requester  ', requester);
 
-    if (!requester || requester.error) ctx.throw(404, 'Requester not found found');
+    if (!requester || requester.error) ctx.throw(404, 'Requester not found');
 
     if (!ctx.request.query.userId || ctx.request.query.userId === ctx.state.user.id) {
         delete requester.password;
