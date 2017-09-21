@@ -40,5 +40,7 @@ module.exports = {
         max: 100,
         blacklist: [],
         whitelist: []
-    }
+    },
+    compress:{threshold:1024}
+
 };
