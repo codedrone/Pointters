@@ -5,6 +5,7 @@ const addIndex = require('./plugin/add-index');
 
 const Schema = mongo.Schema;
 const reviewSchema = new Schema(schema);
+console.log('antes de agregar los indices');
 addSyncHook(reviewSchema);
 addIndex(reviewSchema);
 

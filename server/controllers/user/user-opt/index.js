@@ -28,4 +28,5 @@ module.exports = async(ctx) => {
     const {error: errorInSendEmail} = await sendEmail(user.email, subject, content);
     console.log('errorInSendEmail  ', errorInSendEmail);
     if (errorInSendEmail) ctx.throw(404, errorInSendEmail.message);
+    ctx.status = 200;
 };

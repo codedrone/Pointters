@@ -27,7 +27,7 @@ describe('User posts', () => {
             });
             console.log('commentCreated = ', commentCreated);
             const { body: res } = await agent
-                .get(`/post/${commentCreated._id}/comment`)
+                .get(`/post/comment/${commentCreated._id}`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
@@ -55,7 +55,7 @@ describe('User posts', () => {
             })
             );
 
-            const { body: { comments: res, next } } = await agent.get('/post/comment')
+            const { body: { comments: res, next } } = await agent.get(`/post/${postCreated._id}/comment`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);

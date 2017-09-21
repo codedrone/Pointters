@@ -6,7 +6,7 @@ const { findOne: findOneReview } = require('../../../stores/service-review');
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service/watch POST sohuld create a service given', async() => {
+        it('/service/review POST sohuld create a service given', async() => {
             const service = {
                 userId: require('mongoose').Types.ObjectId(),
                 category: {
@@ -47,7 +47,7 @@ describe('User services', () => {
     });
 
     describe('FAIL', () => {
-        it('/service/watch POST sohuld create a service given', async() => {
+        it('/service/review POST sohuld create a service given', async() => {
             const service = {
                 userId: require('mongoose').Types.ObjectId(),
                 category: {
@@ -83,7 +83,7 @@ describe('User services', () => {
                 .send(review)
                 .set(authorizationHeader)
                 .set(Cookie)
-                .expect(200);
+                .expect(409);
         });
     });
 });

@@ -1,8 +1,7 @@
 const {Schema} = require('mongoose');
 
-
 const { review: { minLengthForComment } } = require('../../config');
-module.exports = {
+const schema = {
     userId: {
         type: Schema.Types.ObjectId,
         requied: true,
@@ -38,8 +37,9 @@ module.exports = {
     orderId: {
         type: Schema.Types.ObjectId,
         required: true,
-        ref: 'order',
-        unique:true
+        ref: 'order'
     },
     willingToBuyServiceAgain: Boolean
 };
+
+module.exports = schema;
