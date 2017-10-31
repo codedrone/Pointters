@@ -45,6 +45,10 @@ module.exports = {
         {
             path:'/categories/:idCategory?',
             method: 'GET'
+        },
+        {
+            path:'/services',
+            method: 'GET'
         }
     ],
     schedule: {
