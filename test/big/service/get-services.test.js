@@ -35,7 +35,7 @@ describe('User services', () => {
         });
     });
     describe('FAIL', () => {
-        it('/user/login POST -> return error if pass is wrong', async() => {
+        it('/services GET -> return error if pass is wrong', async() => {
             const body = {
                 email: faker.internet.email(),
                 password: faker.internet.password()
