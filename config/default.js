@@ -49,6 +49,10 @@ module.exports = {
         {
             path:'/services',
             method: 'GET'
+        },
+        {
+            path:'/service/:id/detail',
+            method: 'GET'
         }
     ],
     schedule: {
