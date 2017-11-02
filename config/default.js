@@ -45,10 +45,6 @@ module.exports = {
         {
             path:'/categories/:idCategory?',
             method: 'GET'
-        },
-        {
-            path:'/user/following',
-            method: 'GET'
         }
     ],
     schedule: {
