@@ -8,6 +8,6 @@ const requestSchema = new Schema(schema);
 requestSchema.plugin(mongoosePaginate);
 addSyncHook(requestSchema);
 addIndex(requestSchema);
-const request = mongo.model('service', requestSchema);
+const request = mongo.model('following', requestSchema);
 
 module.exports = request;

@@ -4,6 +4,6 @@ const validate = require('koa2-validation');
 const Router = require('koa-router');
 const router = new Router();
 
-router.put('/user/following', validate({ body: schema }), getFollowing);
+router.get('/user/following', validate({ body: schema }), getFollowing);
 
 module.exports = router.routes();
