@@ -1,4 +1,5 @@
 const client = require('./client');
+const find = require('./find');
 const findOne = require('./find-one');
 const create = require('./create');
 const remove = require('./remove');
@@ -11,6 +12,7 @@ const unset = require('./unset');
 
 module.exports = {
     unset: unset(client),
+    find: find(client),
     findOne: findOne(client),
     delete: Delete(client),
     search: search(client),
