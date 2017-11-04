@@ -61,6 +61,14 @@ module.exports = {
         {
             path:'/user/followers',
             method: 'GET'
+        },
+        {
+            path:'/orders/buy',
+            method: 'GET'
+        },
+        {
+            path:'/orders/sell',
+            method: 'GET'
         }
     ],
     schedule: {
