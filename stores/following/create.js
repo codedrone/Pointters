@@ -1,17 +1,12 @@
 const catchingErrorFromPromise = require('../../lib/catching-error-from-promise');
-const excludeFields = {
-    likes: 0,
-    watching: 0,
-    likesPost: 0,
-    following: 0,
-    password: 0,
-    __v: 0
-};
-module.exports = (client) => (query) => catchingErrorFromPromise(
-    client.findOne(query, excludeFields).exec()
+
+module.exports = (client) => (data) => {
+    data.createdAt = new Date();
+    return catchingErrorFromPromise(client.create(data)
         .then((_res) => {
             if (!_res) return _res;
             const res = _res.toObject();
             if (res._id) res._id = res._id.toString();
             return res;
         }));
+};

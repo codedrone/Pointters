@@ -53,6 +53,14 @@ module.exports = {
         {
             path:'/service/:id/detail',
             method: 'GET'
+        },
+        {
+            path:'/user/following',
+            method: 'GET'
+        },
+        {
+            path:'/user/followers',
+            method: 'GET'
         }
     ],
     schedule: {

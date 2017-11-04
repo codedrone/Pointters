@@ -13,3 +13,5 @@ exports.deleteuserSettings = require('./user-delete-settings');
 exports.getuserFollow = require('./user-get-follow');
 exports.deleteuserFollow = require('./user-delete-follow');
 exports.postuserFollow = require('./user-post-follow');
+exports.getFollowers = require('./user-get-followers');
+exports.getFollowing = require('./user-get-following');
