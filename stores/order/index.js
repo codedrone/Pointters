@@ -5,13 +5,16 @@ const remove = require('./remove');
 const updateIfExistsAndCreateIfNot = require('./update-if-exists-create-if-not');
 const update = require('./update');
 const search = require('./search');
-
+const find = require('./find');
 const Delete = require('./delete');
 const unset = require('./unset');
+const paginate = require('./paginate');
 
 module.exports = {
     unset: unset(client),
     findOne: findOne(client),
+    paginate: paginate(client),
+    find: find(client),
     delete: Delete(client),
     search: search(client),
     create: create(client),
