@@ -7,7 +7,6 @@ const updateIfExistsAndCreateIfNot = require('./update-if-exists-create-if-not')
 const update = require('./update');
 const search = require('./search');
 const paginate = require('./paginate');
-const find = require('./find');
 const Delete = require('./delete');
 const unset = require('./unset');
 
@@ -21,6 +20,5 @@ module.exports = {
     update: update(client),
     remove: remove(client),
     paginate: paginate(client),
-    find: find(client),
     updateIfExistsAndCreateIfNot: updateIfExistsAndCreateIfNot(client)
 };
