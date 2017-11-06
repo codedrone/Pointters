@@ -4,7 +4,6 @@ const excludeFields = {
     watching: 0,
     likesPost: 0,
     following: 0,
-    password: 0,
     __v: 0
 };
 module.exports = (client) => (query) => catchingErrorFromPromise(
