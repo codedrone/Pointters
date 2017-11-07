@@ -11,29 +11,29 @@ module.exports = async(ctx) => {
         const { page, limit } = ctx.query;
         const user = { followFrom: ctx.session.id};
         const followers = await paginate(user, { page, limit });
-        const { docs, ...followersWithoutDocs } = followers;
+        const { docs, followersWithoutDocs } = followers;
         if (!followers || followers.error) {
             ctx.status = 404;
             ctx.body = 'No service found';
         }else{
             const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
-                const { followTo, followFrom, ...docWithoutFollowTo } = doc._doc;
+                const { followTo, followFrom, docWithoutFollowTo } = doc._doc;
                 const tempFollowTo = await fineOneUser({ _id: followTo });
-                
+
                 const servicesFollowTo = await fineOneService({ userId: followTo });
                 const categoriesFollowTo = map(servicesFollowTo, (serviceFollowTo) => serviceFollowTo.category);
-                
+
                 const tempFollowFrom = await fineOneUser({ _id: followFrom });
 
                 const servicesFollowFrom = await fineOneService({ userId: followFrom});
                 const categoriesFollowFrom = map(servicesFollowFrom, (serviceFollowFrom) => serviceFollowFrom.category);
-                
-                const result = { ...docWithoutFollowTo, followTo: tempFollowTo, servicesFollowTo: categoriesFollowTo, followFrom: tempFollowFrom, sevicesFollowFrom: categoriesFollowFrom };
+
+                const result = { docWithoutFollowTo, followTo: tempFollowTo, servicesFollowTo: categoriesFollowTo, followFrom: tempFollowFrom, sevicesFollowFrom: categoriesFollowFrom };
                 return resolve(result);
             })));
 
             ctx.status = 200;
-            ctx.body = { ...followersWithoutDocs, docs: results };
+            ctx.body = { followersWithoutDocs, docs: results };
         }
     } else {
         ctx.status = 401;
