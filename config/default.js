@@ -35,14 +35,6 @@ module.exports = {
         '/user/reset',
         '/user/reset/password',
         {
-            path:'/user/following',
-            method: 'GET'
-        },
-        {
-            path:'/user/followers',
-            method: 'GET'
-        },
-        {
             path:'/category/:idCategory/sub-category/:idSubCategory',
             method: 'GET'
         },
@@ -52,30 +44,6 @@ module.exports = {
         },
         {
             path:'/categories/:idCategory?',
-            method: 'GET'
-        },
-        {
-            path:'/service/:id/detail',
-            method: 'GET'
-        },
-        {
-            path:'/services',
-            method: 'GET'
-        },
-        {
-            path:'/orders/buy',
-            method: 'GET'
-        },
-        {
-            path:'/orders/sell',
-            method: 'GET'
-        },
-        {
-            path:'/offers/sent',
-            method: 'GET'
-        },
-        {
-            path:'/offers/received',
             method: 'GET'
         }
     ],
