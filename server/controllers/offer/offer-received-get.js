@@ -34,7 +34,6 @@ module.exports = async (ctx) => {
         const result = { offerData: offData, buyerData: buyerData };
         return resolve(result);
     })));
-    console.log(results);
     ctx.status = 200;
     ctx.body = { docs: results, ...buyerWithoutDocs };
     
