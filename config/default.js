@@ -69,6 +69,14 @@ module.exports = {
         {
             path:'/orders/sell',
             method: 'GET'
+        },
+        {
+            path:'/offers/sent',
+            method: 'GET'
+        },
+        {
+            path:'/offers/received',
+            method: 'GET'
         }
     ],
     schedule: {
