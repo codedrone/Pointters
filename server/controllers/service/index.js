@@ -15,6 +15,6 @@ module.exports = {
     getserviceReview: require('./service-review-get'),
     getservicesuser: require('./service-user-get'),
     getservicedetail: require('./service-id-detail-get'),
-    getservicesWatching: require('./services-watching-get'),
+    getServicesWatching: require('./services-watching-get'),
     getservicesliked: require('./services-liked-get')
 };
