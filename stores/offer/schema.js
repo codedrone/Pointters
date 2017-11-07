@@ -7,6 +7,12 @@ module.exports = {
         index: true,
         ref: 'user'
     },
+    sellerId: {
+        type: Schema.Types.ObjectId
+    },
+    buyerId: {
+        type: Schema.Types.ObjectId
+    },
     createdAt: {
         type: Date,
         default: new Date()
