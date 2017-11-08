@@ -12,14 +12,18 @@ module.exports = joi.object().keys({
         local: joi.boolean(),
         online: joi.boolean(),
         shipment: joi.boolean(),
-        store: joi.boolean()
+        store: joi.boolean(),
+        localServiceRadius: joi.number(),
+        localServiceRadiusUom: joi.string()
     }),
     geofence: joi.array(),
     location: joi.array().items(joi.object().keys({
         city: joi.string(),
         country: joi.string(),
-        latitude: joi.number(),
-        longitude: joi.number(),
+        geoJson: joi.object().keys({
+            type: joi.string().required(),
+            coordinates: joi.array().items(joi.number()).length(2).required()
+        }),
         postalCode: joi.string(),
         province: joi.string(),
         state: joi.string()
@@ -32,4 +36,3 @@ module.exports = joi.object().keys({
         timeUnitOfMeasure: joi.string().valid([ 'hour', 'day', 'week' ])
     }))
 });
-

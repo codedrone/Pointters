@@ -1,7 +1,11 @@
 const {location:{schema:location}} = require('./sub-schema');
 const {Schema} = require('mongoose');
+const media = require('./sub-schema/media');
 
 module.exports = {
+    awards: {
+        type: String
+    },
     completedRegistration: {
         type: Boolean,
         default: false
@@ -34,13 +38,6 @@ module.exports = {
         },
         reason: String
     },
-    awards: {
-        type: String
-    },
-    password: {
-        type: String,
-        required: true
-    },
     companyName: {
         type: String
     },
@@ -65,19 +62,17 @@ module.exports = {
     license: {
         type: String
     },
-    location: [ location ],
+    location: location ,
+    password: {
+        type: String,
+        required: true
+    },
     phone: {
         type: String
     },
+    profileBackgroundMedia: [media],
     profilePic: {
         type: String
-    },
-    socialNetwork: {
-        name: String,
-        id: String
-    },
-    profileBackgroundImages: {
-        type: Object
     },
     resetPasswordExpires: String,
     tempPassword: String,
@@ -85,25 +80,25 @@ module.exports = {
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: [ 'pushNotification', 'email', 'all' ],
+            enum: [ 'pushNotification', 'email', 'all', 'none' ],
             default: 'all'
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: [ 'pushNotification', 'email', 'all' ],
+            enum: [ 'pushNotification', 'email', 'all', 'none' ],
             default: 'all'
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: [ 'pushNotification', 'email', 'all' ],
+            enum: [ 'pushNotification', 'email', 'all', 'none' ],
             default: 'all'
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: [ 'daily', 'weekly', 'all' ],
+            enum: [ 'daily', 'weekly', 'all', 'none' ],
             default: 'all'
         },
         locationViewPermission: {
@@ -118,6 +113,10 @@ module.exports = {
             enum: [ 'public', 'followers', 'onlyme' ],
             default: 'onlyme'
         }
+    },
+    socialNetwork: {
+        name: String,
+        id: String
     },
     likes: {
         type: [ Schema.Types.Mixed ],
@@ -135,8 +134,5 @@ module.exports = {
         type: [ Schema.Types.Mixed ],
         default: []
     },
-    phoneNumber: {
-        type: String,
-        default: ''
-    }
+
 };

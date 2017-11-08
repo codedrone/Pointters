@@ -1,23 +1,24 @@
-const Schema = require('../../../databases/mongo').Schema;
+const { Schema } = require('../../../../databases/mongo');
+
 
 module.exports = new Schema({
-    description:{
+    description: {
         type: String,
         required: true
     },
-    location:{
+    location: {
         type: Object,
-        index:true
+        index: true
     },
-    price:{
+    price: {
         type: Number,
         required: true
     },
-    time:{
+    time: {
         type: Number,
         required: true
     },
-    timeUnitOfMeasure:{
+    timeUnitOfMeasure: {
         type: String,
         required: true,
         enum: [ 'hour', 'day', 'week' ]

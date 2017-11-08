@@ -1,6 +1,7 @@
 const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/order');
+const {Types:{ObjectId}} = require('../../../databases/mongo');
 const { findOne: fineOneUser } = require('../../../stores/user');
 const { findOne: findService } = require('../../../stores/service');
 
@@ -28,14 +29,16 @@ module.exports = async (ctx) => {
 
         result.buyer.id = doc.buyerId;
         result.service.id = doc.serviceId;
-        const buyer = await fineOneUser({ _id: doc.buyerId });
+        const buyer = await fineOneUser({ _id: ObjectId(doc.buyerId) });
         if(buyer)
         {
-            result.buyer.firstName = doc.firstName;
-            result.buyer.lastName = doc.lastName;
-            result.buyer.phone = doc.phone;
+            result.buyer.firstName = buyer.firstName;
+            result.buyer.lastName = buyer.lastName;
+            result.buyer.phone = buyer.phone;
+            result.buyer.phone = buyer.phone;
+            result.buyer.profilePic = buyer.profilePic;
         }
-        const service = await findService({ _id: doc.serviceId });
+        const service = await findService({ _id: ObjectId(doc.serviceId) });
         if(service)
         {
             result.service.description = service.description;
@@ -43,10 +46,8 @@ module.exports = async (ctx) => {
             result.service.updatedAt = service.updatedAt;
             result.service.media = service.media[0];
         }
-        console.log(service, doc.serviceId);
         return resolve(result);
     })));
     ctx.status = 200;
     ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
 };
-

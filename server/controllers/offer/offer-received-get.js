@@ -2,6 +2,8 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/offer');
 const { findOne: fineOneUser } = require('../../../stores/user');
+const {Types:{ObjectId}} = require('../../../databases/mongo');
+
 const { findOne: fineOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
@@ -9,29 +11,31 @@ module.exports = async (ctx) => {
     const user = { buyerId: ObjectId(ctx.session.id) };
     const receives = await paginate(user, { inputPages, inputLimit });
 
-    if (receives.total == 0 || receives.error) 
+    if (receives.total == 0 || receives.error)
         ctx.throw(404, "No receives found");
 
     const { docs, total, limit, page, pages } = receives;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let result = {};
         let offData = {};
-        result.userId = doc.userId;
+				result.seller={};
+        result.seller.sellerId = doc.sellerId;
         result.serviceId = doc.serviceId;
+				result.description = doc.description;
         result.price = doc.price;
         result.workDuration = doc.workDuration;
         result.workDurationUom = doc.workDurationUom;
         result.createdAt = doc.createdAt;
-        const userData = await fineOneUser({ _id: ObjectId(doc.userId) });
+        const userData = await fineOneUser({ _id: ObjectId(doc.sellerId) });
         if(userData)
         {
-            result.firstName = userData.firstName;
-            result.lastName = userData.lastName;
-            result.location = userData.location;
-            result.phone = userData.phone;
-            result.profilePic = userData.profilePic;
+            result.seller.firstName = userData.firstName;
+            result.seller.lastName = userData.lastName;
+            result.seller.location = userData.location;
+            result.seller.phone = userData.phone;
+            result.seller.profilePic = userData.profilePic;
         }
-        const ServiceData = await fineOneUser({ _id: ObjectId(doc.serviceId) });
+        const ServiceData = await fineOneService({ _id: ObjectId(doc.serviceId) });
         if(ServiceData)
         {
             result.serviceDescription = ServiceData.description;
@@ -40,5 +44,5 @@ module.exports = async (ctx) => {
     })));
     ctx.status = 200;
     ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
-    
+
 };
