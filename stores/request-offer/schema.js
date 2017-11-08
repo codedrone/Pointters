@@ -1,3 +1,4 @@
+const subschemas = require('./sub-schemas');
 const {Schema} = require('mongoose');
 
 module.exports = {
@@ -11,25 +12,19 @@ module.exports = {
         type: Date,
         default: new Date()
     },
-    fulfillmentMethod:{
-        type:Object
+    fulfillmentMethod:subschemas.fulfillmentMethod.schema,
+    isActive: {
+        type: Boolean,
+        default: true
     },
-    location:{
-        type:Object
-    },
-    media:{
-        type:Object
-    },
+    location:subschemas.location.schema,
+    media:[subschemas.media.schema],
     price:{
         type:Object
     },
     requestId:{
         type:Schema.Types.ObjectId,
         required: true
-    },
-    isActive: {
-        type: Boolean,
-        default: true
     },
     updatedAt:{
         type:Date

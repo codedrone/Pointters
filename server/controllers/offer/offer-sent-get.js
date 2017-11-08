@@ -2,15 +2,16 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/offer');
 const { findOne: fineOneUser } = require('../../../stores/user');
+const {Types:{ObjectId}} = require('../../../databases/mongo');
 
 const errorInGetWatching = 'Error in get to request-order';
 const orderDoesNotExists = 'Error in get to request-order';
 
 module.exports = async (ctx) => {
 	const { page, limit } = ctx.query;
-    const user = { sellerId: ctx.session.id};
+    const user = { sellerId: ObjectId(ctx.session.id)};
     const sents = await paginate(user, { page, limit });
-	const { docs, ...buyerWithoutDocs } = sents;
+	const { docs, buyerWithoutDocs } = sents;
     if (!sents) ctx.throw(403, orderDoesNotExists);
 
     if (sents.error) ctx.throw(404, errorInGetWatching);
@@ -35,5 +36,5 @@ module.exports = async (ctx) => {
         return resolve(result);
     })));
     ctx.status = 200;
-    ctx.body = { docs: results, ...buyerWithoutDocs };
+    ctx.body = { docs: results, buyerWithoutDocs };
 };

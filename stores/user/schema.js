@@ -1,7 +1,11 @@
 const {location:{schema:location}} = require('./sub-schema');
 const {Schema} = require('mongoose');
+const media = require('./sub-schema/media');
 
 module.exports = {
+    awards: {
+        type: String
+    },
     completedRegistration: {
         type: Boolean,
         default: false
@@ -34,13 +38,6 @@ module.exports = {
         },
         reason: String
     },
-    awards: {
-        type: String
-    },
-    password: {
-        type: String,
-        required: true
-    },
     companyName: {
         type: String
     },
@@ -66,17 +63,17 @@ module.exports = {
         type: String
     },
     location: [ location ],
+    password: {
+        type: String,
+        required: true
+    },
     phone: {
         type: String
     },
+    profileBackgroundMedia: [media],
     profilePic: {
         type: String
     },
-    socialNetwork: {
-        name: String,
-        id: String
-    },
-    profileBackgroundMedia: [media],
     resetPasswordExpires: String,
     tempPassword: String,
     settings: {
@@ -117,6 +114,10 @@ module.exports = {
             default: 'onlyme'
         }
     },
+    socialNetwork: {
+        name: String,
+        id: String
+    },
     likes: {
         type: [ Schema.Types.Mixed ],
         default: []
@@ -133,8 +134,5 @@ module.exports = {
         type: [ Schema.Types.Mixed ],
         default: []
     },
-    phoneNumber: {
-        type: String,
-        default: ''
-    }
+
 };

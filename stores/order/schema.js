@@ -5,10 +5,6 @@ module.exports = {
         type: Date,
         default: new Date()
     },
-    updatedAt: {
-        type: Date,
-        default: new Date()
-    },
     buyerId: {
         type: Schema.Types.ObjectId,
         required: true,
@@ -26,12 +22,12 @@ module.exports = {
         type: String,
         required: true
     },
+    fulfillmentMethod: subschemas.fulfillmentMethod.schema,
+    geofence: Array,
     isActive: {
         type: Boolean,
         default: true
     },
-    ulfillmentMethod: subschemas.fulfillmentMethod.schema,
-    geofence: Array,
     orderAcceptanceDate: Date,
     orderItems: [ subschemas.item.schema ],
     orderMilestoneStatuses: subschemas.milestoneStatus.schema,
@@ -40,7 +36,6 @@ module.exports = {
         type: Object,
         required: true
     },
-    servicesPrices: [ subschemas.price.schema ],
     transactionFee: Number,
     transactionDate: Date,
     sellerAcceptedScheduleTime: Boolean,
@@ -53,9 +48,20 @@ module.exports = {
         ref: 'user'
     },
     sellerServiceLocation: [ subschemas.location.schema ],
+    serviceId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        index: true,
+        ref: 'service'
+    },
+    servicesPrices: [ subschemas.price.schema ],
+    serviceCompleteDate: Date,
     serviceScheduleDate: Date,
     serviceStartDate: Date,
-    serviceCompleteDate: Date,
     shippingInfo: Object,
-    taxes: Object
+    taxes: Object,
+    updatedAt: {
+        type: Date,
+        default: new Date()
+    },
 };
