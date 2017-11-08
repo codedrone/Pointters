@@ -5,15 +5,15 @@ const { findOne: fineOneUser } = require('../../../stores/user');
 const { findOne: findService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
-    const { page, limit } = ctx.query;
+    const { inputPages, inputLimit } = ctx.query;
     const user = { sellerId: ctx.session.id};
-    const sellers = await paginate(user, { page, limit });
+    const sellers = await paginate(user, { inputPages, inputLimit });
 
     if (sellers.total == 0) ctx.throw(404, 'No service found');
 
     if (sellers.error) ctx.throw(404, 'seller error');
 
-    const { docs, buyerWithoutDocs } = sellers;
+    const { docs, total, limit, page, pages } = sellers;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         const result = {};
         result.buyer = {};
@@ -47,6 +47,6 @@ module.exports = async (ctx) => {
         return resolve(result);
     })));
     ctx.status = 200;
-    ctx.body = { docs: results, buyerWithoutDocs };
+    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
 };
 
