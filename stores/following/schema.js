@@ -12,6 +12,14 @@ module.exports = {
         required: true,
         index: true,
         ref: 'user'
+    },
+    updatedAt: {
+        type: Date,
+        default: new Date()
+    },
+    createdAt: {
+        type: Date,
+        default: new Date()
     }
 };
 
