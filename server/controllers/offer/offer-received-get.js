@@ -8,7 +8,7 @@ const { findOne: fineOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
 	const { inputPages, inputLimit } = ctx.query;
-    const user = { buyerId: ctx.session.id};
+    const user = { buyerId: ObjectId(ctx.session.id) };
     const receives = await paginate(user, { inputPages, inputLimit });
 
     if (receives.total == 0 || receives.error)

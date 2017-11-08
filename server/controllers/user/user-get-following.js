@@ -9,7 +9,7 @@ const errorMessage = 'Error in find service';
 module.exports = async(ctx) => {
     if (ctx.session) {
         const { inputPages, inputLimit } = ctx.query;
-        const user = { followFrom: ctx.session.id};
+        const user = { followFrom: ObjectId(ctx.session.id) };
         const followers = await paginate(user, { inputPages, inputLimit });
 
         if (followers == 0 || followers.error) {
@@ -20,12 +20,12 @@ module.exports = async(ctx) => {
                 const { followTo, followFrom, docWithoutFollowTo } = doc._doc;
                 const tempFollowTo = await fineOneUser({ _id: followTo });
 
-                const servicesFollowTo = await fineOneService({ userId: followTo });
+                const servicesFollowTo = await fineOneService({ userId: ObjectId(followTo) });
                 const categoriesFollowTo = map(servicesFollowTo, (serviceFollowTo) => serviceFollowTo.category);
 
-                const tempFollowFrom = await fineOneUser({ _id: followFrom });
+                const tempFollowFrom = await fineOneUser({ _id: ObjectId(followFrom) });
 
-                const servicesFollowFrom = await fineOneService({ userId: followFrom});
+                const servicesFollowFrom = await fineOneService({ userId: ObjectId(followFrom) });
                 const categoriesFollowFrom = map(servicesFollowFrom, (serviceFollowFrom) => serviceFollowFrom.category);
 
                 const result = { docWithoutFollowTo, followTo: tempFollowTo, servicesFollowTo: categoriesFollowTo, followFrom: tempFollowFrom, sevicesFollowFrom: categoriesFollowFrom };

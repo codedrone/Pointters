@@ -1,13 +1,13 @@
 const {Schema} = require('mongoose');
 
 module.exports = {
-    followFrom : {
+    userId : {
         type:Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'
     },
-    followTo : {
+    serviceId : {
         type:Schema.Types.ObjectId,
         required: true,
         index: true,
