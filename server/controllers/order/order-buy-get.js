@@ -2,7 +2,7 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/order');
 const { findOne: fineOneUser } = require('../../../stores/user');
-const { find: findServices } = require('../../../stores/service');
+const { findOne: findService } = require('../../../stores/service');
 
 const errorInGetWatching = 'Error in get to request-order';
 const orderDoesNotExists = 'Error in get to request-order';
@@ -17,22 +17,35 @@ module.exports = async (ctx) => {
     if (buyers.error) ctx.throw(404, errorInGetWatching);
 
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
-        const { sellerId, paymentDate, orderMilestoneStatuses, buyerServiceLocation, sellerServiceLocation, docWithoutOrder } = doc._doc;
-        const seller = await fineOneUser({ _id: sellerId });
-        const { firstName, lastName, phone, sellerWithout} = seller;
-        const services = await findServices({ userId: seller._id });
-        const serviceData = map(services, (service) => {
-        	let serviceTemp = {};
-        	serviceTemp.serviceId = service._id;
-        	serviceTemp.serviceDescription = service.description;
-        	serviceTemp.serviceMedia = service.media[0];
-        	return serviceTemp;
-        });
-        const { _id, description, media, serviceWithout } = services;
-        const serviceLocation = buyerServiceLocation[0];
-        if(buyerServiceLocation == null)
-        	serviceLocation = sellerServiceLocation[0];
-        const result = { serviceData: serviceData, userFirstName: firstName, userLastname: lastName, userPhone: phone, userId: sellerId, orderPaymentDate: paymentDate, orderMilestoneStatuses: orderMilestoneStatuses, serviceLocation: serviceLocation };
+        const result = {};
+        result.seller = {};
+        result.service = {};
+        result.order = {};
+        result.order.paymentDate = doc.paymentDate;
+        result.order.orderMilestoneStatuses = doc.orderMilestoneStatuses;
+        const serviceLocation = doc.buyerServiceLocation[0];
+        if(doc.buyerServiceLocation == null)
+            serviceLocation = doc.sellerServiceLocation[0];
+        result.order.serviceLocation = serviceLocation;
+
+        result.seller.id = doc.sellerId;
+        result.service.id = doc.serviceId;
+        const seller = await fineOneUser({ _id: doc.sellerId });
+        if(seller)
+        {
+            result.seller.firstName = doc.firstName;
+            result.seller.lastName = doc.lastName;
+            result.seller.phone = doc.phone;
+        }
+        const service = await findService({ _id: doc.serviceId });
+        if(service)
+        {
+            result.service.description = service.description;
+            result.service.createdAt = service.createdAt;
+            result.service.updatedAt = service.updatedAt;
+            result.service.media = service.media[0];
+        }
+        console.log(service, doc.serviceId);
         return resolve(result);
     })));
     ctx.status = 200;

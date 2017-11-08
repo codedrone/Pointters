@@ -15,6 +15,9 @@ module.exports = {
         index: true,
         ref: 'user'
     },
+    serviceId: {
+        type: Schema.Types.ObjectId
+    },
     buyerOrderDispute: Object,
     buyerServiceLocation: [ subschemas.location.schema ],
     cancellationDate: Date,
