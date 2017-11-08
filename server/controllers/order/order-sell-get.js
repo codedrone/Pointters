@@ -9,7 +9,7 @@ const orderDoesNotExists = 'Error in get to request-order';
 
 module.exports = async (ctx) => {
     const { page, limit } = ctx.query;
-    const user = { sellers: ctx.session.id};
+    const user = { sellerId: ctx.session.id};
     const sellers = await paginate(user, { page, limit });
     const { docs, buyerWithoutDocs } = sellers;
     if (!sellers) ctx.throw(403, orderDoesNotExists);
