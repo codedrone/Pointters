@@ -3,18 +3,15 @@ const { map } = require('lodash');
 const { paginate } = require('../../../stores/offer');
 const { findOne: fineOneUser } = require('../../../stores/user');
 
-const errorInGetWatching = 'Error in get to request-order';
-const orderDoesNotExists = 'Error in get to request-order';
-
 module.exports = async (ctx) => {
 	const { page, limit } = ctx.query;
     const user = { buyerId: ctx.session.id};
     const receives = await paginate(user, { page, limit });
-	const { docs, buyerWithoutDocs } = receives;
-    if (!receives) ctx.throw(403, orderDoesNotExists);
 
-    if (receives.error) ctx.throw(404, errorInGetWatching);
+    if (receives.total == 0 || receives.error) 
+        ctx.throw(404, "No receives found");
 
+    const { docs, buyerWithoutDocs } = receives;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let offData = {};
         offData.userId = doc.userId;

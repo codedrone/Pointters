@@ -8,9 +8,8 @@ module.exports = async(ctx) => {
         const { id } = ctx.session;
         if (!userId) userId = id;
         const services = await paginate({ userId }, { page, limit });
-        if (!services || services.error) {
-            ctx.status = 404;
-            ctx.body = 'No service found';
+        if (services.total == 0 || services.error) {
+            ctx.throw(404, 'No service found');
         }
         ctx.status = 200;
         ctx.body = { services };

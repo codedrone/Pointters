@@ -18,7 +18,6 @@ module.exports = async(ctx) => {
     	const service = await findOneService({ _id: like });
     	if (service)
     	{
-    		console.log(service);
     		const user = await findOneUser({ _id: service.userId });
 	        result.service.description = service.description;
 	        result.service.media = service.media[0];

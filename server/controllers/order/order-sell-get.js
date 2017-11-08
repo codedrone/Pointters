@@ -4,18 +4,16 @@ const { paginate } = require('../../../stores/order');
 const { findOne: fineOneUser } = require('../../../stores/user');
 const { findOne: findService } = require('../../../stores/service');
 
-const errorInGetWatching = 'Error in get to request-order';
-const orderDoesNotExists = 'Error in get to request-order';
-
 module.exports = async (ctx) => {
     const { page, limit } = ctx.query;
     const user = { sellerId: ctx.session.id};
     const sellers = await paginate(user, { page, limit });
+
+    if (sellers.total == 0) ctx.throw(404, 'No service found');
+
+    if (sellers.error) ctx.throw(404, 'seller error');
+
     const { docs, buyerWithoutDocs } = sellers;
-    if (!sellers) ctx.throw(403, orderDoesNotExists);
-
-    if (sellers.error) ctx.throw(404, errorInGetWatching);
-
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         const result = {};
         result.buyer = {};

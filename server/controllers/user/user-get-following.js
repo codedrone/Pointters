@@ -11,11 +11,11 @@ module.exports = async(ctx) => {
         const { page, limit } = ctx.query;
         const user = { followFrom: ctx.session.id};
         const followers = await paginate(user, { page, limit });
-        const { docs, followersWithoutDocs } = followers;
-        if (!followers || followers.error) {
-            ctx.status = 404;
-            ctx.body = 'No service found';
+
+        if (followers == 0 || followers.error) {
+            ctx.throw(404, 'No follower found');
         }else{
+            const { docs, followersWithoutDocs } = followers;
             const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
                 const { followTo, followFrom, docWithoutFollowTo } = doc._doc;
                 const tempFollowTo = await fineOneUser({ _id: followTo });
