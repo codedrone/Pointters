@@ -6,7 +6,7 @@ const { findOne: fineOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
 	const { inputPages, inputLimit } = ctx.query;
-    const user = { buyerId: ctx.session.id};
+    const user = { buyerId: ObjectId(ctx.session.id) };
     const receives = await paginate(user, { inputPages, inputLimit });
 
     if (receives.total == 0 || receives.error) 
@@ -22,7 +22,7 @@ module.exports = async (ctx) => {
         result.workDuration = doc.workDuration;
         result.workDurationUom = doc.workDurationUom;
         result.createdAt = doc.createdAt;
-        const userData = await fineOneUser({ _id: doc.userId });
+        const userData = await fineOneUser({ _id: ObjectId(doc.userId) });
         if(userData)
         {
             result.firstName = userData.firstName;
@@ -31,7 +31,7 @@ module.exports = async (ctx) => {
             result.phone = userData.phone;
             result.profilePic = userData.profilePic;
         }
-        const ServiceData = await fineOneUser({ _id: doc.serviceId });
+        const ServiceData = await fineOneUser({ _id: ObjectId(doc.serviceId) });
         if(ServiceData)
         {
             result.serviceDescription = ServiceData.description;

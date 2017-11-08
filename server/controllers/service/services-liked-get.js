@@ -4,15 +4,15 @@ const { paginate } = require('../../../stores/like');
 const { findOne: findOneService } = require('../../../stores/service');
 const { findOne: findOneUser } = require('../../../stores/user');
 
-const errorInGetWatching = 'Error in get to watching';
+const errorInGetWatching = 'Watching does not exists';
 
 module.exports = async(ctx) => {
     const { inputPages, inputLimit } = ctx.query;
-    const user = { userId: ObjectId(ctx.session.id) };
+    const user = { userId: ctx.session.id };
 
     const likes = await paginate(user, { inputPages, inputLimit });
 
-    if (likes.total || likes.error) ctx.throw(404, errorInGetWatching);
+    if (likes.total == 0 || likes.error) ctx.throw(404, errorInGetWatching);
 
     const { docs, total, limit, page, pages } = likes;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
@@ -29,7 +29,7 @@ module.exports = async(ctx) => {
 	        result.service.prices = service.prices[0];
         }
         result.user.id = doc.userId;
-        const user = await findOneUser({ _id: ObjectId(service.userId) });
+        const user = await findOneUser({ _id: service.userId });
         if(user)
         {
 	        result.user.firstName = user.firstName;

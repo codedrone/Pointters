@@ -6,7 +6,7 @@ const { findOne: findService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
     const { inputPages, inputLimit } = ctx.query;
-    const user = { sellerId: ObjectId(ctx.session.id) };
+    const user = { sellerId: ctx.session.id};
     const sellers = await paginate(user, { inputPages, inputLimit });
 
     if (sellers.total == 0) ctx.throw(404, 'No service found');
@@ -28,7 +28,7 @@ module.exports = async (ctx) => {
 
         result.buyer.id = doc.buyerId;
         result.service.id = doc.serviceId;
-        const buyer = await fineOneUser({ _id: ObjectId(doc.buyerId) });
+        const buyer = await fineOneUser({ _id: doc.buyerId });
         if(buyer)
         {
             result.buyer.firstName = doc.firstName;
