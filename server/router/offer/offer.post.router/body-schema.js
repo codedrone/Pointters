@@ -5,6 +5,7 @@ const workDurationUom = [ 'hour', 'day', 'week' ];
 
 module.exports = joi.object().keys({
     buyerId: joi.string().required(),
+    description: joi.string().required(),    
     fulfillmentMethod: joi.object().keys({
         local: joi.boolean(),
         online: joi.boolean(),

@@ -13,6 +13,10 @@ module.exports = {
         type: Date,
         default: new Date()
     },
+    description: {
+        type: String,
+        required: true
+    },
     fulfillmentMethod: subschemas.fulfillmentMethod.schema,
     isActive: {
         type: Boolean,

@@ -62,7 +62,7 @@ module.exports = {
     license: {
         type: String
     },
-    location: [ location ],
+    location: location ,
     password: {
         type: String,
         required: true
