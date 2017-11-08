@@ -10,7 +10,7 @@ module.exports = async (ctx) => {
 	const { page, limit } = ctx.query;
     const user = { buyerId: ctx.session.id};
     const receives = await paginate(user, { page, limit });
-	const { docs, ...buyerWithoutDocs } = receives;
+	const { docs, buyerWithoutDocs } = receives;
     if (!receives) ctx.throw(403, orderDoesNotExists);
 
     if (receives.error) ctx.throw(404, errorInGetWatching);
