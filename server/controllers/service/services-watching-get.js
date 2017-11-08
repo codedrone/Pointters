@@ -10,7 +10,7 @@ module.exports = async(ctx) => {
     const { inputPages, inputLimit } = ctx.query;
     const user = { userId: ObjectId(ctx.session.id) };
 
-    const watchs = = await paginate(user, { inputPages, inputLimit });
+    const watchs = await paginate(user, { inputPages, inputLimit });
 
     if (watchs.total || watchs.error) ctx.throw(404, errorInGetWatching);
 
@@ -20,7 +20,7 @@ module.exports = async(ctx) => {
         result.service = {};
         result.user = {};
         result.service.id = doc.serviceId;
-        const service = await findOneService({ _id: doc.serviceId });
+        const service = await findOneService({ _id: ObjectId(doc.serviceId) });
         if (service)
         {
             result.service.description = service.description;

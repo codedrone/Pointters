@@ -6,7 +6,7 @@ const { findOne: fineOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
     const { inputPages, inputLimit } = ctx.query;
-    const user = { sellerId: ctx.session.id};
+    const user = { sellerId: ObjectId(ctx.session.id) };
     const sellers = await paginate(user, { inputPages, inputLimit });
     if (sellers.total == 0 || sellers.error) 
         ctx.throw(404, "No sellers found");
@@ -21,7 +21,7 @@ module.exports = async (ctx) => {
         result.workDuration = doc.workDuration;
         result.workDurationUom = doc.workDurationUom;
         result.createdAt = doc.createdAt;
-        const userData = await fineOneUser({ _id: doc.userId });
+        const userData = await fineOneUser({ _id: ObjectId(doc.userId) });
         if(userData)
         {
             result.firstName = userData.firstName;
@@ -30,7 +30,7 @@ module.exports = async (ctx) => {
             result.phone = userData.phone;
             result.profilePic = userData.profilePic;
         }
-        const ServiceData = await fineOneUser({ _id: doc.serviceId });
+        const ServiceData = await fineOneUser({ _id: ObjectId(doc.serviceId) });
         if(ServiceData)
         {
             result.serviceDescription = ServiceData.description;

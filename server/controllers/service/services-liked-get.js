@@ -10,7 +10,7 @@ module.exports = async(ctx) => {
     const { inputPages, inputLimit } = ctx.query;
     const user = { userId: ObjectId(ctx.session.id) };
 
-    const likes = = await paginate(user, { inputPages, inputLimit });
+    const likes = await paginate(user, { inputPages, inputLimit });
 
     if (likes.total || likes.error) ctx.throw(404, errorInGetWatching);
 
@@ -41,3 +41,4 @@ module.exports = async(ctx) => {
 
     ctx.status = 200;
     ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
+}

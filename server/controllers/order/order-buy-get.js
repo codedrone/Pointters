@@ -6,7 +6,7 @@ const { findOne: findService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
 	const { inputPages, inputLimit } = ctx.query;
-    const user = { buyerId: ctx.session.id};
+    const user = { buyerId: ObjectId(ctx.session.id) };
     const buyers = await paginate(user, { inputPages, inputLimit });
 
     if (buyers.total == 0) ctx.throw(404, "No buyer found");
@@ -28,14 +28,14 @@ module.exports = async (ctx) => {
 
         result.seller.id = doc.sellerId;
         result.service.id = doc.serviceId;
-        const seller = await fineOneUser({ _id: doc.sellerId });
+        const seller = await fineOneUser({ _id: ObjectId(doc.sellerId) });
         if(seller)
         {
             result.seller.firstName = doc.firstName;
             result.seller.lastName = doc.lastName;
             result.seller.phone = doc.phone;
         }
-        const service = await findService({ _id: doc.serviceId });
+        const service = await findService({ _id: ObjectId(doc.serviceId) });
         if(service)
         {
             result.service.description = service.description;
@@ -43,7 +43,6 @@ module.exports = async (ctx) => {
             result.service.updatedAt = service.updatedAt;
             result.service.media = service.media[0];
         }
-        console.log(service, doc.serviceId);
         return resolve(result);
     })));
     ctx.status = 200;
