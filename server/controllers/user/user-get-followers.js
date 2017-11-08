@@ -8,14 +8,14 @@ const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
     if (ctx.session) {
-        const { page, limit } = ctx.query;
+        const { inputPages, inputLimit } = ctx.query;
         const user = { followTo: ctx.session.id};
-        const followers = await paginate(user, { page, limit });
-        const { docs, followersWithoutDocs } = followers;
-        if (!followers || followers.error) {
-            ctx.status = 404;
-            ctx.body = 'No service found';
+        const followers = await paginate(user, { inputPages, inputLimit });
+        
+        if (followers.total == 0 || followers.error) {
+            ctx.throw(404, 'No follower found');
         }else{
+            const { docs, total, limit, page, pages } = followers;
             const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
                 const { followTo, followFrom, docWithoutFollowTo } = doc._doc;
                 const tempFollowTo = await fineOneUser({ _id: followTo });
@@ -33,7 +33,7 @@ module.exports = async(ctx) => {
             })));
 
             ctx.status = 200;
-            ctx.body = { followersWithoutDocs, docs: results };
+            ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
         }
     } else {
         ctx.status = 401;

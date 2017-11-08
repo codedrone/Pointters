@@ -2,39 +2,51 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/order');
 const { findOne: fineOneUser } = require('../../../stores/user');
-const { find: findServices } = require('../../../stores/service');
-
-const errorInGetWatching = 'Error in get to request-order';
-const orderDoesNotExists = 'Error in get to request-order';
+const { findOne: findService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
-	const { page, limit } = ctx.query;
-    const user = { sellerId: ctx.session.id };
-    const seller = await paginate(user, { page, limit });
-	const { docs, sellerWithoutDocs } = seller;
-    if (!seller) ctx.throw(403, orderDoesNotExists);
+    const { inputPages, inputLimit } = ctx.query;
+    const user = { sellerId: ctx.session.id};
+    const sellers = await paginate(user, { inputPages, inputLimit });
 
-    if (seller.error) ctx.throw(404, errorInGetWatching);
+    if (sellers.total == 0) ctx.throw(404, 'No service found');
 
+    if (sellers.error) ctx.throw(404, 'seller error');
+
+    const { docs, total, limit, page, pages } = sellers;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
-        const { buyerId, paymentDate, orderMilestoneStatuses, buyerServiceLocation, sellerServiceLocation, docWithoutOrder } = doc._doc;
-        const buyer = await fineOneUser({ _id: buyerId });
-        const { firstName, lastName, phone, sellerWithout} = buyer;
-        const services = await findServices({ userId: buyer._id });
-        const serviceData = map(services, (service) => {
-        	let serviceTemp = {};
-        	serviceTemp.serviceId = service._id;
-        	serviceTemp.serviceDescription = service.description;
-        	serviceTemp.serviceMedia = service.media[0];
-        	return serviceTemp;
-        });
-        const { _id, description, media, serviceWithout } = services;
-        const serviceLocation = sellerServiceLocation[0];
-        if(sellerServiceLocation == null)
-        	serviceLocation = buyerServiceLocation[0];
-        const result = { serviceData: serviceData, userFirstName: firstName, userLastname: lastName, userPhone: phone, userId: buyerId, orderPaymentDate: paymentDate, orderMilestoneStatuses: orderMilestoneStatuses, serviceLocation: serviceLocation };
+        const result = {};
+        result.buyer = {};
+        result.service = {};
+        result.order = {};
+        result.order.paymentDate = doc.paymentDate;
+        result.order.orderMilestoneStatuses = doc.orderMilestoneStatuses;
+        const serviceLocation = doc.buyerServiceLocation[0];
+        if(doc.buyerServiceLocation == null)
+            serviceLocation = doc.sellerServiceLocation[0];
+        result.order.serviceLocation = serviceLocation;
+
+        result.buyer.id = doc.buyerId;
+        result.service.id = doc.serviceId;
+        const buyer = await fineOneUser({ _id: doc.buyerId });
+        if(buyer)
+        {
+            result.buyer.firstName = doc.firstName;
+            result.buyer.lastName = doc.lastName;
+            result.buyer.phone = doc.phone;
+        }
+        const service = await findService({ _id: doc.serviceId });
+        if(service)
+        {
+            result.service.description = service.description;
+            result.service.createdAt = service.createdAt;
+            result.service.updatedAt = service.updatedAt;
+            result.service.media = service.media[0];
+        }
+        console.log(service, doc.serviceId);
         return resolve(result);
     })));
     ctx.status = 200;
-    ctx.body = { docs: results, sellerWithoutDocs };
+    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
 };
+
