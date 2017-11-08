@@ -76,34 +76,32 @@ module.exports = {
         name: String,
         id: String
     },
-    profileBackgroundImages: {
-        type: Object
-    },
+    profileBackgroundMedia: [media],
     resetPasswordExpires: String,
     tempPassword: String,
     settings: {
         generalNotifications: {
             type: String,
             description: 'generalNotifications',
-            enum: [ 'pushNotification', 'email', 'all' ],
+            enum: [ 'pushNotification', 'email', 'all', 'none' ],
             default: 'all'
         },
         orderNotifications: {
             type: String,
             description: 'orderNotifications',
-            enum: [ 'pushNotification', 'email', 'all' ],
+            enum: [ 'pushNotification', 'email', 'all', 'none' ],
             default: 'all'
         },
         offerNotifications: {
             type: String,
             description: 'offerNotifications',
-            enum: [ 'pushNotification', 'email', 'all' ],
+            enum: [ 'pushNotification', 'email', 'all', 'none' ],
             default: 'all'
         },
         summaryEmail: {
             type: String,
             description: 'summaryEmail',
-            enum: [ 'daily', 'weekly', 'all' ],
+            enum: [ 'daily', 'weekly', 'all', 'none' ],
             default: 'all'
         },
         locationViewPermission: {

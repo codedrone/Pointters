@@ -15,5 +15,8 @@ module.exports = joi.object().keys({
     location: joi.object().default({}),
     phone: joi.string(),
     profilePic: joi.string(),
-    profileBackgroundImages: joi.object().default({})
+    profileBackgroundMedia: joi.array().items(joi.object().keys({
+        fileName: joi.string(),
+        mediaType: joi.string().valid([ 'image', 'video' ])
+    }))
 });
