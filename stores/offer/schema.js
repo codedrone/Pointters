@@ -8,10 +8,16 @@ module.exports = {
         ref: 'user'
     },
     sellerId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        required: true,
+        index: true,
+        ref: 'user'
     },
     buyerId: {
-        type: Schema.Types.ObjectId
+        type: Schema.Types.ObjectId,
+        required: true,
+        index: true,
+        ref: 'user'
     },
     createdAt: {
         type: Date,

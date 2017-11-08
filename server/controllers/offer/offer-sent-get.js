@@ -2,38 +2,42 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/offer');
 const { findOne: fineOneUser } = require('../../../stores/user');
-
-const errorInGetWatching = 'Error in get to request-order';
-const orderDoesNotExists = 'Error in get to request-order';
+const { findOne: fineOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
-	const { page, limit } = ctx.query;
+    const { inputPages, inputLimit } = ctx.query;
     const user = { sellerId: ctx.session.id};
-    const sents = await paginate(user, { page, limit });
-	const { docs, ...buyerWithoutDocs } = sents;
-    if (!sents) ctx.throw(403, orderDoesNotExists);
+    const sellers = await paginate(user, { inputPages, inputLimit });
+    if (sellers.total == 0 || sellers.error) 
+        ctx.throw(404, "No sellers found");
 
-    if (sents.error) ctx.throw(404, errorInGetWatching);
-
+    const { docs, total, limit, page, pages } = sellers;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
+        let result = {};
         let offData = {};
-        offData.userId = doc.userId;
-        offData.sellerId = doc.sellerId;
-        offData.serviceId = doc.serviceId;
-        offData.price = doc.price;
-        offData.workDuration = doc.workDuration;
-        offData.workDurationUom = doc.workDurationUom;
-        offData.createdAt = doc.createdAt;
-        const seller = await fineOneUser({ _id: doc.sellerId });
-        let sellerData = {};
-        sellerData.firstName = seller.firstName;
-        sellerData.lastName = seller.lastName;
-        sellerData.location = seller.location;
-        sellerData.phone = seller.phone;
-        sellerData.profilePic = seller.profilePic;
-        const result = { offerData: offData, sellerData: sellerData };
+        result.userId = doc.userId;
+        result.serviceId = doc.serviceId;
+        result.price = doc.price;
+        result.workDuration = doc.workDuration;
+        result.workDurationUom = doc.workDurationUom;
+        result.createdAt = doc.createdAt;
+        const userData = await fineOneUser({ _id: doc.userId });
+        if(userData)
+        {
+            result.firstName = userData.firstName;
+            result.lastName = userData.lastName;
+            result.location = userData.location;
+            result.phone = userData.phone;
+            result.profilePic = userData.profilePic;
+        }
+        const ServiceData = await fineOneUser({ _id: doc.serviceId });
+        if(ServiceData)
+        {
+            result.serviceDescription = ServiceData.description;
+        }
         return resolve(result);
     })));
     ctx.status = 200;
-    ctx.body = { docs: results, ...buyerWithoutDocs };
+    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
+    
 };
