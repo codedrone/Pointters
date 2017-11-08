@@ -1,42 +1,44 @@
 const Promise = require('bluebird');
 const { map } = require('lodash');
-const { get } = require('../../../stores/user/watching');
+const { paginate } = require('../../../stores/watch');
 const { findOne: findOneService } = require('../../../stores/service');
 const { findOne: findOneUser } = require('../../../stores/user');
 
-const errorMessage = 'Service does not exists';
 const errorInGetWatching = 'Error in get to watching';
 
 module.exports = async(ctx) => {
-    const watchs = await get(ctx.queryToFindUserById);
+    const { inputPages, inputLimit } = ctx.query;
+    const user = { userId: ObjectId(ctx.session.id) };
 
-    if (watchs.error) ctx.throw(404, errorInGetWatching);
-    
-    const results = await Promise.all(map(watchs, (watch) => new Promise(async (resolve) => {
-    	let result = {};
-    	result.service = {};
-    	result.service.id = watch;
-	    result.user = {};
-    	const service = await findOneService({ _id: watch });
-    	if (service)
-    	{
-    		const user = await findOneUser({ _id: service.userId });
-	        result.service.id = service._id;
-	        result.service.description = service.description;
-	        result.service.media = service.media[0];
-	        result.service.location = service.location;
-	        result.service.prices = service.prices[0];
-	        if(user)
-	        {
-	        	result.user.id = user._id;
-		        result.user.firstName = user.firstName;
-		        result.user.lastName = user.lastName;
-		        result.user.profilePic = user.profilePic;
-	        }
-    	}
+    const watchs = = await paginate(user, { inputPages, inputLimit });
+
+    if (watchs.total || watchs.error) ctx.throw(404, errorInGetWatching);
+
+    const { docs, total, limit, page, pages } = watchs;
+    const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
+        let result = {};
+        result.service = {};
+        result.user = {};
+        result.service.id = doc.serviceId;
+        const service = await findOneService({ _id: doc.serviceId });
+        if (service)
+        {
+            result.service.description = service.description;
+            result.service.media = service.media[0];
+            result.service.location = service.location;
+            result.service.prices = service.prices[0];
+        }
+        result.user.id = doc.userId;
+        const user = await findOneUser({ _id: ObjectId(service.userId) });
+        if(user)
+        {
+            result.user.firstName = user.firstName;
+            result.user.lastName = user.lastName;
+            result.user.profilePic = user.profilePic;
+        }
         return resolve(result);
     })));
 
     ctx.status = 200;
-    ctx.body = { results };
+    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
 };
