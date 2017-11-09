@@ -14,7 +14,10 @@ module.exports = joi.object().keys({
         province: joi.string(),
         state: joi.string()
     }),
-    media:joi.object(),
+    media: joi.array().items(joi.object().keys({
+        fileName: joi.string(),
+        mediaType: joi.string().valid([ 'image', 'video','document' ])
+    })),
     minPrice:joi.number(),
     maxPrice:joi.number(),
     scheduleDate:joi.date()

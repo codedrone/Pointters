@@ -3,6 +3,7 @@ const { map } = require('lodash');
 const { paginate } = require('../../../stores/following');
 const { findOne: fineOneUser } = require('../../../stores/user');
 const { find: fineOneService } = require('../../../stores/service');
+const {Types:{ObjectId}} = require('../../../databases/mongo');
 
 const errorMessage = 'Error in find service';
 
@@ -18,7 +19,7 @@ module.exports = async(ctx) => {
             const { docs, total, limit, page, pages } = followers;
             const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
                 const { followTo, followFrom, docWithoutFollowTo } = doc._doc;
-                const tempFollowTo = await fineOneUser({ _id: followTo });
+                const tempFollowTo = await fineOneUser({ _id: ObjectId(followTo) });
 
                 const servicesFollowTo = await fineOneService({ userId: ObjectId(followTo) });
                 const categoriesFollowTo = map(servicesFollowTo, (serviceFollowTo) => serviceFollowTo.category);

@@ -26,6 +26,9 @@ module.exports = {
     location: [ subschemas.location.schema ],
     media: [ subschemas.media.schema ],
     prices: [ subschemas.price.schema ],
+    promoted: {
+      type: Boolean
+    },    
     shared: {
         originUser: {
             type: String,
