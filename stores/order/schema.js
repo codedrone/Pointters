@@ -31,6 +31,10 @@ module.exports = {
         type: Boolean,
         default: true
     },
+    onTime: {
+        type: Number,
+        enum: [ 0, 1 ]
+    },
     orderAcceptanceDate: Date,
     orderItems: [ subschemas.item.schema ],
     orderMilestoneStatuses: subschemas.milestoneStatus.schema,

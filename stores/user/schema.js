@@ -75,7 +75,6 @@ module.exports = {
         type: String
     },
     resetPasswordExpires: String,
-    tempPassword: String,
     settings: {
         generalNotifications: {
             type: String,
@@ -117,6 +116,10 @@ module.exports = {
     socialNetwork: {
         name: String,
         id: String
+    },
+    tempPassword: String,
+    verified: {
+      type: Boolean
     },
     likes: {
         type: [ Schema.Types.Mixed ],

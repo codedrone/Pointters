@@ -23,8 +23,11 @@ module.exports = joi.object().keys({
         province: joi.string(),
         state: joi.string()
     }),
-    media: joi.object(),
-    price: joi.object(),
+    media: joi.array().items(joi.object().keys({
+        fileName: joi.string(),
+        mediaType: joi.string().valid([ 'image', 'video','document' ])
+    })),
+    price: joi.number(),
     workDuration: joi.object(),
     workDurationUom: joi.string().valid(workDurationUom)
 });

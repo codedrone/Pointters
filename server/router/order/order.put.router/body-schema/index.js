@@ -17,6 +17,7 @@ module.exports = joi.object().keys({
     description: joi.string(),
     fulfillmentMethod: fulfillmentMethod,
     geofence: joi.array(),
+    onTime: joi.number().valid([ 0, 1 ]),
     orderAcceptanceDate: joi.date(),
     orderItems: joi.array().items(item),
     orderMilestoneStatuses: milestoneStatus,
