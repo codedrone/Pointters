@@ -12,7 +12,7 @@ module.exports = async (ctx) => {
     const receives = await paginate(user, { inputPages, inputLimit });
 
     if (receives.total == 0 || receives.error)
-        ctx.throw(404, "No receives found");
+        ctx.throw(404, "No offer found");
 
     const { docs, total, limit, page, pages } = receives;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
