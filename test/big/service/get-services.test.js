@@ -51,7 +51,7 @@ describe('User services', () => {
             } = await agent
                 .post('/user/login')
                 .send(body);
-            console.log("authorizationHeader =", authorizationHeader);
+            const authorizationHeader = { Authorization: `Bearer ${token}` };
             const Cookie = { Cookie: cookie };
             const { body: { docs } } = await agent.get(`/services/?userId=` + userOther._id)
                 .set(authorizationHeader)
@@ -59,6 +59,8 @@ describe('User services', () => {
                 .expect(200);
             assert(typeof docs === 'array' || typeof docs === 'object');
         });
+    });
+    describe('FAIL', () => {
         it('/services GET -> should return 404', async() => {
             
             const body = {
