@@ -10,9 +10,7 @@ module.exports = async (ctx) => {
     const user = { buyerId: ctx.session.id};
     const buyers = await paginate(user, { inputPages, inputLimit });
 
-    if (buyers.total == 0) ctx.throw(404, "No buyer found");
-
-    if (buyers.error) ctx.throw(404, 'buyer error');
+    if ( buyers.total == 0 || buyers.error ) ctx.throw(404, "No order found");
 
     const { docs, total, limit, page, pages } = buyers;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
