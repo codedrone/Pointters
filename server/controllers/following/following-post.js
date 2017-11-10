@@ -1,10 +1,15 @@
 const { create } = require('../../../stores/following');
-const { findOne } = require('../../../stores/user');
+const { findOne: findOneUser } = require('../../../stores/user');
+const { findOne: findOnefollowing } = require('../../../stores/following');
 
 module.exports = async (ctx) => {
-	user = await findOne({ _id: ctx.params.idUser });
-console.log(user);
+	user = await findOneUser({ _id: ctx.params.idUser });
+
 	if(!user || user.error) ctx.throw(404, "Error in find User");
+
+	const follow = await findOnefollowing({ followTo: ctx.params.idUser, followFrom: ctx.session.id });
+
+	if(follow) ctx.throw(404, 'following already exist');
 
     const following = await create({ followTo: ctx.params.idUser, followFrom: ctx.session.id });
 
