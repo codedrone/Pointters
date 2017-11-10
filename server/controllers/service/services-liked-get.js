@@ -6,7 +6,7 @@ const { findOne: findOneUser } = require('../../../stores/user');
 const { find: findOrder } = require('../../../stores/order');
 const { find: findReview } = require('../../../stores/service-review');
 
-const errorInGetWatching = 'Watching does not exists';
+const errorInGetWatching = 'like does not exists';
 
 module.exports = async(ctx) => {
     const { inputPages, inputLimit } = ctx.query;

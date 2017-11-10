@@ -31,7 +31,7 @@ module.exports = async(ctx) => {
             result.service.prices = service.prices[0];
         }
         result.user.id = doc.userId;
-        const user = await findOneUser({ _id: service.userId });
+        const user = await findOneUser({ _id: doc.userId });
         if(user)
         {
             result.user.firstName = user.firstName;
