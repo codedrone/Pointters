@@ -6,6 +6,7 @@ module.exports = {
     postrequestOffer: require('./request-offer-post'),
     getrequestOffer: require('./request-offer-get'),
     deleterequestOffer: require('./request-offer-delete'),
+    getRequests: require('./requests-get'),
     getJobs: require('./jobs-get'),
     putrequestOffer: require('./request-offer-put')
 };
