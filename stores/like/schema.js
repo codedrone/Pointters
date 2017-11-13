@@ -11,7 +11,7 @@ module.exports = {
         type:Schema.Types.ObjectId,
         required: true,
         index: true,
-        ref: 'user'
+        ref: 'service'
     },
     updatedAt: {
         type: Date,

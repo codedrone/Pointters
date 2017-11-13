@@ -1,8 +1,8 @@
 const {Schema} = require('mongoose');
 
 module.exports = {
-    users : {
-        type: array
+    users: {
+        type: Array
     },
     updatedAt: {
         type: Date,

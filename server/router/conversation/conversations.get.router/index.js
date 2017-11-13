@@ -5,6 +5,6 @@ const Router = require('koa-router');
 const router = new Router();
 
 router
-    .post('/conversations', validate({ body: schema }), getConversations);
+    .get('/conversations', validate({ body: schema }), getConversations);
 
 module.exports = router.routes();
