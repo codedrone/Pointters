@@ -22,8 +22,8 @@ module.exports = async(ctx) => {
 			result.requestOffers.request.createdAt = request.createdAt;
 			result.requestOffers.request.media = request.media[0];
 			result.requestOffers.requester.userId = request.userId;
-			result.requestOffers.requester.min = request.min;
-			result.requestOffers.requester.max = request.max;
+			result.requestOffers.requester.low = request.min;
+			result.requestOffers.requester.high = request.max;
 			result.requestOffers.numOffers  = await countRequestOffer({ requestId: request._id });
 			const requester = await findOneUser({_id: request.userId});
 			if(requester) {
