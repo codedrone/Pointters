@@ -7,11 +7,11 @@ const { find: fineService } = require('../../../stores/service');
 const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
-    const { inputPages, inputLimit } = ctx.query;
-    
     const tempFollowTo = await fineOneUser({ _id: ctx.session.id });
-    const user = { followTo: ctx.session.id};
-    const followers = await paginate(user, { inputPages, inputLimit });
+    const { lt_id, inputPages, inputLimit } = ctx.query;
+    let query = { followTo: ctx.session.id };
+    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
+    const followers = await paginate( query, { page: inputPages, limit: inputLimit } );
 
     if (followers.total == 0 || followers.error) ctx.throw(404, 'No follower found');
     const { docs, total, limit, page, pages } = followers;
