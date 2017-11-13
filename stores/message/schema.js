@@ -43,7 +43,7 @@ module.exports = {
     createdAt: {
         type: Date,
         default: new Date()
-    }
+    },
     deletedAt: {
         type: Date,
         default: new Date()
