@@ -9,10 +9,12 @@ const find = require('./find');
 const Delete = require('./delete');
 const unset = require('./unset');
 const paginate = require('./paginate');
+const numOrders = require('./numOrders');
 
 module.exports = {
     unset: unset(client),
     findOne: findOne(client),
+    numOrders: numOrders(client),
     paginate: paginate(client),
     find: find(client),
     delete: Delete(client),

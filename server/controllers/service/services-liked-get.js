@@ -3,8 +3,8 @@ const { map } = require('lodash');
 const { paginate } = require('../../../stores/like');
 const { findOne: findOneService } = require('../../../stores/service');
 const { findOne: findOneUser } = require('../../../stores/user');
-const { find: findOrder } = require('../../../stores/order');
-const { find: findReview } = require('../../../stores/service-review');
+const { numOrders } = require('../../../stores/order');
+const { avgRating } = require('../../../stores/service-review');
 
 const errorInGetWatching = 'like does not exists';
 
@@ -40,29 +40,9 @@ module.exports = async(ctx) => {
         }
         result.numOrders = 0;
         result.avgRating = 0;
-        result.ratingCount = 0;
         result.pointValue = 1;
-        const orders = await findOrder({ serviceId: doc.serviceId });
-        if(orders)
-        {
-            const tempOrders = map(orders, (order) => {
-                if(order.orderMilestoneStatuses.completed)
-                {
-                    result.numOrders ++;
-                }
-                return order.orderMilestoneStatuses.completed;
-            });
-        }
-        const reviews = await findReview({ serviceId: doc.serviceId });
-        if(reviews)
-        {
-            const tempOrders = map(reviews, (review) => {
-                result.avgRating += review.overallRating;
-                result.ratingCount ++;
-                return review.overallRating;
-            });
-        }
-        result.avgRating /= result.ratingCount;
+        result.numOrders = await numOrders({ serviceId: doc.serviceId });
+        result.avgRating = await avgRating({ serviceId: doc.serviceId });
         return resolve(result);
     })));
 

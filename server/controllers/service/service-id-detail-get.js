@@ -2,13 +2,14 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { findOne: findOneService } = require('../../../stores/service');
 const { findOne: findOneUser } = require('../../../stores/user');
-const { find: findOrder } = require('../../../stores/order');
-const { find: findReview } = require('../../../stores/service-review');
+const { numOrders } = require('../../../stores/order');
+const { avgRating } = require('../../../stores/service-review');
 
 const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
     const queryToFindService = ( { _id: ctx.params.idService })
+    console.log(queryToFindService);
     const service = await findOneService(queryToFindService);
     let result = {};
     result.seller = {};
@@ -23,6 +24,7 @@ module.exports = async(ctx) => {
     result.service.media = service.media;
     result.service.prices = service.prices;
     result.service.promoted = service.promoted;
+    result.seller.userId = service.userId;
     const user = await findOneUser({ _id: service.userId });
     if(user)
     {
@@ -31,36 +33,10 @@ module.exports = async(ctx) => {
         result.seller.lastName = user.lastName;
         result.seller.phone = user.phone;
         result.seller.profilePic = user.profilePic;
-        result.seller.userId = user._id;
         result.seller.verified = user.verified;
     }
-    const orders = await findOrder({ serviceId: service._id });
-
-    result.pointValue = 1;
-    result.numOrders = 0;
-    result.ratingCount = 0;
-    if(orders)
-    {
-        const tempOrders = map(orders, (order) => {
-            if(order.orderMilestoneStatuses.completed)
-            {
-                result.numOrders ++;
-            }
-            return order.orderMilestoneStatuses.completed;
-        });
-    }
-    reviews = await findReview({ serviceId: service._id });
-    result.avgRating = 0;
-    if(reviews)
-    {
-        const tempOrders = map(reviews, (review) => {
-            result.avgRating += review.overallRating;
-            result.ratingCount ++;
-            return review.overallRating;
-        });
-    }
-    result.avgRating /= result.ratingCount;
-    result.avgResponseTime = 1;
+    result.service.numOrders = await numOrders({ serviceId: service._id });
+    result.service.avgRating = await avgRating({ serviceId: service._id });
     ctx.status = 200;
     ctx.body = { result };
 };

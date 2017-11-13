@@ -2,34 +2,59 @@ const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/following');
 const { findOne: fineOneUser } = require('../../../stores/user');
-const { find: fineOneService } = require('../../../stores/service');
-const {Types:{ObjectId}} = require('../../../databases/mongo');
+const { find: fineService } = require('../../../stores/service');
 
 const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
     const { inputPages, inputLimit } = ctx.query;
-    const user = { followTo: ObjectId(ctx.session.id)};
+    
+    const tempFollowTo = await fineOneUser({ _id: ctx.session.id });
+    const user = { followTo: ctx.session.id};
     const followers = await paginate(user, { inputPages, inputLimit });
 
     if (followers.total == 0 || followers.error) ctx.throw(404, 'No follower found');
     const { docs, total, limit, page, pages } = followers;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
-        const { followTo, followFrom, docWithoutFollowTo } = doc._doc;
-        const tempFollowTo = await fineOneUser({ _id: ObjectId(followTo) });
 
-        const servicesFollowTo = await fineOneService({ userId: ObjectId(followTo) });
-        const categoriesFollowTo = map(servicesFollowTo, (serviceFollowTo) => serviceFollowTo.category);
-
-        const tempFollowFrom = await fineOneUser({ _id: ObjectId(followFrom) });
-
-        const servicesFollowFrom = await fineOneService({ userId: ObjectId(followFrom)});
-        const categoriesFollowFrom = map(servicesFollowFrom, (serviceFollowFrom) => serviceFollowFrom.category);
-
-        const result = { docWithoutFollowTo, followTo: tempFollowTo, servicesFollowTo: categoriesFollowTo, followFrom: tempFollowFrom, sevicesFollowFrom: categoriesFollowFrom };
+        const tempFollowFrom = await fineOneUser({ _id: doc.followFrom });
+        let result = {};
+        result.followFrom = {};
+        result.followFrom.id = tempFollowFrom._id;
+        if(tempFollowFrom) {
+            result.followFrom.firstName = tempFollowFrom.firstName;
+            result.followFrom.lastName = tempFollowFrom.lastName;
+            result.followFrom.companyName = tempFollowFrom.companyName;
+            result.followFrom.profilePic = tempFollowFrom.profilePic;
+        }
+        const servicesFollowFrom = await fineService({ userId: doc.followFrom});
+        result.followFrom.categories = [];
+        let count = 0;
+        for (let i = 0; i < servicesFollowFrom.length; i ++) {
+            if(i == 0) {
+                result.followFrom.categories[0] = servicesFollowFrom[0].category.name;
+                count ++;
+            }else{
+                for (let j = 0; j < count && count < 3; j ++) {
+                    if(result.followFrom.categories[j] != servicesFollowFrom[i].category.name) {
+                        result.followFrom.categories[count] = servicesFollowFrom[i].category.name;
+                        count ++;
+                    }
+                }
+            }
+        }
+        
         return resolve(result);
     })));
-
+    const followTo = {};
+    followTo.id = ctx.session.id;
+    if(tempFollowTo) {
+        followTo.firstName = tempFollowTo.firstName;
+        followTo.lastName = tempFollowTo.lastName;
+        followTo.companyName = tempFollowTo.companyName;
+        followTo.profilePic = tempFollowTo.profilePic;
+    }
     ctx.status = 200;
-    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
+    
+    ctx.body = { docs: results, followTo: followTo, total: total, limit: limit, page: page, pages: pages };
 };
