@@ -6,7 +6,7 @@ const { findOne, count: countRequestOffer } = require('../../../stores/request-o
 module.exports = async(ctx) => {
 	const user = {userId: ctx.session.id}
 	const requests = await paginate(user);
-	if (requests.total == 0 || requests.error) ctx.throw(404, "Error in find request-offer");
+	if (requests.total == 0 || requests.error) ctx.throw(404, "Error in find request");
 	const { docs, total, limit, page, pages } = requests;
 	const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
 		let result = {};
