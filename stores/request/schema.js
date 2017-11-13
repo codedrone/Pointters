@@ -8,6 +8,10 @@ module.exports = {
     createdAt: {
         type: Date, default: new Date()
     },
+    description: {
+        type: String,
+        required: true
+    },
     isActive: {
         type: Boolean,
         default: true
