@@ -40,9 +40,13 @@ module.exports = {
         type: Number,
         required: true
     },
+    dateLastViewedByRequester: {
+        type: Date, 
+        default: new Date()
+    },
     workDurationUom: {
         type: String,
         enum: [ 'hour', 'day', 'week' ],
         required: true
-    },
+    }
 };
