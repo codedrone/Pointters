@@ -13,9 +13,9 @@ module.exports = async (ctx) => {
 
     if (!like || like.error) ctx.throw(404, "like does not exists");
 
-    await deleteWatch({ userId: ctx.sessio.id, serviceId: ctx.params.idService} );
+    await deleteWatch({ userId: ctx.session.id, serviceId: ctx.params.idService} );
 
-    const serviceReturn = await findOnelike( { userId: ctx.sessio.id, serviceId: ctx.params.idService} );
+    const serviceReturn = await findOnelike( { userId: ctx.session.id, serviceId: ctx.params.idService} );
 
     if(serviceReturn)
     	ctx.body = { success: false };

@@ -1,13 +1,12 @@
 const assert = require('assert');
 
 const { create: createService } = require('../../../stores/service');
-const { update: updateUser, findOne: findOneUser } = require('../../../stores/user');
-const { get: getLikes } = require('../../../stores/user/likes');
+const { create } = require('../../../stores/like');
 
 
 describe('User services', () => {
     describe('SUCCESS', () => {
-        it('/service/like DELETE sohuld create a service given', async () => {
+        it('/service/like DELETE sohuld create a service given 200', async () => {
             const service = {
                 userId: require('mongoose').Types.ObjectId(),
                 category: {
@@ -25,18 +24,13 @@ describe('User services', () => {
                 },
             };
             const serviceCreated = await createService(service);
-            await updateUser({
-                _id: __user._id
-            }, {
-                likes: [ serviceCreated._id ]
-            });
-            const { body: res } = await agent.delete(`/service/${serviceCreated._id}/like`)
+            console.log(serviceCreated);
+            const like = await create({ userId: __user._id, serviceId: serviceCreated._id });
+            const { body: { success } } = await agent.delete(`/service/${serviceCreated._id}/like`)
                 .set(authorizationHeader)
                 .set(Cookie)
                 .expect(200);
-            assert.deepEqual(res, { success: true });
-            const likes = await getLikes({ _id: __user._id });
-            assert.deepEqual(likes, []);
+            assert(success === true);
         });
     });
 
@@ -45,7 +39,7 @@ describe('User services', () => {
             await agent.delete('/service/1234567890qwertyuiopasdf/like')
                 .set(authorizationHeader)
                 .set(Cookie)
-                .expect(200);
+                .expect(404);
         });
     });
 });
