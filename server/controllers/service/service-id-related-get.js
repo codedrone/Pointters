@@ -4,6 +4,7 @@ const { paginate, findOne: findOneService } = require('../../../stores/service')
 const { findOne: findOneUser } = require('../../../stores/user');
 const { numOrders } = require('../../../stores/order');
 const { avgRating } = require('../../../stores/service-review');
+const { Types:{ ObjectId } } = require('../../../databases/mongo');
 
 const errorMessage = 'Error in find service';
 
@@ -23,6 +24,7 @@ module.exports = async(ctx) => {
         query = { "category.id": { $eq: service.category.id }, "category.name": { $eq: service.category.name } };
         p = 2;
     }
+    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
     const services = await paginate(query, { page: inputPage, limit: inputLimit });
     console.log("services ====", services, "p =====", p);
     if (services.total == 0 || services.error) ctx.throw(404, 'Error in find services for nearby location');

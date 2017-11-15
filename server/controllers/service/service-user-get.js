@@ -3,6 +3,7 @@ const { map } = require('lodash');
 const { paginate } = require('../../../stores/service');
 const { numOrders } = require('../../../stores/order');
 const { avgRating } = require('../../../stores/service-review');
+const { Types:{ ObjectId } } = require('../../../databases/mongo');
 
 const errorMessage = 'Error in find service';
 

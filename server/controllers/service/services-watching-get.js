@@ -5,6 +5,7 @@ const { findOne: findOneService } = require('../../../stores/service');
 const { findOne: findOneUser } = require('../../../stores/user');
 const { numOrders } = require('../../../stores/order');
 const { avgRating } = require('../../../stores/service-review');
+const { Types:{ ObjectId } } = require('../../../databases/mongo');
 
 const errorInGetWatching = 'watching does not exists';
 

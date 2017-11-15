@@ -3,6 +3,7 @@ const { map } = require('lodash');
 const { findOne: findOneRequest } = require('../../../stores/request');
 const { findOne: findOneUser } = require('../../../stores/user');
 const { paginate, count: countRequestOffer } = require('../../../stores/request-offer');
+const { Types:{ ObjectId } } = require('../../../databases/mongo');
 
 module.exports = async(ctx) => {
 	const { lt_id, inputPage, inputLimit } = ctx.query;
