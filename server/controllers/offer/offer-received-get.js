@@ -7,10 +7,17 @@ const {Types:{ObjectId}} = require('../../../databases/mongo');
 const { findOne: fineOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
-	const { lt_id, inputPage, inputLimit } = ctx.query;
+	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
     let query = { buyerId: ctx.session.id };
-    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-    const receives = await paginate(query, { page: inputPage, limit: inputLimit });
+    let sort = { _id: 1 };
+    if (lt_id) {
+        query._id = { $lt: ObjectId(lt_id) };
+    }
+    if (gt_id) {
+        query._id = { $gt: ObjectId(gt_id) };
+        sort = { _id: -1 };
+    }
+    const receives = await paginate(query, { page: inputPage, limit: inputLimit, sort: sort });
 
     if (receives.total == 0 || receives.error)
         ctx.throw(404, "No offer found");

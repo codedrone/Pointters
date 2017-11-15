@@ -13,7 +13,7 @@ module.exports = async(ctx) => {
     const service = await findOneService(queryToFindService);
     if(!service || service.error)
         ctx.throw(404, errorMessage);
-    const { lt_id, inputPage, inputLimit } = ctx.query;
+    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
     let query = {};
     let p = 0;
     if(!service.location) {
@@ -24,8 +24,15 @@ module.exports = async(ctx) => {
         query = { "category.id": { $eq: service.category.id }, "category.name": { $eq: service.category.name } };
         p = 2;
     }
-    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-    const services = await paginate(query, { page: inputPage, limit: inputLimit });
+    let sort = { _id: 1 };
+    if (lt_id) {
+        query._id = { $lt: ObjectId(lt_id) };
+    }
+    if (gt_id) {
+        query._id = { $gt: ObjectId(gt_id) };
+        sort = { _id: -1 };
+    }
+    const services = await paginate(query, { page: inputPage, limit: inputLimit, sort:sort });
     console.log("services ====", services, "p =====", p);
     if (services.total == 0 || services.error) ctx.throw(404, 'Error in find services for nearby location');
 

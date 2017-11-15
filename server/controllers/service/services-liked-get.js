@@ -10,11 +10,18 @@ const { Types:{ ObjectId } } = require('../../../databases/mongo');
 const errorInGetWatching = 'like does not exists';
 
 module.exports = async(ctx) => {
-    const { lt_id, inputPage, inputLimit } = ctx.query;
+    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
     let query = { userId: ctx.session.id };
-    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
+    let sort = { _id: 1 };
+    if (lt_id) {
+        query._id = { $lt: ObjectId(lt_id) };
+    }
+    if (gt_id) {
+        query._id = { $gt: ObjectId(gt_id) };
+        sort = { _id: -1 };
+    }
 
-    const likes = await paginate(query, { page: inputPage, limit: inputLimit });
+    const likes = await paginate(query, { page: inputPage, limit: inputLimit, sort:sort });
 
     if (likes.total == 0 || likes.error) ctx.throw(404, errorInGetWatching);
 

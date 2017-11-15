@@ -6,10 +6,17 @@ const { paginate, count: countRequestOffer } = require('../../../stores/request-
 const { Types:{ ObjectId } } = require('../../../databases/mongo');
 
 module.exports = async(ctx) => {
-	const { lt_id, inputPage, inputLimit } = ctx.query;
+	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
 	let query = { sellerId: ctx.session.id };
-	if (lt_id) query.requestId = { $lt: ObjectId(lt_id) };
-	const requestOffers = await paginate(query, { page: inputPage, limit: inputLimit });
+	let sort = { requestId: 1 };
+    if (lt_id) {
+        query._id = { $lt: ObjectId(lt_id) };
+    }
+    if (gt_id) {
+        query._id = { $gt: ObjectId(gt_id) };
+        sort = { requestId: -1 };
+    }
+	const requestOffers = await paginate(query, { page: inputPage, limit: inputLimit, sort:sort });
 	if (requestOffers.total == 0 || requestOffers.error) ctx.throw(404, "Error in find request-offer");
 	const { docs, total, limit, page, pages } = requestOffers;
 	const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {

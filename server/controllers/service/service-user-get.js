@@ -15,14 +15,16 @@ module.exports = async(ctx) => {
         const { id } = ctx.session;
         userId = id;
     }
-    let services = {};
+    let query = { userId };
+    let sort = { _id: 1 };
     if (lt_id) {
-        services = await paginate({ userId, _id: { $lt: ObjectId(lt_id) } }, { page: inputPage, limit: inputLimit, sort:{ _id: 1 } });
-    } else if (gt_id) {
-        services = await paginate({ userId, _id: { $gt: ObjectId(gt_id) } }, { page: inputPage, limit: inputLimit, sort:{ _id: -1 } });
-    } else {
-        services = await paginate({ userId }, { page: inputPage, limit: inputLimit, sort:{ _id: -1 } });
+        query._id = { $lt: ObjectId(lt_id) };
     }
+    if (gt_id) {
+        query._id = { $gt: ObjectId(gt_id) };
+        sort = { _id: -1 };
+    }
+    const services = await paginate( query, { page: inputPage, limit: inputLimit, sort: sort });
     if (services.total == 0 || services.error) {
         ctx.throw(404, 'No service found');
     }

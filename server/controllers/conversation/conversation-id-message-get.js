@@ -10,10 +10,17 @@ const { avgRating } = require('../../../stores/service-review');
 const { Types:{ ObjectId } } = require('../../../databases/mongo');
 
 module.exports = async (ctx) => {
-	const { lt_id, inputPage, inputLimit } = ctx.query;
+	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
     let query = { conversationId: ctx.params.idConversation };
-    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-    const messages = await paginate(query, { page: inputPage, limit: inputLimit });
+    let sort = { conversationId: 1 };
+    if (lt_id) {
+        query._id = { $lt: ObjectId(lt_id) };
+    }
+    if (gt_id) {
+        query._id = { $gt: ObjectId(gt_id) };
+        sort = { conversationId: -1 };
+    }
+    const messages = await paginate(query, { page: inputPage, limit: inputLimit, sort: sort });
 
     if (messages.total == 0 || messages.error)
         ctx.throw(404, "No message found");
