@@ -3,18 +3,26 @@ const { map } = require('lodash');
 const { paginate } = require('../../../stores/service');
 const { numOrders } = require('../../../stores/order');
 const { avgRating } = require('../../../stores/service-review');
-const { Types:{ ObjectId } } = require('../../../databases/mongo');
+const { Types: { ObjectId } } = require('../../../databases/mongo');
 
 const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
 
-    const { userId, lt_id, inputPage, inputLimit } = ctx.query;
-    let query = { userId };
-    if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-    if (!userId) query = { userId: ctx.session.id };
-    const services = await paginate(query, { page: inputPage, limit: inputLimit });
-
+    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
+    let { userId } = ctx.query;
+    if (!userId) {
+        const { id } = ctx.session;
+        userId = id;
+    }
+    let services = {};
+    if (lt_id) {
+        services = await paginate({ userId, _id: { $lt: ObjectId(lt_id) } }, { page: inputPage, limit: inputLimit, sort:{ _id: 1 } });
+    } else if (gt_id) {
+        services = await paginate({ userId, _id: { $gt: ObjectId(gt_id) } }, { page: inputPage, limit: inputLimit, sort:{ _id: -1 } });
+    } else {
+        services = await paginate({ userId }, { page: inputPage, limit: inputLimit, sort:{ _id: -1 } });
+    }
     if (services.total == 0 || services.error) {
         ctx.throw(404, 'No service found');
     }
