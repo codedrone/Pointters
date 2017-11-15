@@ -7,7 +7,7 @@ module.exports = (client) => (query, { page = 1, limit = 10 } = {}) => catchingE
     		page,
     		limit,
     		sort: {
-    			_id: 1
+    			_id: -1
     		}
     	}
     )

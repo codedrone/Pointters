@@ -8,7 +8,7 @@ const { Types:{ ObjectId } } = require('../../../databases/mongo');
 module.exports = async(ctx) => {
 	const { lt_id, inputPage, inputLimit } = ctx.query;
 	let query = { sellerId: ctx.session.id };
-	if (lt_id) query._id = { $lt: ObjectId(lt_id) };
+	if (lt_id) query.requestId = { $lt: ObjectId(lt_id) };
 	const requestOffers = await paginate(query, { page: inputPage, limit: inputLimit });
 	if (requestOffers.total == 0 || requestOffers.error) ctx.throw(404, "Error in find request-offer");
 	const { docs, total, limit, page, pages } = requestOffers;
@@ -23,10 +23,10 @@ module.exports = async(ctx) => {
 		if(request) {
 			result.requestOffers.request.description = request.description;
 			result.requestOffers.request.createdAt = request.createdAt;
-			result.requestOffers.request.media = request.media[0];
+			result.requestOffers.request.media = request.media;
 			result.requestOffers.requester.userId = request.userId;
-			result.requestOffers.requester.low = request.min;
-			result.requestOffers.requester.high = request.max;
+			result.requestOffers.requester.low = request.minPrice;
+			result.requestOffers.requester.high = request.maxPrice;
 			result.requestOffers.numOffers  = await countRequestOffer({ requestId: request._id });
 			const requester = await findOneUser({_id: request.userId});
 			if(requester) {

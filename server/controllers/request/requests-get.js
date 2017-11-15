@@ -17,10 +17,10 @@ module.exports = async(ctx) => {
 		result.requests.id = doc._id;
 		result.requests.description = doc.description;
 		result.requests.createdAt = doc.createdAt;
-		result.requests.media = doc.media[0];
+		result.requests.media = doc.media;
 		result.requests.numOffers  = await countRequestOffer({ requestId: doc._id });
-		result.requests.low = doc.min;
-		result.requests.high = doc.max;
+		result.requests.low = doc.minPrice;
+		result.requests.high = doc.maxPrice;
 		return resolve(result);
 	})));
 	ctx.status = 200;
