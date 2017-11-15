@@ -5,10 +5,10 @@ const { findOne: findOneUser } = require('../../../stores/user');
 const { paginate, count: countRequestOffer } = require('../../../stores/request-offer');
 
 module.exports = async(ctx) => {
-	const { lt_id, inputPages, inputLimit } = ctx.query;
+	const { lt_id, inputPage, inputLimit } = ctx.query;
 	let query = { sellerId: ctx.session.id };
 	if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-	const requestOffers = await paginate(query, { page: inputPages, limit: inputLimit });
+	const requestOffers = await paginate(query, { page: inputPage, limit: inputLimit });
 	if (requestOffers.total == 0 || requestOffers.error) ctx.throw(404, "Error in find request-offer");
 	const { docs, total, limit, page, pages } = requestOffers;
 	const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {

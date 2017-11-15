@@ -5,10 +5,10 @@ const { findOne: findOneUser } = require('../../../stores/user');
 const { Types:{ObjectId} } = require('../../../databases/mongo');
 
 module.exports = async (ctx) => {
-	const { lt_id, inputPages, inputLimit } = ctx.query;
+	const { lt_id, inputPage, inputLimit } = ctx.query;
     let query = { users: { $in: [ObjectId(ctx.session.id)] } };
     if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-    const conversations = await paginate(query, { page: inputPages, limit: inputLimit });
+    const conversations = await paginate(query, { page: inputPage, limit: inputLimit });
 
     if (conversations.total == 0 || conversations.error)
         ctx.throw(404, "No conversation found");

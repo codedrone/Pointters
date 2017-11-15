@@ -8,11 +8,11 @@ const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
 
-    const { userId, lt_id, inputPages, inputLimit } = ctx.query;
+    const { userId, lt_id, inputPage, inputLimit } = ctx.query;
     let query = { userId };
     if (lt_id) query._id = { $lt: ObjectId(lt_id) };
     if (!userId) query = { userId: ctx.session.id };
-    const services = await paginate(query, { page: inputPages, limit: inputLimit });
+    const services = await paginate(query, { page: inputPage, limit: inputLimit });
 
     if (services.total == 0 || services.error) {
         ctx.throw(404, 'No service found');

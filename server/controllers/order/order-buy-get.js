@@ -6,10 +6,10 @@ const { findOne: fineOneUser } = require('../../../stores/user');
 const { findOne: findService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
-	const { lt_id, inputPages, inputLimit } = ctx.query;
+	const { lt_id, inputPage, inputLimit } = ctx.query;
     let query = { buyerId: ctx.session.id };
     if (lt_id) query._id = { $lt: ObjectId(lt_id) };
-    const buyers = await paginate(query, { page: inputPages, limit: inputLimit });
+    const buyers = await paginate(query, { page: inputPage, limit: inputLimit });
 
     if ( buyers.total == 0 || buyers.error ) ctx.throw(404, "No order found");
 

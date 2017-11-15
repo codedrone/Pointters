@@ -9,11 +9,11 @@ const { avgRating } = require('../../../stores/service-review');
 const errorInGetWatching = 'watching does not exists';
 
 module.exports = async(ctx) => {
-    const { lt_id, inputPages, inputLimit } = ctx.query;
+    const { lt_id, inputPage, inputLimit } = ctx.query;
     let query = { userId: ctx.session.id };
     if (lt_id) query._id = { $lt: ObjectId(lt_id) };
 
-    const watchs = await paginate(query, { page: inputPages, limit: inputLimit });
+    const watchs = await paginate(query, { page: inputPage, limit: inputLimit });
 
     if (watchs.total == 0 || watchs.error) ctx.throw(404, errorInGetWatching);
 
