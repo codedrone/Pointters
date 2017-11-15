@@ -19,6 +19,7 @@ module.exports = async(ctx) => {
 		result.requests.createdAt = doc.createdAt;
 		result.requests.media = doc.media;
 		result.requests.numOffers  = await countRequestOffer({ requestId: doc._id });
+		result.requests.numNewOffers   = await countRequestOffer({ requestId: null });
 		result.requests.low = doc.minPrice;
 		result.requests.high = doc.maxPrice;
 		return resolve(result);

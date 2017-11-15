@@ -15,6 +15,7 @@ module.exports = {
     unset: unset(client),
     avgRating: avgRating(client),
     find: find(client),
+    findOne: findOne(client),
     count: count(client),
     create: create(client),
     search: search(client),
