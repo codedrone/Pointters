@@ -1,5 +1,5 @@
 const { findOne } = require('../../../stores/user');
-const { push } = require('../../../stores/user/following');
+const { create } = require('../../../stores/following');
 const isValidId = require('../../lib/is-valid-id');
 const userNotValidMessage = 'User to follow no valid';
 const idInvalidMessage = 'Id is not Valid';
@@ -10,12 +10,11 @@ module.exports = async(ctx) => {
 
     const userToAddFollowing = ctx.queryToFindUserById;
     const userToFollow = await findOne({ _id: ctx.params.followedId });
-
     if (!userToFollow) return ctx.throw(404, userNotValidMessage);
 
-    const { error } = await push(userToAddFollowing, userToFollow._id);
+    const following = await create({ followTo: ctx.params.followedId, followFrom: ctx.session.id });
 
-    if (error) ctx.throw(404, error.message);
+    if (!following || following.error) ctx.throw(404, "Create Error");
 
-    ctx.body = { success: true };
+    ctx.body = { success: true, following };
 };

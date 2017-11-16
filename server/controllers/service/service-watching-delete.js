@@ -1,4 +1,5 @@
-const { pull: pullToWatching } = require('../../../stores/user/watching');
+const { delete: deleteWatch } = require('../../../stores/watch');
+const { findOne: findOneWatch } = require('../../../stores/watch');
 const { findOne: findOneService } = require('../../../stores/service');
 
 const errorMessage = 'Service does not exists';
@@ -8,9 +9,16 @@ module.exports = async (ctx) => {
 
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const { error } = await pullToWatching(ctx.queryToFindUserById, ctx.params.idService);
+    const watch = await findOneWatch({ userId: ctx.session.id, serviceId: ctx.params.idService });
 
-    if (error) ctx.throw(404, 'Error on delete watching');
+    if (!watch || watch.error) ctx.throw(404, "watch does not exists");
 
-    ctx.body = { success: true };
+    await deleteWatch({ userId: ctx.session.id, serviceId: ctx.params.idService} );
+
+    const watchReturn = await findOneService( { userId: ctx.session.id, serviceId: ctx.params.idService} );
+
+    if(watchReturn)
+    	ctx.body = { success: false };
+    else
+    	ctx.body = { success: true };
 };

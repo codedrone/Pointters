@@ -16,9 +16,6 @@ describe('User requests', () => {
                 location:{
                     type: 'Object'
                 },
-                media:{
-                    type: 'Object'
-                },
                 minPrice:1,
                 maxPrice:1,
                 scheduleDate:1
@@ -30,9 +27,6 @@ describe('User requests', () => {
                     type: 'Object'
                 },
                 location:{
-                    type: 'Object'
-                },
-                media:{
                     type: 'Object'
                 },
                 minPrice:0,
@@ -59,9 +53,6 @@ describe('User requests', () => {
                 location:{
                     type: 'Object'
                 },
-                media:{
-                    type: 'Object'
-                },
                 minPrice:1,
                 maxPrice:1,
                 scheduleDate:1
@@ -73,9 +64,6 @@ describe('User requests', () => {
                     type: 'Object'
                 },
                 location:{
-                    type: 'Object'
-                },
-                media:{
                     type: 'Object'
                 },
                 minPrice:0,

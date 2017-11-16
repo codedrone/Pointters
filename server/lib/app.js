@@ -1,4 +1,5 @@
 const Koa = require('koa');
+const cors = require('@koa/cors');
 const jwt = require('./middelwares/jwt');
 const bodyParser = require('koa-bodyparser');
 const logger = require('koa-logger');
@@ -20,6 +21,10 @@ const {
 
 
 const app = new Koa();
+app.use(cors({
+  origin: ['http://localhost:4200'],
+  methods:['GET','POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
 app.keys = [ secret ];
 app.use(errors());
 // app.use(rateLimit());

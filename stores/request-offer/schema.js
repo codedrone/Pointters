@@ -1,44 +1,52 @@
+const subschemas = require('./sub-schemas');
 const {Schema} = require('mongoose');
 
 module.exports = {
-    userId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        index: true,
-        ref: 'user'
-    },
     createdAt:{
         type: Date,
         default: new Date()
     },
-    fulfillmentMethod:{
-        type:Object
+    fulfillmentMethod:subschemas.fulfillmentMethod.schema,
+    isActive: {
+        type: Boolean,
+        default: true
     },
-    location:{
-        type:Object
-    },
-    media:{
-        type:Object
-    },
+    location:subschemas.location.schema,
+    media:[subschemas.media.schema],
     price:{
-        type:Object
+        type: Number,
+        required: true
     },
     requestId:{
         type:Schema.Types.ObjectId,
         required: true
     },
-    isActive: {
-        type: Boolean,
-        default: true
-    },
     updatedAt:{
         type:Date
     },
-    workDuration:{
-        type:Object
+    sellerId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        index: true,
+        ref: 'user'
     },
-    workDurationUom:{
+    buyerId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        index: true,
+        ref: 'user'
+    },
+    workDuration: {
+        type: Number,
+        required: true
+    },
+    dateLastViewedByRequester: {
+        type: Date, 
+        default: new Date()
+    },
+    workDurationUom: {
         type: String,
-        enum: [ 'hour', 'day', 'week' ]
-    },
+        enum: [ 'hour', 'day', 'week' ],
+        required: true
+    }
 };

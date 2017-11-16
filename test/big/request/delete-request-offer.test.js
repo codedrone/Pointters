@@ -16,9 +16,6 @@ describe('User requests', () => {
                 location:{
                     type: Object
                 },
-                media:{
-                    type: Object
-                },
                 minPrice:0,
                 maxPrice:1,
                 scheduleDate:new Date().toString()
@@ -33,9 +30,6 @@ describe('User requests', () => {
                     type: Object
                 },
                 location:{
-                    type: Object
-                },
-                media:{
                     type: Object
                 },
                 minPrice:0,

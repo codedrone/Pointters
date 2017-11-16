@@ -10,9 +10,6 @@ describe('User requests', () => {
                 location: {
                     type: 'Object'
                 },
-                media: {
-                    type: 'Object'
-                },
                 minPrice: 1,
                 maxPrice: 1,
                 scheduleDate: 1,

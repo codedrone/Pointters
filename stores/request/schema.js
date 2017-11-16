@@ -1,5 +1,5 @@
 const {Schema} = require('mongoose');
-
+const subschemas = require('./sub-schemas');
 
 module.exports = {
     userId: {
@@ -21,9 +21,7 @@ module.exports = {
     location: {
         type: Object
     },
-    media: {
-        type: Object
-    },
+    media: subschemas.media.schema,
     minPrice: {
         type: Number
     },
