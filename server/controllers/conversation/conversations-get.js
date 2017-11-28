@@ -1,12 +1,13 @@
 const Promise = require('bluebird');
-const { map } = require('lodash');
+const { dropWhile, map } = require('lodash');
 const { paginate } = require('../../../stores/conversation');
 const { findOne: findOneUser } = require('../../../stores/user');
 const { Types:{ObjectId} } = require('../../../databases/mongo');
 
 module.exports = async (ctx) => {
-	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
-    let query = { users: { $in: [ObjectId(ctx.session.id)] } };
+    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
+    const loggedInUserId = ObjectId(ctx.queryToFindUserById._id);
+    let query = { users: { $in: [loggedInUserId] } };
     let sort = { _id: 1 };
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };
@@ -23,7 +24,7 @@ module.exports = async (ctx) => {
     const { docs, total, limit, page, pages } = conversations;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let result = {};
-        const users = doc.users;
+        const users = dropWhile(doc.users, (userId) => userId.equals(loggedInUserId));
         result.users = await Promise.all(map(users, (userId) => new Promise(async (resolve) => {
             const res = {};
             res.userId = userId;
