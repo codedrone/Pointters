@@ -5,8 +5,9 @@ const { findOne: findOneUser } = require('../../../stores/user');
 const { Types:{ObjectId} } = require('../../../databases/mongo');
 
 module.exports = async (ctx) => {
-	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
-    let query = { users: { $in: [ObjectId(ctx.session.id)] } };
+    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
+    const loggedInUserId = ObjectId(ctx.queryToFindUserById._id);
+    let query = { users: { $in: [loggedInUserId] } };
     let sort = { _id: 1 };
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };
