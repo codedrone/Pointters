@@ -13,6 +13,9 @@ module.exports = {
         index: true,
         ref: 'service'
     },
+    sellerId : {
+        type:Schema.Types.ObjectId,
+    },
     updatedAt: {
         type: Date,
         default: new Date()

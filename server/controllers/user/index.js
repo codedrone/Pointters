@@ -15,3 +15,5 @@ exports.deleteuserFollow = require('./user-delete-follow');
 exports.postuserFollow = require('./user-post-follow');
 exports.getFollowers = require('./user-get-followers');
 exports.getFollowing = require('./user-get-following');
+exports.getuserProfile = require('./user-get-profile');
+exports.getEligibility = require('./user-get-seller-eligibility');

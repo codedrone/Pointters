@@ -8,6 +8,8 @@ const search = require('./search');
 const find = require('./find');
 const Delete = require('./delete');
 const unset = require('./unset');
+const count = require('./count');
+const avgOnTime  = require('./avgOnTime');
 const paginate = require('./paginate');
 const numOrders = require('./numOrders');
 
@@ -17,6 +19,8 @@ module.exports = {
     numOrders: numOrders(client),
     paginate: paginate(client),
     find: find(client),
+    count: count(client),
+    avgOnTime: avgOnTime(client),
     delete: Delete(client),
     search: search(client),
     create: create(client),

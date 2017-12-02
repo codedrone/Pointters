@@ -9,11 +9,13 @@ const count = require('./count');
 const search = require('./search');
 const unset = require('./unset');
 const avgRating = require('./avgRating');
+const avgQuality  = require('./avgQuality');
 
 module.exports = {
     unset: unset(client),
     unset: unset(client),
     avgRating: avgRating(client),
+    avgQuality: avgQuality(client),
     find: find(client),
     findOne: findOne(client),
     count: count(client),

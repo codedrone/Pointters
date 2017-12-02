@@ -35,6 +35,11 @@ const schema = {
         required: true,
         ref: 'order'
     },
+    sellerId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        ref: 'user'
+    },
     userId: {
         type: Schema.Types.ObjectId,
         requied: true,
