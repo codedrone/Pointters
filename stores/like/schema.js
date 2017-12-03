@@ -25,5 +25,3 @@ module.exports = {
         default: new Date()
     }
 };
-
-
