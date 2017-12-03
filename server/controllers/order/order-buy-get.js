@@ -7,7 +7,7 @@ const { findOne: findService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
 	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
-    let query = { buyerId: ctx.session.id };
+    let query = { buyerId: ctx.queryToFindUserById._id };
     let sort = { _id: 1 };
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };

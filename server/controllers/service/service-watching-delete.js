@@ -9,13 +9,13 @@ module.exports = async (ctx) => {
 
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const watch = await findOneWatch({ userId: ctx.session.id, serviceId: ctx.params.idService });
+    const watch = await findOneWatch({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService });
 
     if (!watch || watch.error) ctx.throw(404, "watch does not exists");
 
-    await deleteWatch({ userId: ctx.session.id, serviceId: ctx.params.idService} );
+    await deleteWatch({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService} );
 
-    const watchReturn = await findOneService( { userId: ctx.session.id, serviceId: ctx.params.idService} );
+    const watchReturn = await findOneService( { userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService} );
 
     if(watchReturn)
     	ctx.body = { success: false };

@@ -11,7 +11,7 @@ const errorInGetWatching = 'like does not exists';
 
 module.exports = async(ctx) => {
     const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
-    let query = { userId: ctx.session.id };
+    let query = { userId: ctx.queryToFindUserById._id };
     let sort = { _id: 1 };
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };

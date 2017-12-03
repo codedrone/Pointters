@@ -7,11 +7,11 @@ module.exports = async (ctx) => {
 
 	if(!user || user.error) ctx.throw(404, "Error in find User");
 
-	const follow = await findOnefollowing({ followTo: ctx.params.idUser, followFrom: ctx.session.id });
+	const follow = await findOnefollowing({ followTo: ctx.params.idUser, followFrom: ctx.queryToFindUserById._id });
 
 	if(follow) ctx.throw(404, 'following already exist');
 
-    const following = await create({ followTo: ctx.params.idUser, followFrom: ctx.session.id });
+    const following = await create({ followTo: ctx.params.idUser, followFrom: ctx.queryToFindUserById._id });
 
     if (!following || following.error) ctx.throw(404, "Create Error");
 

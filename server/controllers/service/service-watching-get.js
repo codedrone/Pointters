@@ -9,7 +9,7 @@ module.exports = async(ctx) => {
     const service = await findOneService({ _id: ctx.params.idService });
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const watchs = await findOne({ userId: ctx.session.id, serviceId: ctx.params.idService });
+    const watchs = await findOne({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService });
 
     if (!watchs || watchs.error) ctx.throw(404, errorMessage);
 

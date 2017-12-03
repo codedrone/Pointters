@@ -9,11 +9,11 @@ module.exports = async(ctx) => {
 
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const watch = await findOneWatch({ userId: ctx.session.id, serviceId: ctx.params.idService });
+    const watch = await findOneWatch({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService });
 
     if (watch) ctx.throw(404, 'watch does already exists');
 
-    const watchCreate = await createWatch( { userId: ctx.session.id, serviceId: ctx.params.idService } );
+    const watchCreate = await createWatch( { userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService } );
 
     if (watchCreate)
     	ctx.body = { success: true };

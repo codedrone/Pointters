@@ -9,11 +9,11 @@ module.exports = async(ctx) => {
 
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const like = await findOneLike({ userId: ctx.session.id, serviceId: ctx.params.idService });
+    const like = await findOneLike({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService });
 
     if (like) ctx.throw(404, 'like already does exists');
 
-    const likeCreate = await createLike( { userId: ctx.session.id, serviceId: ctx.params.idService } );
+    const likeCreate = await createLike( { userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService } );
 
     if (likeCreate)
     	ctx.body = { success: true };
