@@ -12,7 +12,7 @@ module.exports = async(ctx) => {
     const userToFollow = await findOne({ _id: ctx.params.followedId });
     if (!userToFollow) return ctx.throw(404, userNotValidMessage);
 
-    const following = await create({ followTo: ctx.params.followedId, followFrom: ctx.session.id });
+    const following = await create({ followTo: ctx.params.followedId, followFrom: ctx.queryToFindUserById._id });
 
     if (!following || following.error) ctx.throw(404, "Create Error");
 

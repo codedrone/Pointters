@@ -9,13 +9,13 @@ module.exports = async (ctx) => {
 
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const like = await findOnelike({ userId: ctx.session.id, serviceId: ctx.params.idService });
+    const like = await findOnelike({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService });
 
     if (!like || like.error) ctx.throw(404, "like does not exists");
 
-    await deleteWatch({ userId: ctx.session.id, serviceId: ctx.params.idService} );
+    await deleteWatch({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService} );
 
-    const serviceReturn = await findOnelike( { userId: ctx.session.id, serviceId: ctx.params.idService} );
+    const serviceReturn = await findOnelike( { userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService} );
 
     if(serviceReturn)
     	ctx.body = { success: false };

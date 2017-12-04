@@ -9,27 +9,35 @@ const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
 
-    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
+    const { gt_id, lt_id, sortBy, inputPage, inputLimit } = ctx.query;
     let { userId } = ctx.query;
     if (!userId) {
         const { id } = ctx.session;
         userId = id;
     }
     let query = { userId };
-    let sort = { _id: 1 };
+    let sort = { _id: -1 };
+    if (sortBy === '-1') sort._id = -1;
+    else if (sortBy === '1') sort._id = 1;
+
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };
+				sort = { _id: -1 };
     }
     if (gt_id) {
         query._id = { $gt: ObjectId(gt_id) };
-        sort = { _id: -1 };
+        sort = { _id: 1 };
     }
+
     const services = await paginate( query, { page: inputPage, limit: inputLimit, sort: sort });
     if (services.total == 0 || services.error) {
         ctx.throw(404, 'No service found');
     }
 
     const { docs, total, limit, page, pages } = services;
+    let lastDocId = null;
+    if(docs && docs.length > 0) lastDocId = docs[docs.length-1]._id;
+
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let result = {};
         result.service = {};
@@ -47,5 +55,5 @@ module.exports = async(ctx) => {
     })));
 
     ctx.status = 200;
-    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
+    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages, lastDocId: lastDocId };
 };

@@ -10,7 +10,7 @@ module.exports = async(ctx) => {
 
     if (!service || service.error) ctx.throw(404, errorMessage);
 
-    const likes = await findOne({ userId: ctx.session.id, serviceId: ctx.params.idService });
+    const likes = await findOne({ userId: ctx.queryToFindUserById._id, serviceId: ctx.params.idService });
 
     if (!likes || likes.error) ctx.throw(404, "like does not exists");
 

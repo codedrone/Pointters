@@ -8,21 +8,28 @@ const { Types:{ ObjectId } } = require('../../../databases/mongo');
 const errorMessage = 'Error in find service';
 
 module.exports = async(ctx) => {
-    const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
-    let query = { followFrom: ctx.session.id };
-    let sort = { _id: 1 };
+    const { gt_id, lt_id, sortBy, inputPage, inputLimit } = ctx.query;
+    let query = { followFrom: ctx.queryToFindUserById._id };
+    let sort = { _id: -1 };
+    if (sortBy === '-1') sort._id = -1;
+    else if (sortBy === '1') sort._id = 1;
+
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };
+        sort = { _id: -1 };
     }
     if (gt_id) {
         query._id = { $gt: ObjectId(gt_id) };
-        sort = { _id: -1 };
+        sort = { _id: 1 };
     }
-    
-    const tempFollowFrom = await fineOneUser({ _id: ctx.session.id });
+
+    const tempFollowFrom = await fineOneUser({ _id: ctx.queryToFindUserById._id });
     const followers = await paginate( query, { page: inputPage, limit: inputLimit, sort: sort });
     if (followers.total == 0 || followers.error) ctx.throw(404, 'No follower found');
     const { docs, total, limit, page, pages } = followers;
+    let lastDocId = null;
+    if(docs && docs.length > 0) lastDocId = docs[docs.length-1]._id;
+
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
 
         const tempFollowTo = await fineOneUser({ _id: doc.followTo });
@@ -57,9 +64,9 @@ module.exports = async(ctx) => {
 
         return resolve(result);
     })));
-    
+
     const followFrom = {};
-    followFrom.id = ctx.session.id;
+    followFrom.id = ctx.queryToFindUserById._id;
     if(tempFollowFrom) {
         followFrom.firstName = tempFollowFrom.firstName;
         followFrom.lastName = tempFollowFrom.lastName;
@@ -67,5 +74,5 @@ module.exports = async(ctx) => {
         followFrom.profilePic = tempFollowFrom.profilePic;
     }
     ctx.status = 200;
-    ctx.body = { docs: results, followFrom: followFrom, total: total, limit: limit, page: page, pages: pages };
+    ctx.body = { docs: results, followFrom: followFrom, total: total, limit: limit, page: page, pages: pages, lastDocId: lastDocId };
 };
