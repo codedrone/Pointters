@@ -33,7 +33,7 @@ module.exports = async(ctx) => {
         sort = { _id: -1 };
     }
     const services = await paginate(query, { page: inputPage, limit: inputLimit, sort:sort });
-    console.log("services ====", services, "p =====", p);
+
     if (services.total == 0 || services.error) ctx.throw(404, 'Error in find services for nearby location');
 
     const { docs, total, limit, page, pages } = services;

@@ -11,9 +11,9 @@ module.exports = async (ctx) => {
     if(typeof users === 'string')
         ctx.throw(404, "Please input more 2 users");
     if(users.length == 2) {
-        const conversation = await findOne({ users: {  $in: [users[0], users[1]] } } );
+        const conversation = await findOne({ users: [users[0], users[1]] } );
         if(conversation)
-            ctx.throw(400, ":id already exist");
+            ctx.throw(400, "conversation" + conversation._id + " already exists" );
     }
     const newConversation = await create({ users });
     if (!newConversation || newConversation.error)

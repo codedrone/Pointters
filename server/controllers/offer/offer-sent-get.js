@@ -1,10 +1,10 @@
 const Promise = require('bluebird');
 const { map } = require('lodash');
 const { paginate } = require('../../../stores/offer');
-const { findOne: fineOneUser } = require('../../../stores/user');
+const { findOne: findOneUser } = require('../../../stores/user');
 const {Types:{ObjectId}} = require('../../../databases/mongo');
 
-const { findOne: fineOneService } = require('../../../stores/service');
+const { findOne: findOneService } = require('../../../stores/service');
 
 module.exports = async (ctx) => {
     const { gt_id, lt_id, sortBy, inputPage, inputLimit } = ctx.query;
@@ -41,7 +41,7 @@ module.exports = async (ctx) => {
         result.workDuration = doc.workDuration;
         result.workDurationUom = doc.workDurationUom;
         result.createdAt = doc.createdAt;
-        const userData = await fineOneUser({ _id: ObjectId(doc.buyerId) });
+        const userData = await findOneUser({ _id: ObjectId(doc.buyerId) });
         if(userData)
         {
             result.buyer.firstName = userData.firstName;
@@ -50,10 +50,10 @@ module.exports = async (ctx) => {
             result.buyer.phone = userData.phone;
             result.buyer.profilePic = userData.profilePic;
         }
-        const ServiceData = await fineOneService({ _id: ObjectId(doc.serviceId) });
-        if(ServiceData)
+        const ServiceData = await findOneService({ _id: ObjectId(doc.serviceId) });
+        if(ServiceData && !result.description)
         {
-            result.serviceDescription = ServiceData.description;
+            result.description = ServiceData.description;
         }
         return resolve(result);
     })));
