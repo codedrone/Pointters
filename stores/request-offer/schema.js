@@ -2,7 +2,17 @@ const subschemas = require('./sub-schemas');
 const {Schema} = require('mongoose');
 
 module.exports = {
+    buyerId: {
+        type: Schema.Types.ObjectId,
+        required: true,
+        index: true,
+        ref: 'user'
+    },
     createdAt:{
+        type: Date,
+        default: new Date()
+    },
+    dateLastViewedByRequester: {
         type: Date,
         default: new Date()
     },
@@ -21,28 +31,18 @@ module.exports = {
         type:Schema.Types.ObjectId,
         required: true
     },
-    updatedAt:{
-        type:Date
-    },
     sellerId: {
         type: Schema.Types.ObjectId,
         required: true,
         index: true,
         ref: 'user'
     },
-    buyerId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        index: true,
-        ref: 'user'
+    updatedAt:{
+        type:Date
     },
     workDuration: {
         type: Number,
         required: true
-    },
-    dateLastViewedByRequester: {
-        type: Date, 
-        default: new Date()
     },
     workDurationUom: {
         type: String,

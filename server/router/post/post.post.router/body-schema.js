@@ -8,5 +8,8 @@ module.exports = joi.object().keys({
         fileName:joi.string(),
         mediaType: joi.string().valid(mediaType)
     })),
-    tags: joi.array().items(joi.string().required())
+    tags: joi.array().items(joi.object().keys({
+        type:joi.string().valid(['service','user']),
+        id: joi.string()
+    }))
 });

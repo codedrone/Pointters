@@ -11,10 +11,7 @@ module.exports = async(ctx) => {
 
     const { gt_id, lt_id, sortBy, inputPage, inputLimit } = ctx.query;
     let { userId } = ctx.query;
-    if (!userId) {
-        const { id } = ctx.session;
-        userId = id;
-    }
+    if (!userId) userId = ctx.queryToFindUserById._id;
     let query = { userId };
     let sort = { _id: -1 };
     if (sortBy === '-1') sort._id = -1;

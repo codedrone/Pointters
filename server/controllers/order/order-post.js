@@ -6,9 +6,11 @@ module.exports = async(ctx) => {
     },
     ctx.request.body
     );
-    const { error } = await createOrder(orderToCreate);
+    //const { error } = await createOrder(orderToCreate);
+    const order = await createOrder(orderToCreate);
+    console.log(order);
 
-    if (error) ctx.throw(404, error.message);
+    if (order.error) ctx.throw(404, error.message);
 
-    ctx.body = { success: true };
+    ctx.body = { order: order};
 };

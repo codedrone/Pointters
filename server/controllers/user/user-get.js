@@ -7,6 +7,7 @@ module.exports = async(ctx) => {
     const queryToGetOtherUser = {
         _id: ctx.request.query.userId || ctx.queryToFindUserById._id
     };
+    console.log('queryToGetRequester  ', queryToGetRequester);    
     console.log('queryToGetOtherUser  ', queryToGetOtherUser);
     const requester = await findOne(queryToGetRequester);
     console.log('requester  ', requester);

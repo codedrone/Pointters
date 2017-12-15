@@ -41,6 +41,17 @@ module.exports = async (ctx) => {
         result.workDuration = doc.workDuration;
         result.workDurationUom = doc.workDurationUom;
         result.createdAt = doc.createdAt;
+        if(doc.media) result.media = doc.media[0];
+        if(doc.location) result.location = doc.location;
+
+        const ServiceData = await findOneService({ _id: ObjectId(doc.serviceId) });
+        if(ServiceData && !result.description)
+        {
+            result.description = ServiceData.description;
+            if(!result.media) result.media=ServiceData.media[0];
+            if(!result.location) result.location=ServiceData.location[0];
+        }
+
         const userData = await findOneUser({ _id: ObjectId(doc.buyerId) });
         if(userData)
         {
@@ -49,12 +60,10 @@ module.exports = async (ctx) => {
             result.buyer.location = userData.location;
             result.buyer.phone = userData.phone;
             result.buyer.profilePic = userData.profilePic;
+            if(!result.media) result.media = userData.profilePic;
+            if(!result.location) result.location=userData.location;
         }
-        const ServiceData = await findOneService({ _id: ObjectId(doc.serviceId) });
-        if(ServiceData && !result.description)
-        {
-            result.description = ServiceData.description;
-        }
+
         return resolve(result);
     })));
     ctx.status = 200;

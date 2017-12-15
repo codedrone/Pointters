@@ -36,6 +36,11 @@ module.exports = async(ctx) => {
 		result.requestOffers.requester = {};
 		result.requestOffers.request.requestId = doc.requestId;
 		result.requestOffers.createdAt = doc.createdAt;
+
+		const ms_in_one_day=1000*60*60*24;
+		const today = new Date();
+		result.requestOffers.expiresIn = Math.round((doc.createdAt.getTime() + 7*ms_in_one_day - today.getTime())/ms_in_one_day);
+
 		const request = await findOneRequest(doc.requestId);
 		if(request) {
 			result.requestOffers.request.description = request.description;
@@ -44,8 +49,11 @@ module.exports = async(ctx) => {
 			result.requestOffers.requester.userId = request.userId;
 			result.requestOffers.requester.low = request.minPrice;
 			result.requestOffers.requester.high = request.maxPrice;
+			//console.log(request);
 			result.requestOffers.numOffers  = await countRequestOffer({ requestId: request._id });
-			const requester = await findOneUser({_id: request.userId});
+			console.log(request.userId);
+			const requester = await findOneUser({_id: ObjectId(request.userId)});
+			console.log(requester);
 			if(requester) {
 				result.requestOffers.requester.firstName = requester.firstName;
 				result.requestOffers.requester.lastName = requester.lastName;

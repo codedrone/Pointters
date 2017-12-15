@@ -9,10 +9,15 @@ module.exports = {
         ref: 'user'
     },
     category: {
-        type: Object
+        type: Object,
+        required: true
     },
     createdAt: {
         type: Date, default: new Date()
+    },
+    description: {
+        type: String,
+        required: true
     },
     isActive: {
         type: Boolean,
@@ -21,7 +26,7 @@ module.exports = {
     location: {
         type: Object
     },
-    media: subschemas.media.schema,
+    media: [subschemas.media.schema],
     minPrice: {
         type: Number
     },
