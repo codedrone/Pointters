@@ -31,5 +31,11 @@ module.exports = new Schema({
     },
     startedDate: {
         type: Date
+    },
+    statusCode: {
+        type: String
+    },
+    statusDescription: {
+        type: String
     }
 });

@@ -1,17 +1,27 @@
+const subschemas = require('./sub-schemas');
 const {Schema} = require('mongoose');
 
 module.exports = {
-    users: {
-        type: Array
+    conversationTitle: {
+        type: String,
+        required: true
     },
-    updatedAt: {
-        type: Date,
-        default: new Date()
+    countNewMessages: {
+        type: Number,
+        required: true,
+        default: 0
     },
     createdAt: {
         type: Date,
         default: new Date()
+    },
+    lastMessage: subschemas.lastMessage.schema,
+    updatedAt: {
+        type: Date,
+        default: new Date()
+    },
+    users: {
+        type: Array,
+        required: true
     }
 };
-
-

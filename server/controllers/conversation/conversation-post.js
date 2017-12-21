@@ -15,7 +15,7 @@ module.exports = async (ctx) => {
         if(conversation)
             ctx.throw(400, "conversation" + conversation._id + " already exists" );
     }
-    const newConversation = await create({ users });
+    const newConversation = await create(ctx.request.body);
     if (!newConversation || newConversation.error)
         ctx.throw(404, "Error conversation create");
 

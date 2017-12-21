@@ -45,6 +45,7 @@ module.exports = async(ctx) => {
 	        result.service.media = service.media[0];
 	        result.service.location = service.location;
 	        result.service.prices = service.prices[0];
+          result.service.promoted = service.promoted;
         }
         result.user.id = doc.userId;
         const user = await findOneUser({ _id: doc.userId });

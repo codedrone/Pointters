@@ -14,6 +14,9 @@ module.exports = new Schema({
         type: Number,
         required: true
     },
+    priceWithoutDiscount: {
+        type: Number
+    },
     time: {
         type: Number,
         required: true

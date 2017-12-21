@@ -29,10 +29,12 @@ module.exports = joi.object().keys({
         mediaType: joi.string().valid([ 'image', 'video' ])
     })),
     prices: joi.array().items(joi.object().keys({
+        currencyCode: joi.string().required(),
+        currencySymbol: joi.string(),
         description: joi.string(),
         location: joi.object(),
         price: joi.number(),
-        priceWithoutDiscount: joi.number(),  
+        priceWithoutDiscount: joi.number(),
         time: joi.number(),
         timeUnitOfMeasure: joi.string().valid([ 'hour', 'day', 'week' ])
     }))

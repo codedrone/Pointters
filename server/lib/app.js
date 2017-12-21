@@ -11,7 +11,6 @@ const getQueries = require('./middelwares/attach-queries');
 const timeout = require('koa-timeout-v2');
 // const rateLimit = require('./middelwares/rate-limit');
 const compress = require('./middelwares/compress');
-const serve = require('koa-static');
 
 const {
     jwt: { secret, expiresIn:maxAge },
@@ -40,5 +39,4 @@ app.use(bodyParser({
     jsonLimit: '5mb',
     textLimit: '5mb'
 }));
-app.use(serve('/dist'));
 module.exports = app;

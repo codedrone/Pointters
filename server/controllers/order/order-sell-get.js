@@ -31,34 +31,36 @@ module.exports = async (ctx) => {
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         const result = {};
         result.buyer = {};
-        result.service = {};
         result.order = {};
-        result.order.paymentDate = doc.paymentDate;
+        result.order.currencyCode = doc.currencyCode;
+        result.order.currencySymbol = doc.currencySymbol;                        
+        result.order.totalAmount = doc.totalAmount;
+				result.order.totalAmountBeforeDiscount = doc.totalAmountBeforeDiscount;
         result.order.orderMilestoneStatuses = doc.orderMilestoneStatuses;
+        result.order.paymentDate = doc.paymentDate;
+        result.order.status = doc.orderMilestoneStatuses.statusDescription;
         const serviceLocation = doc.buyerServiceLocation[0];
         if(doc.buyerServiceLocation == null)
             serviceLocation = doc.sellerServiceLocation[0];
         result.order.serviceLocation = serviceLocation;
 
         result.buyer.id = doc.buyerId;
-        result.service.id = doc.serviceId;
         const buyer = await fineOneUser({ _id: ObjectId(doc.buyerId) });
         if(buyer)
         {
             result.buyer.firstName = buyer.firstName;
             result.buyer.lastName = buyer.lastName;
             result.buyer.phone = buyer.phone;
-            result.buyer.phone = buyer.phone;
             result.buyer.profilePic = buyer.profilePic;
         }
         const service = await findService({ _id: ObjectId(doc.serviceId) });
         if(service)
         {
-            result.service.description = service.description;
-            result.service.createdAt = service.createdAt;
-            result.service.updatedAt = service.updatedAt;
-            result.service.media = service.media[0];
+            result.order.media = service.media[0];
+            result.order.description = service.description;
         }
+        result.order.priceDescription = doc.orderItems[0].description;
+        result.order.notificationCount = 0;
         return resolve(result);
     })));
     ctx.status = 200;

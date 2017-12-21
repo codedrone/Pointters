@@ -13,6 +13,8 @@ module.exports = joi.object().keys({
     buyerServiceLocation: joi.array().items(location),
     cancellationDate: joi.date(),
     category: joi.object().required(),
+    currencyCode: joi.string().required(),
+    currencySymbol: joi.string(),    
     description: joi.string().required(),
     fulfillmentMethod: fulfillmentMethod,
     geofence: joi.array(),
@@ -33,5 +35,7 @@ module.exports = joi.object().keys({
     serviceStartDate: joi.date(),
     serviceCompleteDate: joi.date(),
     shippingInfo: joi.object(),
-    taxes: joi.object()
+    taxes: joi.object(),
+    totalAmount: joi.number(),
+    totalAmountBeforeDiscount: joi.number()
 });

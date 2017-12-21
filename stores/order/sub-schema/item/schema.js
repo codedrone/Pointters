@@ -10,6 +10,9 @@ module.exports = new Schema({
         type: Number,
         required: true
     },
+    priceWithoutDiscount: {
+        type: Number
+    },
     quantity: {
         type: Number,
         required: true
