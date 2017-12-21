@@ -31,6 +31,9 @@ module.exports = async (ctx) => {
 
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let result = {};
+        result.conversationTitle = doc.conversationTitle;
+        result.countNewMessages = doc.countNewMessages;
+        result.lastMessage = doc.lastMessage;
         const loginUserIndex = doc.users.indexOf(loggedInUserId);
         doc.users.splice(loginUserIndex,1);
         result.users = await Promise.all(map(doc.users, (userId) => new Promise(async (resolve) => {

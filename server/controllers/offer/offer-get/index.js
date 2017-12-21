@@ -6,6 +6,7 @@ const getQuery = require('./get-query');
 const errorInGetWatching = 'Error in get to offer-offer';
 module.exports = async (ctx) => {
     const query = getQuery(ctx);
+    console.log(query);
     const offers = await findOffer(query, {limit});
     if (!offers || !offers.length || offers.error) ctx.throw(404, errorInGetWatching);
 

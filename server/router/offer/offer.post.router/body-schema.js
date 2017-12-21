@@ -5,7 +5,9 @@ const workDurationUom = [ 'hour', 'day', 'week' ];
 
 module.exports = joi.object().keys({
     buyerId: joi.string().required(),
-    description: joi.string().required(),    
+    currencyCode: joi.string().required(),
+    currencySymbol: joi.string(),
+    description: joi.string().required(),
     fulfillmentMethod: joi.object().keys({
         local: joi.boolean(),
         online: joi.boolean(),
@@ -30,6 +32,7 @@ module.exports = joi.object().keys({
         mediaType: joi.string().valid([ 'image', 'video', 'document'  ])
     })),
     price: joi.number(),
+    priceWithoutDiscount: joi.number(),    
     sellerId: joi.string().required(),
     serviceId: joi.string(),
     workDuration: joi.number().required(),

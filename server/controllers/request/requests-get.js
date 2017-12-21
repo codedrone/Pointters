@@ -29,6 +29,8 @@ module.exports = async(ctx) => {
 
 	const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
 		let result = {};
+		const ms_in_one_day=1000*60*60*24;
+		const today = new Date();
 		result.requests = {};
 		result.requests.id = doc._id;
 		result.requests.description = doc.description;
@@ -38,6 +40,7 @@ module.exports = async(ctx) => {
 		result.requests.numNewOffers   = await countRequestOffer({ requestId: null });
 		result.requests.low = doc.minPrice;
 		result.requests.high = doc.maxPrice;
+		result.requests.expiresIn = Math.round((doc.createdAt.getTime() + 7*ms_in_one_day - today.getTime())/ms_in_one_day);
 		return resolve(result);
 	})));
 	ctx.status = 200;

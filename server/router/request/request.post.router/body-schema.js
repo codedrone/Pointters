@@ -3,6 +3,7 @@ const joi = require('joi');
 
 module.exports = joi.object().keys({
     category:joi.object(),
+    description: joi.string().required(),    
     location:joi.object().keys({
         city: joi.string(),
         country: joi.string(),

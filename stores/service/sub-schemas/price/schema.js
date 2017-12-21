@@ -2,6 +2,13 @@ const { Schema } = require('../../../../databases/mongo');
 
 
 module.exports = new Schema({
+    currencyCode: {
+        type: String,
+        required: true
+    },  
+    currencySymbol: {
+        type: String
+    },
     description: {
         type: String,
         required: true

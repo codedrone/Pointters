@@ -1,4 +1,5 @@
 const {schema: media} = require('./sub-schema/media');
+const {schema: tag} = require('./sub-schema/tag');
 const {Schema} = require('mongoose');
 
 module.exports = {
@@ -18,7 +19,7 @@ module.exports = {
     },
     message: String,
     media: [ media ],
-    tags: [ String ],
+    tags: [ tag ],
     updatedAt:{
         type: Date,
         default: new Date()

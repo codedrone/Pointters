@@ -13,6 +13,13 @@ module.exports = {
         type: Date,
         default: new Date()
     },
+    currencyCode: {
+        type: String,
+        required: true
+    },
+    currencySymbol: {
+        type: String
+    },
     description: {
         type: String,
         required: true
@@ -28,6 +35,9 @@ module.exports = {
         type: Number,
         required: true
     },
+    priceWithoutDiscount: {
+        type: Number
+    },    
     sellerId: {
         type: Schema.Types.ObjectId,
         required: true,

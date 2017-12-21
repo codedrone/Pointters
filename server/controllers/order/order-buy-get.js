@@ -31,34 +31,36 @@ module.exports = async (ctx) => {
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         const result = {};
         result.seller = {};
-        result.service = {};
         result.order = {};
-        result.order.paymentDate = doc.paymentDate;
+				result.order.currencyCode = doc.currencyCode;
+        result.order.currencySymbol = doc.currencySymbol;   				
+				result.order.totalAmount = doc.totalAmount;
+				result.order.totalAmountBeforeDiscount = doc.totalAmountBeforeDiscount;
         result.order.orderMilestoneStatuses = doc.orderMilestoneStatuses;
+        result.order.paymentDate = doc.paymentDate;
+        result.order.status = doc.orderMilestoneStatuses.statusDescription;
         const serviceLocation = doc.buyerServiceLocation[0];
         if(doc.buyerServiceLocation == null)
             serviceLocation = doc.sellerServiceLocation[0];
         result.order.serviceLocation = serviceLocation;
 
         result.seller.id = doc.sellerId;
-        result.service.id = doc.serviceId;
         const seller = await fineOneUser({ _id: ObjectId(doc.sellerId) });
         if(seller)
         {
             result.seller.firstName = seller.firstName;
             result.seller.lastName = seller.lastName;
             result.seller.phone = seller.phone;
-						result.seller.phone = seller.phone;
 						result.seller.profilePic = seller.profilePic;
         }
         const service = await findService({ _id: ObjectId(doc.serviceId) });
         if(service)
         {
-            result.service.description = service.description;
-            result.service.createdAt = service.createdAt;
-            result.service.updatedAt = service.updatedAt;
-            result.service.media = service.media[0];
+					  result.order.media = service.media[0];
+            result.order.description = service.description;
         }
+				result.order.priceDescription = doc.orderItems[0].description;
+				result.order.notificationCount = 0;
         return resolve(result);
     })));
     ctx.status = 200;

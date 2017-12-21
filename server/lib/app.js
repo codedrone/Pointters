@@ -12,7 +12,6 @@ const timeout = require('koa-timeout-v2');
 // const rateLimit = require('./middelwares/rate-limit');
 const compress = require('./middelwares/compress');
 
-
 const {
     jwt: { secret, expiresIn:maxAge },
     timeout: { apiTimeout, timeoutOptions },
@@ -22,7 +21,6 @@ const {
 
 const app = new Koa();
 app.use(cors({
-  origin: ['http://localhost:4200'],
   methods:['GET','POST', 'PUT', 'DELETE', 'OPTIONS']
 }));
 app.keys = [ secret ];

@@ -10,6 +10,7 @@ module.exports = joi.object().keys({
     scheduled: joi.boolean(),
     scheduledDate: joi.date(),
     started: joi.boolean(),
-    startedDate: joi.date()
+    startedDate: joi.date(),
+    statusCode: joi.string(),
+    statusDescription: joi.string()
 });
-
