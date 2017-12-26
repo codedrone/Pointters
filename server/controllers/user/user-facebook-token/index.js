@@ -26,14 +26,20 @@ module.exports = async(ctx) => {
         'socialNetwork.id': idFacebook,
         'socialNetwork.name': socialNetwork
     });
-    
+
     let userCreatedOrUpdated = savedUser;
     ctx.body.msg = 'Successful login';
+
     const [ firstName, lastName ] = name.split(' ');
     if (!savedUser) {
         userCreatedOrUpdated = await createUser(ctx, { idFacebook, firstName, lastName });
         ctx.body.msg = 'Successful created a new user';
+        ctx.body.completedRegistration = false;
+    }else{
+        if (savedUser.completedRegistration) ctx.body.completedRegistration = savedUser.completedRegistration
+        else ctx.body.completedRegistration = false;
     }
+
     if (userCreatedOrUpdated.error) ctx.throw(404, userCreatedOrUpdated.error.message);
 
     const paramsToGetToken = { id: userCreatedOrUpdated._id };
@@ -46,4 +52,3 @@ module.exports = async(ctx) => {
         token
     });
 };
-
