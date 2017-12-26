@@ -7,7 +7,7 @@ module.exports = joi.object().keys({
     sellerId: joi.string().required(),
     buyerId: joi.string().required(),
     currencyCode: joi.string().required(),
-    currencySymbol: joi.string(),
+    currencySymbol: joi.string(),    
     fulfillmentMethod: joi.object().keys({
         local: joi.boolean(),
         online: joi.boolean(),

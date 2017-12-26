@@ -14,5 +14,5 @@ module.exports = async (user, password, ctx) => {
     ctx.response.set(getHeaders());
     ctx.session = getSession(user);
 
-    ctx.body = { success: true, token: token };
+    ctx.body = { success: true, token: token, completedRegistration: user.completedRegistration };
 };

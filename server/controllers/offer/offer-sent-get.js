@@ -35,6 +35,7 @@ module.exports = async (ctx) => {
         let offData = {};
         result.buyer={};
         result.buyer.buyerId = doc.buyerId;
+				result.offerId = doc._id;
         result.serviceId = doc.serviceId;
         result.description = doc.description;
         result.price = doc.price;
@@ -60,7 +61,10 @@ module.exports = async (ctx) => {
             result.buyer.location = userData.location;
             result.buyer.phone = userData.phone;
             result.buyer.profilePic = userData.profilePic;
-            if(!result.media) result.media = userData.profilePic;
+            if(!result.media) result.media = {
+              fileName: userData.profilePic,
+              mediaType: "image"
+            }
             if(!result.location) result.location=userData.location;
         }
 
