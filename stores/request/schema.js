@@ -16,8 +16,7 @@ module.exports = {
         type: Date, default: new Date()
     },
     currencyCode: {
-        type: String,
-        required: true
+        type: String
     },
     currencySymbol: {
         type: String

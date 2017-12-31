@@ -20,19 +20,16 @@ module.exports = {
     media: [ subschemas.media.schema ],
     serviceId: {
         type: Schema.Types.ObjectId,
-        required: true,
         index: true,
         ref: 'service'
     },
     offerId: {
         type: Schema.Types.ObjectId,
-        required: true,
         index: true,
         ref: 'offer'
     },
     requestId: {
         type: Schema.Types.ObjectId,
-        required: true,
         index: true,
         ref: 'request'
     },
@@ -45,9 +42,6 @@ module.exports = {
         default: new Date()
     },
     deletedAt: {
-        type: Date,
-        default: new Date()
+        type: Date
     }
 };
-
-
