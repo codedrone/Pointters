@@ -31,6 +31,7 @@ module.exports = async (ctx) => {
 
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let result = {};
+        result._id = doc._id;
         result.conversationTitle = doc.conversationTitle;
         result.countNewMessages = doc.countNewMessages;
         result.lastMessage = doc.lastMessage;

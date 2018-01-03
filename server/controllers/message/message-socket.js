@@ -9,8 +9,6 @@ const IO = require('koa-socket.io');
 //socket'io listener cb
 //register it in /lib/socket.js
 module.exports =  async (d, socket)=>{
-    console.log('in conversation-socket ',d);
-    console.log('in conversation-socket socket ' + socket.id);
     const message = (typeof d === 'string')?JSON.parse(d):d;
     if(!message)
       return socket.emit("message_error",{error: "invalid message body"});
@@ -18,18 +16,15 @@ module.exports =  async (d, socket)=>{
     //validate conversationId
     if(!message.conversationId) return socket.emit("message_error",{error: "invalid conversationId"});
     const conversation = await findOneConversation({ _id: ObjectId(message.conversationId) });
-    console.log('found conversation ',conversation);
     if(!conversation) return socket.emit("message_error",{error: "invalid conversationId"});
 
     //validate userId
     if(!message.userId) return socket.emit("message_error",{error: "invalid userId"});
     const user = await fineOneUser({ _id: ObjectId(message.userId) });
-    console.log('found user ',user);
     if(!user) return socket.emit("message_error",{error: "invalid userId"});
 
     //create message
     const newMessage = await createMessage(message);
-    console.log('newMessage ', newMessage);
     if (!newMessage || newMessage.error) return socket.emit("message_error","Error message create");
 
     //if messageText is blank then default messageText by action
@@ -53,7 +48,6 @@ module.exports =  async (d, socket)=>{
         }
       }
     );
-    console.log('updatedConversation ',updatedConversation);
 
     //send message to conversation room
     return socket.to(message.conversationId).emit("message",newMessage);
