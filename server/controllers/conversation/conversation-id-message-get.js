@@ -12,7 +12,7 @@ const { Types:{ ObjectId } } = require('../../../databases/mongo');
 module.exports = async (ctx) => {
 	const { gt_id, lt_id, inputPage, inputLimit } = ctx.query;
     let query = { conversationId: ctx.params.idConversation };
-    let sort = { conversationId: 1 };
+    let sort = { _id : -1 };
     if (lt_id) {
         query._id = { $lt: ObjectId(lt_id) };
     }
@@ -26,12 +26,15 @@ module.exports = async (ctx) => {
         ctx.throw(404, "No message found");
 
     const { docs, total, limit, page, pages } = messages;
+		let lastDocId = null;
+		if(docs && docs.length > 0) lastDocId = docs[docs.length-1]._id;
     const results = await Promise.all(map(docs, (doc) => new Promise(async (resolve) => {
         let result = {};
         result.result = {};
 
 				//populate result with message
 				result.result.message = {};
+				result.result.message.id = doc._id;
         result.result.message.createdAt = doc.createdAt;
         result.result.message.updatedAt = doc.updatedAt;
         result.result.message.messageText = doc.messageText;
@@ -106,6 +109,6 @@ module.exports = async (ctx) => {
         return resolve(result);
     })));
     ctx.status = 200;
-    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages };
+    ctx.body = { docs: results, total: total, limit: limit, page: page, pages: pages, lastDocId: lastDocId };
 
 };
