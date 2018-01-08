@@ -13,7 +13,7 @@ module.exports =  async (d, socket)=>{
         return socket.emit("start_conversation",{error: "invalid users"});
 
     if(users.length == 2) {
-        const conversation = await findOne({ users: [users[0], users[1]] } );
+        const conversation = await findOne({$or:[{ users: [users[0], users[1]] }, { users: [users[1], users[0]] }]} );
         if(conversation) {
             socket.join(conversation._id, async () => {
                 let rooms = Object.keys(socket.rooms);

@@ -56,53 +56,81 @@ module.exports = async (ctx) => {
 
 				//populate result with service
 				if(doc.serviceId){
-					result.result.service = {};
-	        result.result.service.serviceId = doc.serviceId;
+					result.result.message.service = {};
+	        result.result.message.service.serviceId = doc.serviceId;
 	        const service = await findOneService({ _id: doc.serviceId });
 	        if(service) {
-	            result.result.service.description = service.description;
-							if(service.media) result.result.service.media = service.media[0];
-	            if(service.price) result.result.service.price = service.price[0];
+	            result.result.message.service.description = service.description;
+							if(service.media) result.result.message.service.media = service.media[0];
+	            if(service.prices && service.prices[0]) result.result.message.service.price = service.prices[0];
+							const seller = await findOneUser({ _id: service.userId });
+							if(seller){
+								result.result.message.service.seller = {
+									firstName: seller.firstName,
+									lastName: seller.lastName
+								};
+							}
 	        }
 				}
 
 				//populate result with offer
 				if(doc.offerId){
-					result.result.offer = {};
-	        result.result.offer.offerId = doc.offerId;
+					result.result.message.offer = {};
+	        result.result.message.offer.offerId = doc.offerId;
 	        const offer = await findOneOffer({ _id: doc.offerId });
 	        if(offer) {
-	            result.result.offer.description = offer.description;
-							if(offer.media && offer.media.length>0) result.result.offer.media = offer.media[0];
-	            result.result.offer.price = offer.price;
-	            result.result.offer.workDuration = offer.workDuration;
-	            result.result.offer.workDurationUom = offer.workDurationUom;
+	            result.result.message.offer.description = offer.description;
+							if(offer.media && offer.media.length>0) result.result.message.offer.media = offer.media[0];
+							result.result.message.offer.currencyCode = offer.currencyCode;
+		          result.result.message.offer.currencySymbol = offer.currencySymbol;
+		          result.result.message.offer.price = offer.price;
+		          result.result.message.offer.priceWithoutDiscount = offer.priceWithoutDiscount;
+	            result.result.message.offer.workDuration = offer.workDuration;
+	            result.result.message.offer.workDurationUom = offer.workDurationUom;
 
-							//if offer has no media, then populate offer image from linked service or seller
-							if((!offer.media || offer.media.length<1)){
-								if(offer.serviceId){
-									const offerSevice = await findOneService({ _id: offer.serviceId });
-			            if(offerSevice) {
-											if(offerSevice.media) result.result.offer.media = offerSevice.media[0];
-			            }
-								}else{
-									const offerSeller = await findOneUser({ _id: offer.sellerId });
-			            if(offerSeller) result.result.offer.media = offerSeller.profilePic;
-								}
+							//populate linked service
+							if(offer.serviceId){
+								result.result.message.offer.service = {};
+				        result.result.message.offer.service.serviceId = offer.serviceId;
+				        const linkedService = await findOneService({ _id: offer.serviceId });
+				        if(linkedService) {
+				            result.result.message.offer.service.description = linkedService.description;
+										if(linkedService.media) result.result.message.offer.service.media = linkedService.media[0];
+				            if(linkedService.prices && linkedService.prices[0]) result.result.message.offer.service.price = linkedService.prices[0];
+										const linkedSeller = await findOneUser({ _id: linkedService.userId });
+										if(linkedSeller){
+											result.result.message.offer.service.seller = {
+												firstName: linkedSeller.firstName,
+												lastName: linkedSeller.lastName
+											};
+										}
+
+										//if offer has no media, then populate offer image from linked service or seller
+										if((!offer.media || offer.media.length<1) && offer.serviceId){
+											if(linkedService.media && linkedService.media.length>0){
+												result.result.message.offer.media = linkedService.media[0];
+											}else {
+												result.result.message.offer.media = linkedSeller.profilePic;
+											}
+										}
+				        }
 							}
 	        }
 				}
 
+				//populate result with request
 				if(doc.requestId){
-					result.result.request = {};
-	        result.result.request.requestId = doc.requestId;
+					result.result.message.request = {};
+	        result.result.message.request.requestId = doc.requestId;
 	        const request = await findOneRequest({ _id: doc.requestId });
 	        if(request) {
-	            result.result.request.description = request.description;
-	            if(request.media && request.media.length>0) result.result.request.media = request.media[0];
-	            result.result.request.minPrice = request.minPrice;
-	            result.result.request.maxPrice = request.maxPrice;
-	            result.result.request.scheduleDate = request.scheduleDate;
+	            result.result.message.request.description = request.description;
+	            if(request.media && request.media.length>0) result.result.message.request.media = request.media[0];
+							result.result.message.request.currencyCode = request.currencyCode;
+							result.result.message.request.currencySymbol = request.currencySymbol;
+	            result.result.message.request.minPrice = request.minPrice;
+	            result.result.message.request.maxPrice = request.maxPrice;
+	            result.result.message.request.scheduleDate = request.scheduleDate;
 	        }
 				}
 
